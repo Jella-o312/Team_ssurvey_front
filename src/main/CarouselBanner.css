@@ -1,0 +1,15 @@
+.slideimg{
+  text-align: center;
+}
+
+.imgBox{
+  text-align: center;
+  margin: auto;
+  width: 1320px;
+  height: 600px;
+}
+
+img {
+  object-fit: contain;
+
+}

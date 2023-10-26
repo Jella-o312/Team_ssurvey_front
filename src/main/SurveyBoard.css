@@ -1,0 +1,24 @@
+.MainDetailBox {
+  display: flex;
+  margin-top: 10px;
+  text-align: center ;
+  justify-content: space-around;
+}
+
+.card1 {
+  background-color: rgb(201, 131, 45);
+  border: 1px solid coral;
+}
+
+.card2 {
+  background-color: rgb(201, 131, 45);
+  border: 1px solid coral;
+ 
+}
+
+.card3 {
+  background-color: rgb(201, 131, 45);
+  border: 1px solid coral;
+  
+}
+
