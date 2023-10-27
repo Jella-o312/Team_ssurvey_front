@@ -45,10 +45,7 @@ console.log(data);
           <Route path='/tenttarp' element={<TentTarp survey={survey} /> } />
           <Route path='/table' element={<Table survey={survey} />}/>
           <Route path='/mypage' element={<MyPage survey={survey} />}/>
-
-          {/* <Route path='/store' element={<Store/>}/> */}
-          {/* <Route path='/card' element={<Card survey={survey} />}/> */}
-          <Route path='*' element={<div>Page Not found</div>} />
+          {/* <Route path='*' element={<div>Page Not found</div>} /> */}
         </Routes>
       </Suspense>
 

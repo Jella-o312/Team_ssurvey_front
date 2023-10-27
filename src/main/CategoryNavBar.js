@@ -14,7 +14,6 @@ const CategoryNavBar = () => {
             <Nav.Link onClick={() => { navigate('/Survey') }}>설문조사</Nav.Link>
             <Nav.Link onClick={() => { navigate('/FAQ') }}>FAQ</Nav.Link>
             <Nav.Link onClick={() => { navigate('/MyPage') }}>마이페이지</Nav.Link>
-
           </Nav>
         </ul>
       </nav>

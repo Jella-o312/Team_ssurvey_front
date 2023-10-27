@@ -6,7 +6,7 @@ import Item from "../component/Item";
 
 const Survey = () => {
   const [surveyData, setSurveyData] = useState([]);
-  const [viewProduct] = useState();
+  const [sqQuestion] = useState();
 
   useEffect(() => {
     axios.get("https://raw.githubusercontent.com/sungchunp/camping.json/main/data.json")
@@ -16,13 +16,13 @@ const Survey = () => {
       })
   }, []);
 
-  let viewCamping = surveyData.slice(0, viewProduct);
+  let viewSurvey = surveyData.slice(0, sqQuestion);
 
   return (
     <>
       <div className="container text-center">
         <div className="row row-cols-3">
-          {viewCamping.map((data, i) => (
+          {viewSurvey.map((data, i) => (
             <div className="col" key={i}>
               <Item data={data} />
             </div>

@@ -3,25 +3,27 @@ import './CarouselBanner.css';
 
 const CarouselBanner = () => {
   const imagePaths = [
-    "../img/camping_main_01.jpg",
-    "../img/camping_main_02.jpg",
-    "../img/camping_main_03.jpg",
+    "/img/survey-banner1.jpg", 
+    "/img/survey-banner2.jpg", 
+    "/img/survey-banner3.jpg", 
   ];
 
   return (
-    <>
-      <Container className="carouselimg">
-        <Carousel fade>
-          {imagePaths.map((imagePath, index) => (
-            <Carousel.Item key={index}>
-              <Carousel.Caption className="imgBox">
-                <img src={imagePath} alt={`Image ${index + 1}`} />
-              </Carousel.Caption>
-            </Carousel.Item>
-          ))}
-        </Carousel>
-      </Container>
-    </>
+    <Container className="carousel-container">
+      <Carousel fade>
+        {imagePaths.map((imagePath, index) => (
+          <Carousel.Item key={index}>
+          <img
+            src={process.env.PUBLIC_URL + imagePath}
+            alt=""
+            className="imgBox"
+          />
+        </Carousel.Item>
+        
+        
+        ))}
+      </Carousel>
+    </Container>
   );
 }
 

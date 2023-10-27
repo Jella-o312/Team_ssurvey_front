@@ -1,15 +1,20 @@
-.slideimg{
+/* CarouselBanner.css */
+
+.carousel-container {
   text-align: center;
+  
+  margin: auto;
+  border: 1px red;
 }
 
-.imgBox{
+.imgBox {
   text-align: center;
-  margin: auto;
-  width: 1320px;
-  height: 600px;
+  border: 1px green;
 }
 
 img {
-  object-fit: contain;
-
+  border: 1px blue;
+  object-fit: fill;
+  width: 800px;
+  height: 400px;
 }
