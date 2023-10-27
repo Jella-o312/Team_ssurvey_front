@@ -26,9 +26,9 @@ const Header = () =>{
         </div>
 
         <nav>
-          <div className='moim' onClick={()=>{navigate('/moim')}}>소모임</div>
-          <div onClick={()=>{navigate('/sorry')}}>멘토링</div>
-          <div onClick={()=>{navigate('/sorry')}}>커뮤니티</div>
+          <div className='moim' onClick={()=>{navigate('/moim')}}>설문참여</div>
+          <div onClick={()=>{navigate('/sorry')}}>설문신청</div>
+          <div onClick={()=>{navigate('/sorry')}}>자유게시판</div>
           <div onClick={()=>{navigate('/sorry')}}>FAQ</div>
         </nav>
 
@@ -55,7 +55,7 @@ const Header = () =>{
 
 
           <div className='nav-login'> {/* 로그인 안된 상태 */}
-            <button className='join' onClick={()=>{navigate('/join')}}>회원가입</button>
+            <button className='join' onClick={()=>{navigate('/join')}} >회원가입</button>
             <button className='login' onClick={()=>{navigate('/login')}}>로그인</button>
           </div>
       </div>
