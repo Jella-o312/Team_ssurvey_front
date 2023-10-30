@@ -1,10 +1,6 @@
-.nav.justify-content-center {
-
-
-}
-
 .nav-link {
   color: #628EF3;
   padding: auto;
   justify-content: space-around;
+  border: 1px solid red;
 }

@@ -1,34 +1,164 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import Item from "../component/Item";
+import { Container, Row, Col, Button } from "react-bootstrap"; 
+import { useState } from "react";
+import './Survey.css';
+import { useNavigate } from "react-router-dom";
 
-//카테고리 8개의 코드 -> 한개의 코드로 수정하기
 
 const Survey = () => {
-  const [surveyData, setSurveyData] = useState([]);
-  const [sqQuestion] = useState();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get("https://raw.githubusercontent.com/sungchunp/camping.json/main/data.json")
-      .then((response) => {
-        const surveyItems = response.data.filter((item) => item.category === "survey");
-        setSurveyData(surveyItems);
-      })
-  }, []);
+  // 카드 정보를 배열에 정의, <<<<이 부분 DB연결해서 내용보이게 하면 됨>>>>
+  const [surveyList, setSurveyList] = useState([ // 설문 목록을 상태로 관리
+    {
+      id: 0,
+      imgSrc: "../img/camping_main_01.jpg",
+      title: "설문조사 title 부분 1",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 24,
+      imgSrc: "../img/camping_main_02.jpg",
+      title: "설문조사 title 부분 2",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 27,
+      imgSrc: "../img/camping_main_03.jpg",
+      title: "설문조사 title 부분 3",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 0,
+      imgSrc: "../img/camping_main_01.jpg",
+      title: "설문조사 title 부분 4",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 24,
+      imgSrc: "../img/camping_main_02.jpg",
+      title: "설문조사 title 부분 5",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 27,
+      imgSrc: "../img/camping_main_03.jpg",
+      title: "설문조사 title 부분 6",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 0,
+      imgSrc: "../img/camping_main_01.jpg",
+      title: "설문조사 title 부분 7",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 24,
+      imgSrc: "../img/camping_main_02.jpg",
+      title: "설문조사 title 부분 8",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 27,
+      imgSrc: "../img/camping_main_03.jpg",
+      title: "설문조사 title 부분 9",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 0,
+      imgSrc: "../img/camping_main_01.jpg",
+      title: "설문조사 title 부분 10",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 24,
+      imgSrc: "../img/camping_main_02.jpg",
+      title: "설문조사 title 부분 11",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 27,
+      imgSrc: "../img/camping_main_03.jpg",
+      title: "설문조사 title 부분 12",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 0,
+      imgSrc: "../img/camping_main_01.jpg",
+      title: "설문조사 title 부분 13",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 24,
+      imgSrc: "../img/camping_main_02.jpg",
+      title: "설문조사 title 부분 14",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+    {
+      id: 27,
+      imgSrc: "../img/camping_main_03.jpg",
+      title: "설문조사 title 부분 15",
+      description: "설문조사 내용부분",
+      ae: "사진은 그냥 예시로 넣어둠",
+      surveyCount: "00"
+    },
+  ]);
 
-  let viewSurvey = surveyData.slice(0, sqQuestion);
+  const loadMoreCount = surveyList.length;
+
 
   return (
     <>
-      <div className="container text-center">
-        <div className="row row-cols-3">
-          {viewSurvey.map((data, i) => (
-            <div className="col" key={i}>
-              <Item data={data} />
-            </div>
-          ))}
-        </div>
+      <div className="text-center">
+        <h1 className="fun-title"> Survey </h1>
       </div>
+
+      <Container className="MainSurveyBox">
+        <Row xs={1} md={2} lg={3} className="g-4">
+          {surveyList.map((survey) => (
+            <Col key={survey.id}>
+              <div className="card">
+                <img src={survey.imgSrc} className="card-img-top" alt={survey.title} />
+                <p className="card-text">{survey.ae}</p>
+                <h5 className="card-title">{survey.title}</h5>
+                <p className="card-text">{survey.description}</p>
+                <i className="fi fi-rr-stats">현재 {survey.surveyCount}명 참여 중</i>
+                <div className="card-wrap">
+                  <button className="btn submit-btn" onClick={() => { navigate(`/survey/${survey.id}`) }}>참여하기</button>
+                  <button className="btn result-btn view_more" onClick={() => { navigate(`/result/${survey.id}`) }}>결과보기</button>
+                </div>
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </>
   );
 }

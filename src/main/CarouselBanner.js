@@ -11,17 +11,24 @@ const CarouselBanner = () => {
   return (
     <Container className="carousel-container">
       <Carousel fade>
-        {imagePaths.map((imagePath, index) => (
+      
+        {imagePaths.map((imagePath, index, props) => (
           <Carousel.Item key={index}>
           <img
+
+            //여기 링크 수정해야 함
+
+            // onClick={() => {
+            //   props.history.push("/title.index");
+            // }}
             src={process.env.PUBLIC_URL + imagePath}
             alt=""
             className="imgBox"
           />
         </Carousel.Item>
         
-        
         ))}
+        
       </Carousel>
     </Container>
   );

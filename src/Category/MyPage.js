@@ -5,13 +5,13 @@ import Item from "../component/Item";
 const MyPage = () => {
   const [mypageData, setMyPageData] = useState([]);
 
-  useEffect(() => {
-    axios.get("https://raw.githubusercontent.com/sungchunp/camping.json/main/data.json")
-      .then((response) => {
-        const mypageItems = response.data.filter((item) => item.category === "mypage");
-        setMyPageData(mypageItems);
-      })
-  }, []);
+  // useEffect(() => {
+  //   axios.get("https://raw.githubusercontent.com/sungchunp/camping.json/main/data.json")
+  //     .then((response) => {
+  //       const mypageItems = response.data.filter((item) => item.category === "mypage");
+  //       setMyPageData(mypageItems);
+  //     })
+  // }, []);
 
   const [viewProduct, setViewProduct] = useState();
   let viewCamping = mypageData.slice(0, viewProduct);

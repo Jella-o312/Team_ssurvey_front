@@ -2,14 +2,15 @@
 
 .carousel-container {
   text-align: center;
-  
   margin: auto;
-  border: 1px red;
+  border: 1px solid red;
 }
 
 .imgBox {
+  display: block;
   text-align: center;
-  border: 1px green;
+  margin: 0 auto; /* 가운데 정렬 */
+  max-width: 100%; /* 컨테이너 너비에 맞춰 이미지 크기 조정 */
 }
 
 img {
