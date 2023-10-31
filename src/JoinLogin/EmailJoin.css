@@ -105,7 +105,7 @@
 }
 
 /* 나이 select */
-.ejoin-bitrh{
+.ejoin-year{
   width: 97.5%;
 }
 
@@ -138,7 +138,7 @@
 }
 
 /* 성별 클릭했을때 색상바뀌는거 */
-.gender::after{
+.genderClick{
   background-color: #628EF3;
   color: white;
 }

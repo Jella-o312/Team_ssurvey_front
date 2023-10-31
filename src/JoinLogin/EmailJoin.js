@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import './EmailJoin.css';
 import { useEffect } from 'react';
-import Terms1 from '../imsi/Terms1';
-import Terms2 from '../imsi/terms2';
-import Terms3 from '../imsi/Terms3';
+import Terms1 from '../joinFolder/joinTerms/Terms1';
+import Terms2 from '../joinFolder/joinTerms/terms2';
+import Terms3 from '../joinFolder/joinTerms/Terms3';
+import { JoinAddressCity, JoinAddressTown } from '../joinFolder/JoinAddress';
+
 
 const EmailJoin = () =>{
 
@@ -34,7 +36,7 @@ const EmailJoin = () =>{
     } else if(!eachChecked.check1 || !eachChecked.check2){ // 필수 항목 중 한개라도 체크가 안됐으면 false
       setEssentialChecked(false)
     }
-    
+
   }, [eachChecked]);
 
   const handleAllCheckChange = () => {
@@ -65,6 +67,87 @@ const EmailJoin = () =>{
   const handleEjoinPage = () => {
     setEjoinPage(true); // setEjoinPage를 호출하여 상태 값을 변경
   }
+
+  // ================================ 회원가입 입력 창
+
+  const [ejoinUserInfo, setEjoinUserInfo] = useState({
+    userName : '',
+    userEmail : '',
+    userPassword : '',
+    userLocation : '',
+    userGender : '',
+    userJob : '',
+    userAge : ''
+  });
+
+
+  
+  
+
+  // 나이(출생년도) option값 리스트
+  const yearOptions = () => {
+    const options = [];
+    for (let year = 2023; year >= 1940; year--) { // 최근순으로 보여주기 위해 -- 로 짬
+      options.push(
+        <option key={year} value={year}>
+          {year}
+        </option>
+      );
+    }
+    return options;
+  };
+
+  // 나이(출생년도) 선택값
+  const [selectedYear, setSelectedYear] = useState('');
+
+  const handleYearChange = (e) =>{
+    const newSelectYear = e.target.value;
+    setSelectedYear(newSelectYear);
+  }
+
+
+ 
+  // 시·도 , 군·구
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedTown, setSelectedTown] = useState('');
+
+  // JoinAdress.js에서 가져옴
+  // JoinAddressCity; // 시·도 목록
+  // JoinAddressTown;   // 군·구 목록
+
+  // 시 선택 이벤트
+  const handleCityChange = (e) =>{
+    const newSelectCity = e.target.value;
+    setSelectedCity(newSelectCity); // 선택한 '시'
+  }
+
+  // 구 선택 이벤트
+  const handleTownChange = (e) =>{
+    const newSelectTown = e.target.value;
+    setSelectedTown(newSelectTown);
+  }
+
+  // 성별
+  const [joinGender, setJoinGender] = useState('');
+
+  const handleGenderChange = (e)=>{
+    const newGender = e.target.value;
+    setJoinGender(newGender);
+  }
+
+  // 직업
+  const joinJobList = ['자영업', '근로자', '프리랜서', '학생', '주부', '무직', '기타'];
+  const [selectedJob, setSelectedJob] = useState('');
+
+  const handleJobChange = (e)=>{
+    const newSelectJob = e.target.value;
+    setSelectedJob(newSelectJob);
+  }
+  
+  // console.log(selectedYear); // 나이 선택 확인
+  // console.log('시 : ' + selectedCity + '  /  군 : ' + selectedTown); // 시, 군 선택 확인
+  // console.log(selectedJob);
+  console.log(joinGender);
 
 
 
@@ -218,43 +301,52 @@ const EmailJoin = () =>{
                 <div className='ejoin-form-inner'>
                     <div className='type3'>
                       <span className='ejoin-form-title'>나이</span>
-                        {/*1960~2023년도*/}
-                          <select className='ejoin-bitrh'>
-                            <option>태어난 년도</option>  
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        {/* 1940~2023년도 */}
+                          <select className='ejoin-year'onChange={handleYearChange} value={selectedCity}>
+                            <option value="none">태어난 년도</option>  
+                            {yearOptions()}
                           </select>
                       </div>
 
+                    {/* 성별 */}
                     <div className='type3'>
                       <span className='ejoin-form-title'>성별</span>
                       <div className='ejoin-gender-check'>
-                        <button className='gender-m'>남자</button>
-                        <button className='gender-w'>여자</button>     
+                        {/* <button className='gender-m' value='1' onClick={handleGenderChange}>남자</button> */}
+                        <button className={`gender-m ${joinGender === '1'  &&  'genderClick' }`} value='1' onClick={handleGenderChange}>남자</button>
+                        <button className={`gender-w ${joinGender === '2'  &&  'genderClick' }`} value='2' onClick={handleGenderChange}>여자</button>     
                       </div>
                     </div>
                 </div>
+                
 
-
+                {/* 지역정보 선택창 */}
                 <div className='ejoin-form-inner type2'>
                     <span className='ejoin-form-title'>지역정보</span>
                     <div className='type1'>
                       <div className='type3'>
-                        <select id='ejoin-location1'>
-                          <option>선택해주세요</option>  
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                        <select id='ejoin-location1' onChange={handleCityChange} value={selectedCity}>
+                          <option value="none">시/도 선택</option>  
+                            {
+                              JoinAddressCity.map((city)=>{
+                                return(
+                                  <option value={city} key={city}>{city}</option>
+                                );
+                              })
+                            }
                         </select>
                       </div>
 
                       <div className='type3'>
-                      <select id='ejoin-location2'>
-                        <option>선택해주세요</option>  
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <select id='ejoin-location2' onChange={handleTownChange} value={selectedTown}>
+                        <option value="none">구/군 선택</option>  
+                          {
+                            JoinAddressTown.find(town=> town.id === selectedCity)?.town.map((town)=>{ // selectedCity(선택한 시) 값에 따라 JoinAddressTown 있는 군·구목록을 가져옴
+                              return(
+                                <option value={town} key={town}>{town}</option>
+                              );
+                            })
+                          }
                       </select>
                       </div>
                     </div>
@@ -262,18 +354,20 @@ const EmailJoin = () =>{
 
                 <div className='ejoin-form-inner type2'>
                   <span className='ejoin-form-title'>직업</span>
-                    {/*1960~2023년도*/}
-                    <select>
-                      <option>선택해주세요</option>  
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                    <select onChange={handleJobChange} value={selectedJob}>
+                      <option value="none">선택해주세요</option>  
+                        {
+                          joinJobList.map((job)=>{ // selectedCity(선택한 시) 값에 따라 JoinAddressTown 있는 군·구목록을 가져옴
+                            return(
+                              <option value={job} key={job}>{job}</option>
+                            );
+                          })
+                        }
                     </select>
                 </div>
               </div>
 
               <div className='ejoin-confirm'>
-                {/* <button className='ejoin-confirm-no'>취소</button> */}
                 <button className='ejoin-confirm-button'>회원가입</button>
               </div>
             </div>
