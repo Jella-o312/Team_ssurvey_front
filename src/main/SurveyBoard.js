@@ -2,13 +2,15 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useState } from "react";
 import './SurveyBoard.css';
 import { useNavigate } from "react-router-dom";
-
+import React from "react";
+import Modal from 'react-bootstrap/Modal';
 
 const SurveyBoard = () => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   // 카드 정보를 배열에 정의, <<<<이 부분 DB연결해서 내용보이게 하면 됨>>>>
-  const [surveyList, setSurveyList] = useState([ // 설문 목록을 상태로 관리
+  const [surveyList] = useState([ // 설문 목록을 상태로 관리
     {
       id: 0,
       imgSrc: "../img/camping_main_01.jpg",
@@ -18,7 +20,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 24,
+      id: 1,
       imgSrc: "../img/camping_main_02.jpg",
       title: "설문조사 title 부분 2",
       description: "설문조사 내용부분",
@@ -26,7 +28,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 27,
+      id: 2,
       imgSrc: "../img/camping_main_03.jpg",
       title: "설문조사 title 부분 3",
       description: "설문조사 내용부분",
@@ -34,7 +36,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 0,
+      id: 3,
       imgSrc: "../img/camping_main_01.jpg",
       title: "설문조사 title 부분 4",
       description: "설문조사 내용부분",
@@ -42,7 +44,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 24,
+      id: 4,
       imgSrc: "../img/camping_main_02.jpg",
       title: "설문조사 title 부분 5",
       description: "설문조사 내용부분",
@@ -50,7 +52,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 27,
+      id: 5,
       imgSrc: "../img/camping_main_03.jpg",
       title: "설문조사 title 부분 6",
       description: "설문조사 내용부분",
@@ -58,7 +60,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 0,
+      id: 6,
       imgSrc: "../img/camping_main_01.jpg",
       title: "설문조사 title 부분 7",
       description: "설문조사 내용부분",
@@ -66,7 +68,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 24,
+      id: 7,
       imgSrc: "../img/camping_main_02.jpg",
       title: "설문조사 title 부분 8",
       description: "설문조사 내용부분",
@@ -74,7 +76,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 27,
+      id: 8,
       imgSrc: "../img/camping_main_03.jpg",
       title: "설문조사 title 부분 9",
       description: "설문조사 내용부분",
@@ -82,7 +84,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 0,
+      id: 9,
       imgSrc: "../img/camping_main_01.jpg",
       title: "설문조사 title 부분 10",
       description: "설문조사 내용부분",
@@ -90,7 +92,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 24,
+      id: 10,
       imgSrc: "../img/camping_main_02.jpg",
       title: "설문조사 title 부분 11",
       description: "설문조사 내용부분",
@@ -98,7 +100,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 27,
+      id: 11,
       imgSrc: "../img/camping_main_03.jpg",
       title: "설문조사 title 부분 12",
       description: "설문조사 내용부분",
@@ -106,7 +108,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 0,
+      id: 12,
       imgSrc: "../img/camping_main_01.jpg",
       title: "설문조사 title 부분 13",
       description: "설문조사 내용부분",
@@ -114,7 +116,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 24,
+      id: 13,
       imgSrc: "../img/camping_main_02.jpg",
       title: "설문조사 title 부분 14",
       description: "설문조사 내용부분",
@@ -122,7 +124,7 @@ const SurveyBoard = () => {
       surveyCount: "00"
     },
     {
-      id: 27,
+      id: 14,
       imgSrc: "../img/camping_main_03.jpg",
       title: "설문조사 title 부분 15",
       description: "설문조사 내용부분",
@@ -140,22 +142,23 @@ const SurveyBoard = () => {
     setLoadMoreCount(newLoadMoreCount); // 불러오는 설문 수 업데이트
   };
 
+  const handleParticipateClick = () => {
+      setShowModal(true);
+  };
 
-  //그리드 형식으로 바꾼 반복문 코드 <= 이게 맞나?
+  
   return (
     <>
       <div className="text-center">
         <h1 className="fun-title"> Survey {loadMoreCount < surveyList.length && (
-          
-          <Button className="btn-more" onClick={handleLoadMore}>더 보기</Button> //더 보기 눌러서 데이터 다 불러왔으면 사라짐
-       
 
+          <Button className="btn-more" onClick={handleLoadMore}>더 보기</Button> //더 보기 눌러서 데이터 다 불러왔으면 사라짐
        )} </h1>
       </div>
 
-      <Container className="MainSurveyBox">
-        <Row xs={1} md={2} lg={3} className="g-4">
-          {surveyList.slice(0, loadMoreCount).map((survey) => ( // 현재 불러올 설문 수까지만 보이도록 slice를 사용
+       <Container className="MainSurveyBox">
+              <Row xs={1} md={2} lg={3} className="g-4">
+           {surveyList.slice(0, loadMoreCount).map((survey) => (
             <Col key={survey.id}>
               <div className="card">
                 <img src={survey.imgSrc} className="card-img-top" alt={survey.title} />
@@ -164,7 +167,7 @@ const SurveyBoard = () => {
                 <p className="card-text">{survey.description}</p>
                 <i className="fi fi-rr-stats">현재 {survey.surveyCount}명 참여 중</i>
                 <div className="card-wrap">
-                  <button className="btn submit-btn" onClick={() => { navigate(`/survey/${survey.id}`) }}>참여하기</button>
+                  <button className="btn submit-btn" onClick={handleParticipateClick}>참여하기</button>
                   <button className="btn result-btn view_more" onClick={() => { navigate(`/result/${survey.id}`) }}>결과보기</button>
                 </div>
               </div>
@@ -172,10 +175,21 @@ const SurveyBoard = () => {
           ))}
         </Row>
       </Container>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>참여하기</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* 모달에 들어갈 내용 */}
+          <p>모달 내용입니다.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setShowModal(false)}>닫기</Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-
-  
 }
 
 export default SurveyBoard;
