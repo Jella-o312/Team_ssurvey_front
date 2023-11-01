@@ -11,6 +11,13 @@ import Survey from './Category/Survey';
 import FAQ from './Category/FAQ';
 import MyPage from './Category/MyPage';
 
+
+import logo from './logo.svg';
+import Header from './Home/Header';
+import SurveyReply from './SurveyReplyPage/SurveyReply';
+// import Join from './JoinLogin/Join';
+// import EmailJoin from './JoinLogin/EmailJoin';
+
 // const URL = 'https://raw.githubusercontent.com/sungchunp/camping.json/main/data.json';
 
 function App() {
@@ -30,13 +37,17 @@ function App() {
 
     return (
         <div className="App">
-            <CategoryNavBar />
+             <Header/>
+             
+            
             <Routes>
                 <Route path="/" element={<MainHome />} />
                 <Route path="/FunSurvey" element={<FunSurvey survey={survey} />} />
                 <Route path="/Survey" element={<Survey survey={survey} />} />
                 <Route path="/FAQ" element={<FAQ survey={survey} />} />
                 <Route path="/MyPage" element={<MyPage survey={survey} />} />
+                {/* <Route path='/join' element={<Join/>}/>
+                <Route path='/emailJoin' element={<EmailJoin/>}/> */}
             </Routes>
         </div>
     );
@@ -45,7 +56,9 @@ function App() {
 function MainHome() {
     return (
         <>
-            <CarouselBanner />
+        <CarouselBanner />
+            {/* <CategoryNavBar /> */}
+            <SurveyReply />
             <FunBoard />
             <SurveyBoard />
         </>
