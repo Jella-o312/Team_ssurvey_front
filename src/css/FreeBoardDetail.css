@@ -1,0 +1,131 @@
+.fb-detail-con {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.fb-detail-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.fb-detail-window {
+  width: 1000px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.fb-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+}
+
+.fb-detail-table colgroup {
+  width: 100%;
+}
+
+.fb-detail-table th {
+  width: 15%;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+}
+
+.fb-detail-table td {
+  width: 35%;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.fb-detail-table td[colspan="3"] {
+  text-align: left;
+  width: 100%;
+}
+
+.fb-detail-btn-box {
+  margin-top: 20px;
+  display: flex;
+  max-width: 1000px;
+  justify-content: flex-end;
+}
+
+.fb-detail-btn-box button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  background-color: #454444;
+}
+
+.fb-detail-content {
+  height: 350px;
+}
+
+.fb-comment-section {
+  width: 1000px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.fb-comment-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.fb-comment-input input {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.fb-comment-submit {
+  margin-left: 5px;
+}
+
+.fb-comment-input .fb-comment-submit {
+  background-color: #454444;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.fb-comment-list {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.fb-comment {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.fb-comment-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fb-comment-author {
+  font-weight: bold;
+}
+
+.fb-comment-date {
+  color: #777;
+}
+
+.fb-comment-text {
+  margin-top: 5px;
+}
