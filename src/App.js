@@ -15,6 +15,8 @@ import MyPage from './Category/MyPage';
 import logo from './logo.svg';
 import Header from './Home/Header';
 import SurveyReply from './SurveyReplyPage/SurveyReply';
+import Imsi from './main/Imsi';
+
 // import Join from './JoinLogin/Join';
 // import EmailJoin from './JoinLogin/EmailJoin';
 
@@ -61,6 +63,7 @@ function MainHome() {
             <SurveyReply />
             <FunBoard />
             <SurveyBoard />
+            <Imsi/>
         </>
     );
 }

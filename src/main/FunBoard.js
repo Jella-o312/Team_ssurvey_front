@@ -12,21 +12,21 @@ const FunBoard = () => {
   const [surveyList, setSurveyList] = useState([ // 설문 목록을 상태로 관리
     {
       id: 0,
-      imgSrc: "../img/camping_main_01.jpg",
+      imgSrc: "/img/survey-banner1.jpg",
       title: "설문조사 title 부분 1",
       description: "설문조사 내용부분",
       surveyCount: "00"
     },
     {
       id: 1,
-      imgSrc: "../img/camping_main_02.jpg",
+      imgSrc: "/img/survey-banner2.jpg",
       title: "설문조사 title 부분 2",
       description: "설문조사 내용부분",
       surveyCount: "00"
     },
     {
       id: 2,
-      imgSrc: "../img/camping_main_03.jpg",
+      imgSrc: "/img/survey-banner3.jpg",
       title: "설문조사 title 부분 3",
       description: "설문조사 내용부분",
       surveyCount: "00"
@@ -146,27 +146,27 @@ const FunBoard = () => {
 
   return (
     <>
-      <Container className="survey_title">
+      <Container className="fun_title FB">
         <h1 className="fun-title"> Fun {loadMoreCount < surveyList.length && (
           <Button className="btn-more" onClick={handleLoadMore}>더 보기</Button>//더 보기 눌러서 데이터 다 불러왔으면 사라짐
         )} </h1>
       </Container>
 
-      <Container className="MainSurveyBox">
-        <Row xs={1} md={2} lg={3} className="g-4">
+      <Container className="MainSurveyBox FB">
+        <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
           {surveyList.slice(0, loadMoreCount).map((survey) => (
-            <Col key={survey.id}>
-              <div className="card">
+            <Col className="col FB" key={survey.id}>
+              <div className="card FB">
                 <img src={survey.imgSrc} className="card-img-top" alt={survey.title} />-
                 <h5 className="card-title">{survey.title}</h5>
                 <p className="card-text">{survey.description}</p>
                 <div className="LikeBtnCount">
                   <button className="btn like-btn" onClick={() => handleLikeClick(survey.id)}>
-                    좋아요
+                    ❤
                   </button>
                   <span className="like-count">{likes[survey.id] || 0}</span>
                 </div>
-                <i className="fi fi-rr-stats">현재 {survey.surveyCount}명 참여 중</i>
+                <i className="fi fi-rr-stats FB">현재 {survey.surveyCount}명 참여 중</i>
                 <div className="card-wrap">
                   <button className="btn submit-btn" onClick={handleParticipateClick}>참여하기</button>
                   <button className="btn result-btn view_more" onClick={handleResultClick}>결과보기</button>

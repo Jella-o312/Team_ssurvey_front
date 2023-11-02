@@ -146,27 +146,27 @@ const SurveyBoard = () => {
 
   return (
     <>
-      <Container className="text-center">
-        <h1 className="fun-title"> Survey {loadMoreCount < surveyList.length && (
+      <Container className="survey_title SB">
+        <h1 className="survey-title"> Survey {loadMoreCount < surveyList.length && (
           <Button className="btn-more" onClick={handleLoadMore}>더 보기</Button>//더 보기 눌러서 데이터 다 불러왔으면 사라짐
         )} </h1>
       </Container>
 
-      <Container className="MainSurveyBox">
+      <Container className="MainSurveyBox SB">
         <Row xs={1} md={2} lg={3} className="g-4">
           {surveyList.slice(0, loadMoreCount).map((survey) => (
-            <Col className="col" key={survey.id}>
-              <div className="card">
+            <Col className="col SB" key={survey.id}>
+              <div className="card SB">
                 <img src={survey.imgSrc} className="card-img-top" alt={survey.title} />
                 <h5 className="card-title">{survey.title}</h5>
                 <p className="card-text">{survey.description}</p>
                 <div className="LikeBtnCount">
                   <button className="btn like-btn" onClick={() => handleLikeClick(survey.id)}>
-                    좋아요
+                    ❤
                   </button>
                   <span className="like-count">{likes[survey.id] || 0}</span>
                 </div>
-                <i className="fi fi-rr-stats">현재 {survey.surveyCount}명 참여 중</i>
+                <i className="fi fi-rr-stats SB">현재 {survey.surveyCount}명 참여 중</i>
                 <div className="card-wrap">
                   <button className="btn submit-btn" onClick={handleParticipateClick}>참여하기</button>
                   <button className="btn result-btn view_more" onClick={handleResultClick}>결과보기</button>

@@ -140,18 +140,16 @@ const FunSurvey = () => {
         <h1 className="fun-title"> Fun </h1>
       </div>
 
-      <Container className="MainSurveyBox">
+      <Container className="MainSurveyBox FS">
         <Row xs={1} md={2} lg={3} className="g-4">
           {surveyList.map((survey) => (
-          
-          
             <Col key={survey.id}>
-              <div className="card">
+              <div className="card FS">
                 <img src={survey.imgSrc} className="card-img-top" alt={survey.title} />
                 <p className="card-text">{survey.ae}</p>
                 <h5 className="card-title">{survey.title}</h5>
                 <p className="card-text">{survey.description}</p>
-                <i className="fi fi-rr-stats">현재 {survey.surveyCount}명 참여 중</i>
+                <i className="fi fi-rr-stats FS">현재 {survey.surveyCount}명 참여 중</i>
                 <div className="card-wrap">
                   <button className="btn submit-btn" onClick={() => { navigate(`/survey/${survey.id}`) }}>참여하기</button>
                   <button className="btn result-btn view_more" onClick={() => { navigate(`/result/${survey.id}`) }}>결과보기</button>
