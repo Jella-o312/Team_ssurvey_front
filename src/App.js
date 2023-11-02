@@ -9,6 +9,11 @@ import FreeBoardList from './Fcomponent/FreeBoardList';
 import WriteFreeBoard from './Fcomponent/WriteFreeBoard';
 import FreeBoardDetail from './Fcomponent/FreeBoardDetail';
 import UpdateFreeBoard from './Fcomponent/UpdateFreeBoard';
+import FunSurvey from './Category/Funsurvey';
+import Survey from './Category/Survey';
+import FAQ from './Category/FAQ';
+import MyPage from './Category/MyPage';
+import MainHome from './main/MainHome';
 
 
 
@@ -21,7 +26,7 @@ function App() {
     <div className="App">
     <Header/>
     <Routes>    
-      {/* <Route path="/" element={<MainHome />} /> */}
+      <Route path="/" element={<MainHome />} />
       <Route path='/SurveyQ' element={<SurveyQ />}/>   
       <Route path='/Answer' element={<Answer />}/>
       <Route path='/join' element={<Join/>}/>
@@ -30,10 +35,10 @@ function App() {
       <Route path='/fbwrite' element={<WriteFreeBoard />} />
       <Route path='/fbdetail' element={<FreeBoardDetail />} />
       <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
-      {/* <Route path="/FunSurvey" element={<FunSurvey survey={survey} />} />
-      <Route path="/Survey" element={<Survey survey={survey} />} />
-      <Route path="/FAQ" element={<FAQ survey={survey} />} />
-      <Route path="/MyPage" element={<MyPage survey={survey} />} />    */}
+      <Route path="/FunSurvey" element={<FunSurvey/>} />
+      <Route path="/Survey" element={<Survey/>} />
+      <Route path="/FAQ" element={<FAQ/>} />
+      <Route path="/MyPage" element={<MyPage/>} />   
     </Routes>
 
     </div>

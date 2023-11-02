@@ -9,7 +9,7 @@ import { useState } from 'react';
 const Header = () =>{
   const navigate = useNavigate();
 
-  // // 로그아웃 버튼 눌렀을때 기능 (메인화면으로 이동 + 개로고침)
+  // // 로그아웃 버튼 눌렀을때 기능 (메인화면으로 이동 + 새로고침)
   // const logOut = () => {
   //   setIsLogin(false);  //로그인상태 false로 바꿈
   //   navigate('/'); // 메인화면으로 이동

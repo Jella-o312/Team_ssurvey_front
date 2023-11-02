@@ -1,0 +1,65 @@
+.MainSurveyBox.FS{
+  display: flex;
+  margin-top: 10px;
+  text-align: center ;
+  justify-content: space-around;
+  border: 1px solid red;
+}
+
+.card-img-top{
+  height: 150px;
+}
+
+.card-title{
+  justify-content: first baseline;
+}
+
+
+
+.card.FS {
+  border: 1px solid #A7AABC;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+  width: 350px;
+  height: 400px;
+  text-align: center ;
+  justify-content: space-around;
+}
+
+.card img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.fi.fi-rr-stats.FS {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  width: 100%;
+  padding-right: 20px;
+}
+
+.btn.submit-btn {
+  background: #628EF3;
+  color: #fff;
+  margin-right:  20px;
+}
+
+.btn.result-btn {
+border: 1px solid #628EF3;
+color: #434656;
+background-color: #fff;
+}
+
+.text-center {
+  justify-content: space-around;
+  text-align: center;
+}
+
+.btn-more {
+  float: right;
+}
