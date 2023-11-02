@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import '../css/WriteFreeBoard.css';
+import '../Fcss/WriteFreeBoard.css';
 
 function WriteFreeBoard({ userInfo }) {
 

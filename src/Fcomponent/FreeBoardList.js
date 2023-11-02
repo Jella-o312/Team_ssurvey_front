@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import '../css/FreeBoardList.css';
+import '../Fcss/FreeBoardList.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 function FreeBoardList() {
