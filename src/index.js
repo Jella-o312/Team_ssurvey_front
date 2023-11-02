@@ -4,16 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
-  <BrowserRouter>
+  // <React.StrictMode> -> <BrowserRouter> 로 변경함
+  <BrowserRouter> 
     <App />
   </BrowserRouter>
-  
 );
 
 // If you want to start measuring performance in your app, pass a function
