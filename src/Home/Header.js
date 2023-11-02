@@ -26,9 +26,15 @@ const Header = () =>{
         </div>
 
         <nav>
-          <div className='moim' onClick={()=>{navigate('/moim')}}>설문참여</div>
+          <div className='dropdown'>
+            <div onClick={() => { navigate('/dropdown') }}>설문참여</div>
+            <div className='dropdown-content'>
+              <div onClick={() => { navigate('/FunSurvey') }}>Fun</div>
+              <div onClick={() => { navigate('/Survey') }}>설문조사</div>
+            </div>
+          </div>
           <div onClick={()=>{navigate('/SurveyQ')}}>설문신청</div>
-          <div onClick={()=>{navigate('/sorry')}}>자유게시판</div>
+          <div onClick={()=>{navigate('/fbList')}}>자유게시판</div>
           <div onClick={()=>{navigate('/sorry')}}>FAQ</div>
         </nav>
 
