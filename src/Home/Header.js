@@ -28,7 +28,7 @@ const Header = () =>{
         <nav>
 
           <div className='dropdown'>
-            <div onClick={() => { navigate('/dropdown') }}>설문참여</div>
+            <div>설문참여</div>
             <div className='dropdown-content'>
               <div onClick={() => { navigate('/FunSurvey') }}>Fun</div>
               <div onClick={() => { navigate('/Survey') }}>설문조사</div>

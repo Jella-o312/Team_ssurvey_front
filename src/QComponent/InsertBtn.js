@@ -14,8 +14,8 @@ import CreateQ from './CreateQ';
       }
   };
 
-    const [createQComponents, setCreateQComponents] = useState([<CreateQ k={0}  deleteQuestionContainer={deleteQuestionContainer}/>]);
-//delete함수 구현 후 보내줘야함(순서 중요)
+    const [createQComponents, setCreateQComponents] = useState([<CreateQ key={0}  deleteQuestionContainer={deleteQuestionContainer}/>]);
+//delete함수 구현 후 보내줘야함(순서 중요)                               // ↑↑↑  k로 적혀있던거 key로 바꿈
   
 
 
@@ -24,7 +24,8 @@ import CreateQ from './CreateQ';
   let k = createQComponents.length
   setCreateQComponents([
     ...createQComponents,
-    <CreateQ k={k} deleteQuestionContainer={deleteQuestionContainer}/>,
+    <CreateQ key={k} deleteQuestionContainer={deleteQuestionContainer}/>,
+          // ↑↑↑  k로 적혀있던거 key로 바꿈
   ]);
   console.log(createQComponents);
   console.log("➕ 버튼 클릭");

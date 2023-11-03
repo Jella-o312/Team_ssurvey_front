@@ -91,10 +91,6 @@ display: flex;
   margin-right: 18px;
 }
 
-input::placeholder {
-  color: #A7AABC;
-  font-size: 17px;    
-}
 
 
 .submitQ {

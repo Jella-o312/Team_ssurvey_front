@@ -98,7 +98,8 @@
 
 .write-btn, .search-btn {
   display: inline-block;
-  padding: 0 30px;
+  padding: 0 px;
+  width: 100px;
   font-size: 15px;
   font-weight: 400;
   background: transparent;
@@ -171,4 +172,8 @@
 .fb-con {
   width: 1100px;
   margin: 0 auto;
+}
+
+.write-btn {
+  height: 40px;
 }

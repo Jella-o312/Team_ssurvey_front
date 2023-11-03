@@ -11,8 +11,6 @@ import FreeBoardDetail from './Fcomponent/FreeBoardDetail';
 import UpdateFreeBoard from './Fcomponent/UpdateFreeBoard';
 import FunSurvey from './Category/Funsurvey';
 import Survey from './Category/Survey';
-import FAQ from './Category/FAQ';
-import MyPage from './Category/MyPage';
 import MainHome from './main/MainHome';
 
 
@@ -37,8 +35,6 @@ function App() {
       <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
       <Route path="/FunSurvey" element={<FunSurvey/>} />
       <Route path="/Survey" element={<Survey/>} />
-      <Route path="/FAQ" element={<FAQ/>} />
-      <Route path="/MyPage" element={<MyPage/>} />   
     </Routes>
 
     </div>

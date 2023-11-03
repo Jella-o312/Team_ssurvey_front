@@ -13,3 +13,7 @@
 button {
   cursor: pointer;
 }
+
+input::placeholder {
+  color: #A7AABC;   
+}
