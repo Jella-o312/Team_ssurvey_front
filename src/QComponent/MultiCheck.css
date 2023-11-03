@@ -1,0 +1,52 @@
+
+
+.Add{
+  border: none;
+  background-color: white;
+  width: 100px;
+  text-align: left;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+
+.MLabel{
+  display: flex;
+  width: 860px;
+}
+
+.OptionText{
+border: 0px #ffffff;
+width: 800px;
+}
+
+
+.OptionText:focus{
+  outline: none;
+  border-color: none;
+  width: 860px;
+}
+
+.OptionText:hover{
+  outline: none;
+  border-color: none;
+  width: 860px;
+}
+
+.OptionText:active{
+  outline: none;
+  border-color: none; 
+  width: 860px;
+}
+
+
+.DeleteOption{
+  background-color: #ffffff;
+  border: none;
+  color:  #434656;
+  opacity: .4;
+}
+
+.DeleteOption:hover{
+  opacity:1;
+}

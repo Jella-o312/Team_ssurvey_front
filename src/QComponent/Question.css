@@ -1,0 +1,33 @@
+.questionBox{
+  display: flex;
+}
+
+
+.InsertQ{
+  font-size: 22px;
+  border-style: none;
+  width: 650px;
+  font-weight: bold;
+}
+
+/* 🛑🛑이거 뭔지 모르겠음 🛑🛑 */
+input.InsertQ::placeholder{
+  font-weight: 400;
+  font-size: 20px;
+}
+
+
+.InsertQ:focus{
+  outline: none;
+  border-color: none;
+  width: 650px;
+
+}
+
+
+hr{
+  background-color : black;
+  height : 1px;
+  width: 650px;
+}
+
