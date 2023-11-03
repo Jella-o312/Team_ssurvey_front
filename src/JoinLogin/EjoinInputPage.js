@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './EmailJoin.css';
 import { JoinAddressCity, JoinAddressTown } from '../joinFolder/JoinAddress';
+import axios from 'axios';
 
 const EjoinInputPage = ()=>{
   
@@ -39,6 +40,24 @@ const EjoinInputPage = ()=>{
     RJob : ''
   });
   
+  // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩임시 추가
+
+  const handleSendUserInfo = (e) =>{
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/test/ejoinUserInfo`,  // 스프링에서 url로 보낼 수 있게 해놨기 때문에 받을 수 있음
+      ejoinUser, // 스프링에서 받겠다고한 User형식으로 보내줘야함
+    
+      {
+        params : { // 스프링에서 받겠다고한 파라미터 형식도 보내줌
+          "msg" : "이메일 회원가입 유저 정보"
+        }
+      }
+
+    )
+  }
+
+
+  
+
   // ⭐ 회원가입 버튼 활성화를 위한 함수 ⭐ 
   //isRegexs안에 있는 값이 한개라도 false면 flase로 저장되고, 전체가 true일때만 true가됨 
   const joinAllTrue = Object.values(isRegexs).every(Boolean); // true, false 타입으로 도출됨
@@ -265,7 +284,7 @@ const handleSetUser = (e)=>{
               <div className='ejoin-confirm'>
                 <button className={`ejoin-confirm-button ${joinAllTrue ? '' : 'disabled'}`}
                   disabled={!joinAllTrue}
-                  // onClick={handleEjoinPage}
+                  onClick={handleSendUserInfo}
                 >회원가입</button>  
               </div>
             </div>

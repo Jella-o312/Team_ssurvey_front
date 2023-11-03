@@ -6,15 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 
-const Header = () =>{
+const Header = ({userInfo,isLogin, setIsLogin}) =>{
   const navigate = useNavigate();
 
-  // // 로그아웃 버튼 눌렀을때 기능 (메인화면으로 이동 + 새로고침)
-  // const logOut = () => {
-  //   setIsLogin(false);  //로그인상태 false로 바꿈
-  //   navigate('/'); // 메인화면으로 이동
-  //   window.location.reload(); // 새로고침
-  // };
+  // 로그아웃 버튼 눌렀을때 기능 (메인화면으로 이동 + 새로고침)
+  const logOut = () => {
+    setIsLogin(false);  //로그인상태 false로 바꿈
+    navigate('/'); // 메인화면으로 이동
+  };
 
 
   return(
@@ -53,12 +52,18 @@ const Header = () =>{
               
           </form>
         </div>  
-
-
+        { //isLogin 상태가 트루일때 로그인된 화면 보여줌
+          isLogin ?
+          <div className='nav-loginTrue'> {/* 로그인 된 상태 */}
+            <button className='myPage'>{userInfo.userName}님</button>
+            <button className='logout' onClick={logOut} >로그아웃</button>
+          </div>
+          :
           <div className='nav-login'> {/* 로그인 안된 상태 */}
             <button className='join' onClick={()=>{navigate('/join')}} >회원가입</button>
             <button className='login' onClick={()=>{navigate('/login')}}>로그인</button>
           </div>
+        }
       </div>
     </div>
                   

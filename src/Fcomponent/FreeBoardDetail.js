@@ -5,7 +5,7 @@ import '../Fcss/FreeBoardDetail.css';
 
 function FreeBoardDetail({ userInfo }) {
 
-  const {id} = useParams();
+  const {fbno} = useParams();
   const [board, setBoard] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [reply, setReply] =useState('');
