@@ -20,14 +20,14 @@ import Login from './Login/Login';
 
 
 function App() {
-  
+
   const [isLogin, setIsLogin] = useState(false);
 
   const [userInfo, setUserInfo] = useState({  // 여기에 임시 값 넣어두고 하기
-    userName : '김설문',
+    userName : '',
     userEmail : '',
     userPassword : '',
-    userRoletype: 'User',
+    userRoletype: '',
     userAge : '',
     userGender : '',
     userLocation : '',  
@@ -35,23 +35,15 @@ function App() {
     serveyNo : ''
   });
 
+  console.log(userInfo);
+
   return (
 
     <div className="App">
-      
-    {/* <button onClick={()=>{
-        axios.get(`${process.env.REACT_APP_SERVER_URL}/test2`)
-          .then(userinfo=>{
-            console.log(userinfo.data);
-          }).catch(error=>{
-            console.log(error);
-          })
-      }}>유저 정보 받기</button> */}
-
-      
 
     <Header 
       userInfo = {userInfo}
+      setUserInfo = {setUserInfo}
       isLogin = {isLogin}  /* 로그인 상태에 따라 헤더 구성 바꾸기 위함 (로그인, 로그아웃) */
       setIsLogin = {setIsLogin} /* 로그인 값 바꿔줘야함 */
     />
@@ -61,7 +53,7 @@ function App() {
       <Route path='/SurveyQ' element={<SurveyQ />}/>   
       <Route path='/Answer' element={<Answer />}/>
       <Route path='/join' element={<Join/>}/>
-      <Route path='/login' element={<Login setIsLogin={setIsLogin}/>}/>
+      <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
       <Route path='/emailJoin' element={<EmailJoin/>}/>
       <Route path='/fbList' element={<FreeBoardList />} />
       <Route path='/fbwrite' element={<WriteFreeBoard />} />

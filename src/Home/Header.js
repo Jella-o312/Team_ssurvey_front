@@ -6,12 +6,23 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 
-const Header = ({userInfo,isLogin, setIsLogin}) =>{
+const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
   const navigate = useNavigate();
 
   // 로그아웃 버튼 눌렀을때 기능 (메인화면으로 이동 + 새로고침)
   const logOut = () => {
     setIsLogin(false);  //로그인상태 false로 바꿈
+    setUserInfo({
+      userName : '',
+      userEmail : '',
+      userPassword : '',
+      userRoletype: '',
+      userAge : '',
+      userGender : '',
+      userLocation : '',  
+      userJob : '',
+      serveyNo : ''
+    })
     navigate('/'); // 메인화면으로 이동
   };
 

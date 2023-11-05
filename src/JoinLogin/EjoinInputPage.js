@@ -2,9 +2,12 @@ import { useState } from 'react';
 import './EmailJoin.css';
 import { JoinAddressCity, JoinAddressTown } from '../joinFolder/JoinAddress';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const EjoinInputPage = ()=>{
   
+  const navigator = useNavigate();
+
   // 유저 정보 입력됨
   const [ejoinUser, setEjoinUser] = useState({
     userName : '',
@@ -39,23 +42,6 @@ const EjoinInputPage = ()=>{
     RLocation : '',
     RJob : ''
   });
-  
-  // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩임시 추가
-
-  const handleSendUserInfo = (e) =>{
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/test/ejoinUserInfo`,  // 스프링에서 url로 보낼 수 있게 해놨기 때문에 받을 수 있음
-      ejoinUser, // 스프링에서 받겠다고한 User형식으로 보내줘야함
-    
-      {
-        params : { // 스프링에서 받겠다고한 파라미터 형식도 보내줌
-          "msg" : "이메일 회원가입 유저 정보"
-        }
-      }
-
-    )
-  }
-
-
   
 
   // ⭐ 회원가입 버튼 활성화를 위한 함수 ⭐ 
@@ -152,8 +138,22 @@ const handleSetUser = (e)=>{
 
 }
 
-  console.log(ejoinUser);
-  console.log(isRegexs);
+
+  // ✅✅ 회원가입정보 스프링부트에 보내주는 핸들러
+  const handleSendUserInfo = () =>{
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/join`, ejoinUser)
+    .then(response=>{
+      navigator('/'); // 홈화면으로 이동
+      alert(response.data); // 회원가입 성공 알림창 띄움 (나중에 빼도 될듯)
+    }).catch(error=>{
+      console.log(error);
+      alert("😡문제발생😡");  
+    })
+  }
+
+
+  // console.log(ejoinUser);
+  // console.log(isRegexs);
 
   return(
     <div>
@@ -280,7 +280,7 @@ const handleSetUser = (e)=>{
                 </div>
               </div>
 
-              {/* 🔴🔴🔴 회원가입 버튼 눌렀을때 스프링부트에 값 보내도록 작업 🔴🔴🔴*/}
+              {/* 🟩 회원가입 버튼 눌렀을때 스프링부트에 값 보내도록 작업 🟩*/}
               <div className='ejoin-confirm'>
                 <button className={`ejoin-confirm-button ${joinAllTrue ? '' : 'disabled'}`}
                   disabled={!joinAllTrue}
