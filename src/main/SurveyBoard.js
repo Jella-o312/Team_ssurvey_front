@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import './SurveyBoard.css';
 import { useNavigate } from "react-router-dom";
+import Answer from "../pages/Answer";
 
 const SurveyBoard = () => {
   const navigate = useNavigate();
@@ -166,7 +167,7 @@ const SurveyBoard = () => {
                   </button>
                   <span className="like-count">{likes[survey.id] || 0}</span>
                 </div>
-                <i className="fi fi-rr-stats SB">현재 {survey.surveyCount}명 참여 중</i>
+                <i className="SB-joinpeople">현재 {survey.surveyCount}명 참여 중</i>
                 <div className="card-wrap">
                   <button className="btn submit-btn" onClick={handleParticipateClick}>참여하기</button>
                   <button className="btn result-btn view_more" onClick={handleResultClick}>결과보기</button>
@@ -182,8 +183,7 @@ const SurveyBoard = () => {
           <Modal.Title>참여하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* 참여하기 모달 내용 */}
-          <p>참여하기 모달 내용입니다.</p>
+        <Answer /> {/* Answer 컴포넌트를 모달 내에 렌더링 */}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowParticipateModal(false)}>닫기</Button>

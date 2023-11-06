@@ -1,14 +1,11 @@
 .comment-container {
-  width: 300px;
+  width: 80%;
   margin: 0 auto;
-  text-align: center;
 }
 
 .comment-list {
   border: 1px solid #ccc;
   padding: 10px;
-  max-height: 200px;
-  overflow-y: auto;
 }
 
 .comment {

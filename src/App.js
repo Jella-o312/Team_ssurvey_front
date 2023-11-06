@@ -59,7 +59,7 @@ function App() {
     <Routes>    
       <Route path="/" element={<MainHome />} />
       <Route path='/SurveyQ' element={<SurveyQ />}/>   
-      <Route path='/Answer' element={<Answer />}/>
+      <Route path='/Answer' element={<Answer userInfo={userInfo} />} />
       <Route path='/join' element={<Join/>}/>
       <Route path='/login' element={<Login setIsLogin={setIsLogin}/>}/>
       <Route path='/emailJoin' element={<EmailJoin/>}/>

@@ -1,14 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import './FunBoard.css';
 import { useNavigate } from "react-router-dom";
+import Answer from "../pages/Answer";
+import SurveyReply from "../SurveyReplyPage/SurveyReply";
 
 const FunBoard = () => {
   const navigate = useNavigate();
   const [showParticipateModal, setShowParticipateModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
 
-  // 카드 정보를 배열에 정의, <<<<이 부분 DB연결해서 내용보이게 하면 됨>>>>
+  // const [surveyList, setSurveyList] = useState([]);
+  // const [loadMoreCount, setLoadMoreCount] = useState(6);
+  const [likes, setLikes] = useState({});
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+
+// 서버에서 데이터 가져오는 함수
+const fetchSurveyData = async () => {
+  try {
+    const response = await fetch(`${serverUrl}/api/surveys`); // 서버에서 데이터를 가져오는 엔드포인트로 수정해야 함
+    if (response.ok) {
+      const data = await response.json();
+      setSurveyList(data); // 서버에서 받은 데이터로 surveyList 상태를 업데이트
+    }
+  } catch (error) {
+    console.error("Error fetching survey data: ", error);
+  }
+};
+
+useEffect(() => {
+  fetchSurveyData(); // 컴포넌트가 마운트될 때 데이터를 가져오도록 설정
+}, []); // 빈 배열을 전달하여 한 번만 호출되도록 함
+
+  //카드 정보를 배열에 정의, <<<<이 부분 DB연결해서 내용보이게 하면 됨>>>>
   const [surveyList, setSurveyList] = useState([ // 설문 목록을 상태로 관리
     {
       id: 0,
@@ -126,7 +150,7 @@ const FunBoard = () => {
     setLoadMoreCount(newLoadMoreCount); // 불러오는 설문 수 업데이트
   };
 
-  const [likes, setLikes] = useState({});
+  // const [likes, setLikes] = useState({});
 
   const handleLikeClick = (surveyId) => {
     setLikes((prevLikes) => ({
@@ -143,6 +167,7 @@ const FunBoard = () => {
     setShowResultModal(true);
   };
 
+  
 
   return (
     <>
@@ -166,7 +191,7 @@ const FunBoard = () => {
                   </button>
                   <span className="like-count">{likes[survey.id] || 0}</span>
                 </div>
-                <i className="fi fi-rr-stats FB">현재 {survey.surveyCount}명 참여 중</i>
+                <i className="FB-joinpeople">현재 {survey.surveyCount}명 참여 중</i>
                 <div className="card-wrap">
                   <button className="btn submit-btn" onClick={handleParticipateClick}>참여하기</button>
                   <button className="btn result-btn view_more" onClick={handleResultClick}>결과보기</button>
@@ -178,25 +203,27 @@ const FunBoard = () => {
       </Container>
       
 
-      <Modal show={showParticipateModal} onHide={() => setShowParticipateModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>참여하기</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {/* 참여하기 모달 내용 */}
-          <p>참여하기 모달 내용입니다.</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowParticipateModal(false)}>닫기</Button>
-        </Modal.Footer>
-      </Modal>
+      <Modal show={showParticipateModal} onHide={() => setShowParticipateModal(false)} centered className="custom-modal">
+  <Modal.Header closeButton>
+    <Modal.Title>참여하기</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Answer /> 
+    <SurveyReply /> {/* 임시로 어떻게 들어가나 넣어봄 사이즈 확인겸 */}
+  </Modal.Body>
+  <Modal.Footer>
+    <Button onClick={() => setShowParticipateModal(false)}>닫기</Button>
+  </Modal.Footer>
+</Modal>
+
+
 
       <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* 결과보기 모달 내용 */}
+         
           <p>결과보기 모달 내용입니다.</p>
         </Modal.Body>
         <Modal.Footer>

@@ -70,7 +70,7 @@
   padding-right: 20px;
 }
 
-.fi.fi-rr-stats.SB {
+.SB-joinpeople {
     display: flex;
     align-items: center;
     justify-content: flex-end;
