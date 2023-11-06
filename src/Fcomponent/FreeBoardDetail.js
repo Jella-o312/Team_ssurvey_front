@@ -7,7 +7,7 @@ function FreeBoardDetail({ userInfo }) {
 
   const {fbno} = useParams();
   const [board, setBoard] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [reply, setReply] =useState('');
 
   const navigate = useNavigate();
@@ -16,15 +16,15 @@ function FreeBoardDetail({ userInfo }) {
     setReply(e.target.value);
   }
 
-  // useEffect(() => {
-  //   axios.get(`${process.env.REACT_APP_SERVER_URL}/fboard/${id}`)
-  //   .then(response => {
-  //     setBoard(response.data);
-  //     setIsLoading(false);
-  //   }).catch(error => {
-  //     console.log(error);
-  //   })
-  // },[id])
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/fboard/${fbno}`)
+    .then(response => {
+      setBoard(response.data);
+      setIsLoading(false);
+    }).catch(error => {
+      console.log(error);
+    })
+  },[fbno])
 
   if(isLoading)
     return <div>로딩중...</div>
@@ -44,20 +44,20 @@ function FreeBoardDetail({ userInfo }) {
           <tbody>
             <tr>
               <th>제목</th>
-              <td>테스트</td>
+              <td>{board.fbTitle}</td>
               <th>조회수</th>
-              <td>1</td>
+              <td>{board.fbViews}</td>
             </tr>
             <tr>
                 <th>작성자</th>
-                <td>관리자</td>
+                <td>{board.user.userName}</td>
                 <th>작성일</th>
-                <td>2023-01-01</td>
+                <td>{board.fbCreateBoard}</td>
             </tr>
             <tr>
               <th className="fb-detail-content">내용</th>
               <td colSpan="3">
-                  테스트 내용입니다
+               {board.fbContent}
               </td>
             </tr>
           </tbody>
@@ -67,9 +67,25 @@ function FreeBoardDetail({ userInfo }) {
             navigate('/fbList');
           }}>목록</button>
           <button className="fb-detail-modify-btn" onClick={() => {
-            navigate('/fbupdate');
+            if(userInfo.userName !== board.user.userName) {
+              alert('작성자만 수정 가능합니다');
+            } else {
+              navigate('/fbupdate');
+            }
           }}>수정</button>
-          <button className="fb-detail-delete-btn">삭제</button>
+          <button className="fb-detail-delete-btn" onClick={() => {
+            if(userInfo.userName !== board.user.userName) {
+              alert('작성자만 삭제 가능합니다');
+            } else {
+              axios.delete(`${process.env.REACT_APP_SERVER_URL}/fboard/${fbno}`)
+              .then(response => {
+                alert(response.data);
+                navigate('/fbList');
+              }).catch(error => {
+                console.log(error);
+              })
+            }
+          }}>삭제</button>
         </div>
       </div>
       <div className="fb-comment-section">

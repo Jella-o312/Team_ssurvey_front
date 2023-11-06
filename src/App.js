@@ -24,10 +24,11 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
 
   const [userInfo, setUserInfo] = useState({  // 여기에 임시 값 넣어두고 하기
+    userNo : '',
     userName : '',
     userEmail : '',
     userPassword : '',
-    userRoletype: '',
+    userRoletype: 'USER',
     userAge : '',
     userGender : '',
     userLocation : '',  
@@ -56,8 +57,8 @@ function App() {
       <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
       <Route path='/emailJoin' element={<EmailJoin/>}/>
       <Route path='/fbList' element={<FreeBoardList />} />
-      <Route path='/fbwrite' element={<WriteFreeBoard />} />
-      <Route path='/fbdetail/:fbno' element={<FreeBoardDetail />} />
+      <Route path='/fbwrite' element={<WriteFreeBoard userInfo={userInfo}/>} />
+      <Route path='/fbdetail/:fbno' element={<FreeBoardDetail userInfo={userInfo}/>} />
       <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
       <Route path="/FunSurvey" element={<FunSurvey/>} />
       <Route path="/Survey" element={<Survey/>} />

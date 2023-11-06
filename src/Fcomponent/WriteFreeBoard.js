@@ -8,9 +8,11 @@ function WriteFreeBoard({ userInfo }) {
   const [board, setBoard] = useState({
     fbTitle : '',
     fbContent : '',
-    writer : '',
-    fbFiles : ''
+    fbFiles : '',
+    user : userInfo
   });
+
+  console.log(board);
 
   const navigate = useNavigate();
 
@@ -41,10 +43,16 @@ function WriteFreeBoard({ userInfo }) {
             navigate('/fbList');
           }}>취소</button>
           <button className="write-submit-btn" onClick={() => {
-            if(board.fbTitle == '' || board.fbContent == '') {
-              alert('ㄴㄴ');
+            if(board.fbTitle === '' || board.fbContent === '') {
+              alert('제목과 내용을 입력하세요');
             } else {
-              alert('ㅇㅇ');
+              axios.post(`${process.env.REACT_APP_SERVER_URL}/fboard`, board)
+                .then(res => {
+                  alert(res.data);
+                  navigate('/fbList');
+                }).catch(err => {
+                  alert('에러');
+                })
             }
           }}>등록</button>
         </div>

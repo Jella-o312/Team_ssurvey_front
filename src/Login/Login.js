@@ -38,6 +38,7 @@ const Login =({setIsLogin, setUserInfo}) =>{
         setIsLogin(true);  //로그인 성공시 로그인 유무 스테이트를 트루로 바꿔줌
         
         setUserInfo({ // 유저 정보 저장
+          userNo : loginResult.userNo,
           userName : loginResult.userName,
           userEmail : loginResult.userEmail,
           userPassword : loginResult.userPassword,
