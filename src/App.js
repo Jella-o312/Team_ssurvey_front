@@ -24,9 +24,10 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
 
   const [userInfo, setUserInfo] = useState({  // 여기에 임시 값 넣어두고 하기
-    userName : '',
-    userEmail : '',
-    userPassword : '',
+    userNo : '',
+    userRName : '',
+    username : '',
+    password : '',
     userRoletype: '',
     userAge : '',
     userGender : '',
@@ -35,7 +36,7 @@ function App() {
     serveyNo : ''
   });
 
-  console.log(userInfo);
+  // console.log(userInfo);
 
   return (
 
