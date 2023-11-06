@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import '../JoinLogin/EmailJoin.css';
 import './Login.css';
 import { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 const Login =({setIsLogin, setUserInfo}) =>{
   
   const navigate = useNavigate();
@@ -21,29 +21,31 @@ const Login =({setIsLogin, setUserInfo}) =>{
 
     setLoginPut({...loginPut, [`${eDataset}`] : eValue});
   }
-  console.log(loginPut);
+  
 
 
-  const handleLogin = ()=>{
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, loginPut)
+  const handleLogin = (e)=>{
+
+    e.preventDefault();
+
+    // axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, loginPut)  // 아래  instance 안썼으면 사용했을코드
+    axiosInstance.post('/login' , loginPut)
     .then(response => {
       const jwt = response.headers.authorization;
-      console.log(response);
+      // console.log(response.data);
       if(jwt) {
         sessionStorage.setItem('jwt', jwt);
         setIsLogin(true);  //로그인 성공시 로그인 유무 스테이트를 트루로 바꿔줌
         alert('로그인 성공');
         navigate('/');
-        console.log("jwt" + jwt);
-      }else{
-        console.log("???" + response.data);
+        // console.log("jwt" + jwt);
       }
-      
     }).catch(error => {
       alert('로그인 실패');
       console.log(error);
     })
   }
+
 
   return(
     <div>

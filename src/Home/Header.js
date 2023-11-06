@@ -9,10 +9,13 @@ import { useState } from 'react';
 const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
   const navigate = useNavigate();
 
+  console.log("헤더" + userInfo);
+
   // 로그아웃 버튼 눌렀을때 기능 (메인화면으로 이동 + 새로고침)
   const logOut = () => {
+    sessionStorage.removeItem('jwt'); // 세션스토리지에서 로그인 유저 정보 지움
     setIsLogin(false);  //로그인상태 false로 바꿈
-    setUserInfo({
+    setUserInfo({ //state 값 지워야함...
       userName : '',
       userEmail : '',
       userPassword : '',
@@ -25,7 +28,6 @@ const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
     })
     navigate('/'); // 메인화면으로 이동
   };
-
 
   return(
     <div className='header-container'>

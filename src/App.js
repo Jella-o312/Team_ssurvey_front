@@ -13,20 +13,20 @@ import FunSurvey from './Category/Funsurvey';
 import Survey from './Category/Survey';
 import MainHome from './main/MainHome';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Login from './Login/Login';
+import axiosInstance from './axiosInstance';
 
 
 
 
 function App() {
 
+  
   const [isLogin, setIsLogin] = useState(false);
-
+  
   const [userInfo, setUserInfo] = useState({  // 여기에 임시 값 넣어두고 하기
-    userNo : '',
-    userRName : '',
     username : '',
+    userRName : '',
     password : '',
     userRoletype: '',
     userAge : '',
@@ -36,12 +36,27 @@ function App() {
     serveyNo : ''
   });
 
-  // console.log(userInfo);
+  // 로그인 했을때 뽑아오는 작업함, 로그아웃됐을대 유저정보 삭제
+  useEffect(()=>{
 
+    if(isLogin){
+      axiosInstance.get('/userInfo')
+      .then(response =>{
+        setUserInfo(response.data); // 서버에서 받아온 내용을 저장
+      }).catch(error=> {
+        console.log(error);
+      })
+    }
+  },[isLogin]);
+  
+  console.log("유저정보 ↓");
+  console.log(userInfo);
+  
   return (
-
+    
     <div className="App">
-
+      <h1>{userInfo.userRName}??</h1>
+      
     <Header 
       userInfo = {userInfo}
       setUserInfo = {setUserInfo}
