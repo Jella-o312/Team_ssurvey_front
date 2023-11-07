@@ -1,16 +1,15 @@
-import SurveyReply from "../SurveyReplyPage/SurveyReply";
 import CarouselBanner from "./CarouselBanner";
-import FunBoard from "./FunBoard";
-import SurveyBoard from "./SurveyBoard";
+import Survey from "./Survey";
+
 
 function MainHome() {
   return (
-      <>
+    <>
       <CarouselBanner />
-          <SurveyReply />
-          <FunBoard />
-          <SurveyBoard />
-      </>
+      <Survey boardType="fun" /> {/* Header - Fun 게시판 */}
+      <Survey boardType="survey" /> {/* Header - Survey 게시판 */}
+      
+    </>
   );
 }
 

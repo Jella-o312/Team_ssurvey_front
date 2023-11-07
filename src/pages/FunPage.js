@@ -1,10 +1,10 @@
 import { Container, Row, Col } from "react-bootstrap"; 
 import { useState } from "react";
-import './FunSurvey.css';
+import './FunPage.css';
 import { useNavigate } from "react-router-dom";
 
 
-const FunSurvey = () => {
+const FunPage = () => {
   const navigate = useNavigate();
 
   // 카드 정보를 배열에 정의, <<<<이 부분 DB연결해서 내용보이게 하면 됨>>>>
@@ -163,4 +163,4 @@ const FunSurvey = () => {
   );
 }
 
-export default FunSurvey;
+export default FunPage;

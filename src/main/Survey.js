@@ -1,36 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
-import './FunBoard.css';
+import './Survey.css';
 import { useNavigate } from "react-router-dom";
 import Answer from "../pages/Answer";
 import SurveyReply from "../SurveyReplyPage/SurveyReply";
+import { Routes, Route } from "react-router-dom";
 
-const FunBoard = () => {
+const Survey = ({ boardType }) => {
   const navigate = useNavigate();
   const [showParticipateModal, setShowParticipateModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
-
-  // const [surveyList, setSurveyList] = useState([]);
-  // const [loadMoreCount, setLoadMoreCount] = useState(6);
-  const [likes, setLikes] = useState({});
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-// 서버에서 데이터 가져오는 함수
-const fetchSurveyData = async () => {
-  try {
-    const response = await fetch(`${serverUrl}/api/surveys`); // 서버에서 데이터를 가져오는 엔드포인트로 수정해야 함
-    if (response.ok) {
-      const data = await response.json();
-      setSurveyList(data); // 서버에서 받은 데이터로 surveyList 상태를 업데이트
+  // 서버에서 데이터 가져오는 함수
+  const fetchSurveyData = async () => {
+    try {
+      const response = await fetch(`${serverUrl}/api/surveys`); // 서버에서 데이터를 가져오는 엔드포인트로 수정해야 함
+      if (response.ok) {
+        const data = await response.json();
+        setSurveyList(data); // 서버에서 받은 데이터로 surveyList 상태를 업데이트
+      }
+    } catch (error) {
+      console.error("Error fetching survey data: ", error);
     }
-  } catch (error) {
-    console.error("Error fetching survey data: ", error);
-  }
-};
+  };
 
-useEffect(() => {
-  fetchSurveyData(); // 컴포넌트가 마운트될 때 데이터를 가져오도록 설정
-}, []); // 빈 배열을 전달하여 한 번만 호출되도록 함
+  useEffect(() => {
+    fetchSurveyData(); // 컴포넌트가 마운트될 때 데이터를 가져오도록 설정
+  }, []); // 빈 배열을 전달하여 한 번만 호출되도록 함
 
   //카드 정보를 배열에 정의, <<<<이 부분 DB연결해서 내용보이게 하면 됨>>>>
   const [surveyList, setSurveyList] = useState([ // 설문 목록을 상태로 관리
@@ -141,16 +138,15 @@ useEffect(() => {
     },
   ]);
 
-  const [loadMoreCount, setLoadMoreCount] = useState(6); // 불러오는 설문 수를 관리하는 상태 ,,3으로 바꾸면 3개부터 나옴
+  const [loadMoreCount, setLoadMoreCount] = useState(6);
 
   const handleLoadMore = () => {
-    // 더보기 버튼 클릭 시 호출되는 함수
-    const additionalSurveys = Math.min(3, surveyList.length - loadMoreCount); // 최대 3개 또는 남은 설문 수 중 작은 값을 계산
-    const newLoadMoreCount = loadMoreCount + additionalSurveys; // 추가로 불러올 설문 수
-    setLoadMoreCount(newLoadMoreCount); // 불러오는 설문 수 업데이트
+    const additionalSurveys = Math.min(3, surveyList.length - loadMoreCount);
+    const newLoadMoreCount = loadMoreCount + additionalSurveys;
+    setLoadMoreCount(newLoadMoreCount);
   };
 
-  // const [likes, setLikes] = useState({});
+  const [likes, setLikes] = useState({});
 
   const handleLikeClick = (surveyId) => {
     setLikes((prevLikes) => ({
@@ -167,22 +163,21 @@ useEffect(() => {
     setShowResultModal(true);
   };
 
-  
-
   return (
     <>
-      <Container className="fun_title FB">
-        <h1 className="fun-title"> Fun {loadMoreCount < surveyList.length && (
-          <Button className="btn-more" onClick={handleLoadMore}>더 보기</Button>//더 보기 눌러서 데이터 다 불러왔으면 사라짐
+
+      <Container className={`Survey_title ${boardType} FB`}>
+        <h1 className={`${boardType}-title`}> {boardType === 'fun' ? 'Fun' : 'Survey'} {loadMoreCount < surveyList.length && (
+          <Button className="btn-more" onClick={handleLoadMore}>더 보기</Button>
         )} </h1>
       </Container>
 
-      <Container className="MainSurveyBox FB">
+      <Container className={`MainSurveyBox ${boardType}`}>
         <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
           {surveyList.slice(0, loadMoreCount).map((survey) => (
-            <Col className="col FB" key={survey.id}>
-              <div className="card FB">
-                <img src={survey.imgSrc} className="card-img-top" alt={survey.title} />-
+            <Col className={`col ${boardType} FB`} key={survey.id}>
+              <div className={`card ${boardType} FB`}>
+                <img src={survey.imgSrc} className="card-img-top" alt={survey.title} />
                 <h5 className="card-title">{survey.title}</h5>
                 <p className="card-text">{survey.description}</p>
                 <div className="LikeBtnCount">
@@ -191,7 +186,7 @@ useEffect(() => {
                   </button>
                   <span className="like-count">{likes[survey.id] || 0}</span>
                 </div>
-                <i className="FB-joinpeople">현재 {survey.surveyCount}명 참여 중</i>
+                <i className={`${boardType}-joinpeople`}>현재 {survey.surveyCount}명 참여 중</i>
                 <div className="card-wrap">
                   <button className="btn submit-btn" onClick={handleParticipateClick}>참여하기</button>
                   <button className="btn result-btn view_more" onClick={handleResultClick}>결과보기</button>
@@ -201,20 +196,19 @@ useEffect(() => {
           ))}
         </Row>
       </Container>
-      
 
       <Modal show={showParticipateModal} onHide={() => setShowParticipateModal(false)} centered className="custom-modal">
-  <Modal.Header closeButton>
-    <Modal.Title>참여하기</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    <Answer /> 
-    <SurveyReply /> {/* 임시로 어떻게 들어가나 넣어봄 사이즈 확인겸 */}
-  </Modal.Body>
-  <Modal.Footer>
-    <Button onClick={() => setShowParticipateModal(false)}>닫기</Button>
-  </Modal.Footer>
-</Modal>
+        <Modal.Header closeButton>
+          <Modal.Title>참여하기</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Answer />
+          <SurveyReply /> {/* 임시로 어떻게 들어가나 넣어봄 사이즈 확인겸 */}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setShowParticipateModal(false)}>닫기</Button>
+        </Modal.Footer>
+      </Modal>
 
 
 
@@ -223,7 +217,7 @@ useEffect(() => {
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         
+
           <p>결과보기 모달 내용입니다.</p>
         </Modal.Body>
         <Modal.Footer>
@@ -234,4 +228,4 @@ useEffect(() => {
   );
 }
 
-export default FunBoard;
+export default Survey;

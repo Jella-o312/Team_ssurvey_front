@@ -1,10 +1,10 @@
-.fun_title.FB {
+/* .Survey_title.FB {
   text-align: center;
   justify-content:space-around;
-  /* border: 1px solid red; */
-}
+  border: 1px solid red;
+} */
 
-.fun-title {
+.Survey-title {
   border: 1px solid red;
   /* margin-left: 200px;
   margin-right: 200px; */
@@ -20,7 +20,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-   border: 1px solid red; 
+   /* border: 1px solid red;  */
 }
 
 .card-img-top{
