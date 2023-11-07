@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../Fcss/WriteFreeBoard.css';
+import axiosInstance from "../axiosInstance";
 
 function WriteFreeBoard({ userInfo }) {
 
@@ -11,8 +11,6 @@ function WriteFreeBoard({ userInfo }) {
     fbFiles : '',
     user : userInfo
   });
-
-  console.log(board);
 
   const navigate = useNavigate();
 
@@ -46,7 +44,7 @@ function WriteFreeBoard({ userInfo }) {
             if(board.fbTitle === '' || board.fbContent === '') {
               alert('제목과 내용을 입력하세요');
             } else {
-              axios.post(`${process.env.REACT_APP_SERVER_URL}/fboard`, board)
+              axiosInstance.post('/fboard', board)
                 .then(res => {
                   alert(res.data);
                   navigate('/fbList');

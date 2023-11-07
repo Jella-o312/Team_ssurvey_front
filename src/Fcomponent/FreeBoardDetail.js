@@ -1,23 +1,31 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import '../Fcss/FreeBoardDetail.css';
+import axiosInstance from "../axiosInstance";
 
 function FreeBoardDetail({ userInfo }) {
 
   const {fbno} = useParams();
   const [board, setBoard] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [reply, setReply] =useState('');
+  const [isRLoading, setIsRLoading] = useState(true);
+  const [reply, setReply] =useState({
+    fbrContent : '',
+    user : userInfo,
+    freeBoard : board
+  });
 
   const navigate = useNavigate();
 
   const changeHandler = (e) => {
-    setReply(e.target.value);
+    setReply({
+      ...reply,
+      [e.target.name] : e.target.value
+    });
   }
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/fboard/${fbno}`)
+    axiosInstance.get(`/fboard/${fbno}`)
     .then(response => {
       setBoard(response.data);
       setIsLoading(false);
@@ -25,6 +33,15 @@ function FreeBoardDetail({ userInfo }) {
       console.log(error);
     })
   },[fbno])
+
+  useEffect(() => {
+    axiosInstance.get(`/freply/${fbno}`)
+      .then(res => {
+        setIsRLoading(false);
+      }).catch(err => {
+        console.log(err);
+      })
+  })
 
   if(isLoading)
     return <div>로딩중...</div>
@@ -46,11 +63,11 @@ function FreeBoardDetail({ userInfo }) {
               <th>제목</th>
               <td>{board.fbTitle}</td>
               <th>조회수</th>
-              <td>{board.fbViews}</td>
+              <td>{board.fbViews + 1}</td>
             </tr>
             <tr>
                 <th>작성자</th>
-                <td>{board.user.userName}</td>
+                <td>{board.user.userRname}</td>
                 <th>작성일</th>
                 <td>{board.fbCreateBoard}</td>
             </tr>
@@ -67,17 +84,17 @@ function FreeBoardDetail({ userInfo }) {
             navigate('/fbList');
           }}>목록</button>
           <button className="fb-detail-modify-btn" onClick={() => {
-            if(userInfo.userName !== board.user.userName) {
+            if(userInfo.userRname !== board.user.userRname) {
               alert('작성자만 수정 가능합니다');
             } else {
-              navigate('/fbupdate');
+              navigate(`/fbupdate/${fbno}`);
             }
           }}>수정</button>
           <button className="fb-detail-delete-btn" onClick={() => {
-            if(userInfo.userName !== board.user.userName) {
+            if(userInfo.userRname !== board.user.userRname) {
               alert('작성자만 삭제 가능합니다');
             } else {
-              axios.delete(`${process.env.REACT_APP_SERVER_URL}/fboard/${fbno}`)
+              axiosInstance.delete(`/fboard/${fbno}`)
               .then(response => {
                 alert(response.data);
                 navigate('/fbList');
@@ -88,34 +105,43 @@ function FreeBoardDetail({ userInfo }) {
           }}>삭제</button>
         </div>
       </div>
+
+      {isRLoading ?
       <div className="fb-comment-section">
         <div className="fb-comment-input">
-          <input id="reply-input" type="text" placeholder="댓글을 입력하세요" onChange={changeHandler}/>
+          <input id="reply-input" type="text" name="fbrContent" placeholder="댓글을 입력하세요" onChange={changeHandler}/>
           <button className="fb-comment-submit" onClick={() => {
-            if(reply == '') {
-              alert('ㄴㄴ');
+            if(reply === '') {
+              alert('댓글을 입력해주세요');
             } else {
-              alert('ㅇㅇ');
+              axiosInstance.post('/freply', reply)
+              .then(res => {
+                
+              }).catch(err => {
+                console.log(err);
+              })
             }
           }}>등록</button>
         </div>
         <div className="fb-comment-list">
+          {/* 반복할구간 */}
           <div className="fb-comment">
             <div className="fb-comment-info">
-              <span className="fb-comment-author">사용자1:</span>
+              <span className="fb-comment-author">사용자1</span>
               <span className="fb-comment-date">2023-01-03</span>
             </div>
             <p className="fb-comment-text">댓글 내용입니다.</p>
           </div>
+
           <div className="fb-comment">
             <div className="fb-comment-info">
-              <span className="fb-comment-author">사용자2:</span>
+              <span className="fb-comment-author">사용자2</span>
               <span className="fb-comment-date">2023-01-04</span>
             </div>
             <p className="fb-comment-text">댓글 내용입니다.</p>
           </div>
         </div>
-      </div>
+      </div> : <div>로딩중...</div>}
     </div>
   );
 }

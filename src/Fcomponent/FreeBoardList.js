@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import '../Fcss/FreeBoardList.css';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 
-function FreeBoardList() {
+function FreeBoardList({ isLogin }) {
 	const [boardList, setBoardList] = useState();
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const [totalPages, setTotalPages] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState('');
   
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function FreeBoardList() {
   }
 
 	useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/fboard?page=${page}&size=${pageSize}`, {params : {'search' : search}})
+    axiosInstance.get(`/fboard?page=${page}&size=${pageSize}`, {params : {'search' : search}})
     .then(res => {
       setBoardList(res.data.content);
       setTotalPages(res.data.totalPages);
@@ -46,7 +46,7 @@ function FreeBoardList() {
           <div className="fb-search-wrap">
             <input type="text" name="search" placeholder="검색어를 입력해주세요." onChange={changeHandler} />
             <button className="search-btn btn-dark" onClick={() => {
-              axios.get(`${process.env.REACT_APP_SERVER_URL}/fboard?page=${page}&size=${pageSize}`, {params : {'search' : search}})
+              axiosInstance.get(`/fboard?page=${page}&size=${pageSize}`, {params : {'search' : search}})
               .then(res => {
                 setBoardList(res.data.content);
                 setTotalPages(res.data.totalPages);
@@ -78,9 +78,22 @@ function FreeBoardList() {
                     <tr key={i}>
                       <td>{board.fbNo}</td>
                       <th>
-                        <Link to={`/fbdetail/${board.fbNo}`}>{board.fbTitle}</Link>
+                        <Link to={`/fbdetail/${board.fbNo}`} onClick={(e) => {
+                          if(!isLogin) {
+                            e.preventDefault();
+                            alert('로그인 후 이용 가능합니다');
+                            navigate('/login');
+                          } else {
+                            axiosInstance.put(`/fboard/view/${board.fbNo}`)
+                            .then(res => {
+
+                            }).catch(err => {
+                                console.log(err);
+                            })
+                          }
+                        }}>{board.fbTitle}</Link>
                       </th>
-                      <td>{board.user.userName}</td>
+                      <td>{board.user.userRname}</td>
                       <td>{board.fbCreateBoard}</td>
                       <td>{board.fbViews}</td>
                     </tr>
@@ -93,7 +106,12 @@ function FreeBoardList() {
       </div>
       <div className='button-box'>
         <button className="write-btn btn-dark" onClick={() => {
-          navigate('/fbwrite');
+          if(isLogin){
+            navigate('/fbwrite');
+          } else {
+            alert('로그인 후 이용 가능합니다');
+            navigate('/login');
+          }
         }}>글쓰기</button>
       </div>
       <div className='fb-page-btn'>
