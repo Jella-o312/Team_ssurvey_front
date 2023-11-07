@@ -15,6 +15,7 @@ import MainHome from './main/MainHome';
 import { useEffect, useState } from 'react';
 import Login from './Login/Login';
 import axiosInstance from './axiosInstance';
+import GoogleLogin from './Login/GoogleLogin';
 
 
 
@@ -74,6 +75,7 @@ function App() {
       <Route path='/Answer' element={<Answer />}/>
       <Route path='/join' element={<Join/>}/>
       <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
+      <Route path ='/oauth/google' element={<GoogleLogin setIsLogin={setIsLogin}/>}/>
       <Route path='/emailJoin' element={<EmailJoin/>}/>
       <Route path='/fbList' element={<FreeBoardList />} />
       <Route path='/fbwrite' element={<WriteFreeBoard />} />
