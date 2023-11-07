@@ -26,7 +26,8 @@ display: flex;
 }
 
 
-.STitle{
+
+.STitle{ 
   outline: none;
   border-color: none;
   border: 0px solid;
@@ -64,6 +65,7 @@ display: flex;
 }
 
 
+
 .SurTitle{ 
   border: none;
   background: #434656;
@@ -71,12 +73,13 @@ display: flex;
   padding-left: 20px;  
   width: 850px;   
   font-size: 20px; 
-
+  
 }
 
 .SurTitle:focus{
   outline: none;
   border-color: none;  
+
 }
 
 

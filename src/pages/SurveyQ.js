@@ -1,29 +1,49 @@
 import './SurveyQ.css';
 import InsertBtn from "../QComponent/InsertBtn";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 
-
-
-
-const SurveyQ = () => {
+const SurveyQ = ({ surveyCategory }) => {
 const { useState, useEffect } = require("react");
 const navigate = useNavigate();  
 
 
+const [sTitle, setSTitle] = useState('');
+// const [surveyCategory, setSurveyCategory] = useState('');
+const [swriter, setSwriter] = useState('');
+const [sqQuestion, setsqQuestion] = useState([]); // 질문 목록을 배열로 관리
+const [sOption, setSOpion] = useState([]); 
+const [selectedCategory, setSelectedCategory] = useState('');
+
+
+
+
+
+const [SurveyQ, setSurveyQ] = useState({
+  sTitle : '',
+  surveyCategory : '', 
+  swriter : '',
+});
+
+const [CreateQ, setCreateQ] = useState({
+  sqQuestion : '',
+  sqType : '',
+  sOption : '',
+});
+
+const surveyQAllTrue = Object.values(SurveyQ).every(Boolean); 
+
 
 const handleKeyDown = (event) => {
   if (event.key === 'Enter') {
-    // dispatch(setSTitle(event.target.value)); // Redux 스토어에 sTitle을 업데이트(지금 오류원인임)
-    setStitleWrapVisible(false);
+   setStitleWrapVisible(false);
   }
+  console.log("stitle: " + sTitle);
 };
 
-
   // const SurveyQ = useContext(QContext);
-
   // const [createQComponents, setCreateQComponents] = useState([]);
-
 
   // // "추가" 버튼을 클릭할 때마다 CreateQ 컴포넌트를 추가
   // const addCreateQComponent = () => {
@@ -35,19 +55,18 @@ const handleKeyDown = (event) => {
   // };
 
   const [isStitleWrapVisible, setStitleWrapVisible] = useState(true);
-  const [sTitle, setSTitle] = useState(''); // State to hold the Stitle value
-
+  // const [isCreateQVisible, setCreateQVisible] = useState(false);
 
   
   useEffect(() => {
-    console.log(sTitle); // 이 위치에서 console.log를 호출
+    console.log(sTitle);
   }, [sTitle]);
 
 
  
   const handleSTitleClick = () => {
     setStitleWrapVisible(true);
-    setSTitle(''); // Clear the questionTitle
+    setSTitle('');
   };
   
   // handleQuestionTitleClick 함수는 questionTitle 입력란을 클릭할 때 호출되며
@@ -58,20 +77,47 @@ const handleKeyDown = (event) => {
 
 
   const handleDeleteStitle = () => {
-    setSTitle(''); 
-   
+    setSTitle('');    
   };
-
   
 
-  const CompleteS = () => {
-    // 원하는 작업 수행
-     alert("✏️ 설문생성이 완료되었어요 ");
-     navigate('/Home')
-   };
+  const changeValue = (e) => {
+    // setSTitle({
+    //   ...sTitle,
+    //   [e.target.name]:e.target.value
+    // });
+    setSTitle(e.target.value); // Stitle 상태를 입력한 값으로 업데이트
+    console.log("stitle: " + sTitle);
+  }
+  
+
+  const addQuestion = () => {
+    setsqQuestion([...sqQuestion, '']);
+  };
 
 
-   //에이젝스로 정보보내기
+   const CompleteS= () =>{
+    const SurveyQ = {
+      sTitle: sTitle,
+      surveyCategory: selectedCategory,
+      swriter: swriter,
+      sqQuestion: sqQuestion,
+      sOption: sOption
+    };
+
+    console.log('surveyCategory:', surveyCategory);
+
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/SurveyQ`, SurveyQ)
+    .then(response=>{
+      alert("✏️ 설문생성이 완료되었어요 ");
+      navigate('/'); 
+    }).catch(error=>{
+      console.log(error);
+      console.log('sTitle:', sTitle);
+      alert("완료되지 않은 질문이 있어요🙅");  
+    })
+  }
+
 
   return(
 <>
@@ -86,11 +132,12 @@ const handleKeyDown = (event) => {
     
    </div>
    <div className="StitleWrap" style={{ display: isStitleWrapVisible ? 'block' : 'none' }}>
-   <input className="SurTitle" placeholder="l 설문제목을 입력하세요" onKeyDown={handleKeyDown}  value={sTitle}
-   onChange={(e) => setSTitle(e.target.value)} 
+   <input className="SurTitle" placeholder="l 설문제목을 입력하세요" onKeyDown={handleKeyDown} value={sTitle} id="title" name={sTitle}
+  //  onChange={(e) => setSTitle(e.target.value)} 
+  onChange={changeValue} 
    ></input>
    <button type="button" className="Qdelete-btn"
-    onClick={handleDeleteStitle} // Handle the click on Qdelete-btn
+    onClick={handleDeleteStitle} 
     > X </button>
    </div>
 
@@ -100,7 +147,7 @@ const handleKeyDown = (event) => {
     <div className="createText">
       <p className="CreateS">CREATE<br/>
       A SURVEY</p>
-      <button type="submit" className="Qsumit-btn"  onClick={CompleteS}> 설문 생성 </button>
+      <button type="submit" className={`Qsumit-btn ${surveyQAllTrue ? '' : 'disabled'}`}  onClick={CompleteS} > 설문 생성 </button>   
     </div>
   </div>
 </div>
@@ -109,7 +156,9 @@ const handleKeyDown = (event) => {
 <div className="QGroupBox">
 <div className="QGroup">
 <div className="InsertBtnContainer">
-  <InsertBtn />
+<CreateQ k={0} selectedCategory={selectedCategory} />
+            <InsertBtn addQuestion={addQuestion} />
+  {/* <InsertBtn onClick={addQuestion} selectedCategory={selectedCategory}/> */}
   </div>
    </div>
 </div>

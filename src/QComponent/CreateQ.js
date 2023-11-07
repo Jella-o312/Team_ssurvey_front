@@ -9,12 +9,24 @@ import SingleCheck from "./SingleCheck";
 import MultiCheck from "./MultiCheck";
 
 
-const CreateQ = ({ k , deleteQuestionContainer} ) => {
+const CreateQ = ({ k , deleteQuestionContainer, surveyCategory} ) => {
 
  const [selectedType, setSelectedType] = useState(null);
  const [modalShow, setModalShow] = useState(false); // 모달의 show 상태를 관리할 상태 변수
+//  const [selectedCategory, setSelectedCategory] = useState('');
 
 
+
+ const handleCategorySelect = (surveyCategory) => {
+   
+   setSelectedCategory(surveyCategory); 
+   console.log('surveyCategory:', surveyCategory);
+   
+ };
+
+
+
+ console.log("타입 : " + selectedType);
   
 return (
   <>
@@ -34,22 +46,26 @@ return (
         onHide={() => setModalShow(false)}
         />
  
-  <Qtype selectedType={selectedType} setSelectedType={setSelectedType}/>
+  <Qtype selectedType={selectedType} setSelectedType={setSelectedType} onCategorySelect={handleCategorySelect} surveyCategory={surveyCategory}/>
   </div>  
    
   <div className='AList'>
-     {/* Option 컴포넌트를 렌더링하고 selectedType을 전달 */}
-     <MultiCheck selectedType={selectedType} />
-     <LongText selectedType={selectedType} />
-     <SingleCheck selectedType={selectedType} />
-     <ShortText selectedType={selectedType} />
-     </div>    
-     </div>
-     </div>
-
-  </>
-     );
-     };
-
+  {selectedCategory ===  'Fun' ? (             
+              <>
+                <SingleCheck selectedType={selectedType} /> 
+                <ShortText selectedType={selectedType} />
+              </>
+            ) : (            
+              <>
+                <MultiCheck selectedType={selectedType} />
+                <LongText selectedType={selectedType} />
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default CreateQ;

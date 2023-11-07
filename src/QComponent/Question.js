@@ -3,26 +3,30 @@ import './Question.css';
 
 
 
-function Question() {
-  const [Qinput, setQuestion] = useState('');
+const Question = ({sqQuestion, onsqQuestionChange}) => {
+ 
+  const [Question, setQuestion] = useState((''));
+ 
 
 
   useEffect(() => {
-    console.log(Qinput); 
-  }, [Qinput]);
+    console.log({sqQuestion}); 
+  }, [{sqQuestion}]);
 
-const handleInputChange = (e) => {
-  setQuestion(e.target.value);
+const handlesqQuestionChange = (e) => {
+  onsqQuestionChange(e.target.value);
+  console.log("sqQuestion: " + sqQuestion);
 };
 
   
+
 return (
   <div>
     <input type="text" placeholder='질문을 입력하세요'
-    value={Qinput} name="inputQ" id="inputQ" onChange={handleInputChange}
+    value={sqQuestion} name={sqQuestion} id="sqQuestion" onsqQuestionChange={handlesqQuestionChange}
     className="InsertQ"
      />   
-<hr/>
+<hr className='Qhr'/> 
 
 
      </div>
