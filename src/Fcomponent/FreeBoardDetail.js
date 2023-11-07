@@ -7,12 +7,13 @@ function FreeBoardDetail({ userInfo }) {
 
   const {fbno} = useParams();
   const [board, setBoard] = useState();
+  const [replyList, setReplyList] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [isRLoading, setIsRLoading] = useState(true);
   const [reply, setReply] =useState({
     fbrContent : '',
     user : userInfo,
-    freeBoard : board
+    freeBoard : ''
   });
 
   const navigate = useNavigate();
@@ -32,17 +33,28 @@ function FreeBoardDetail({ userInfo }) {
     }).catch(error => {
       console.log(error);
     })
-  },[fbno])
+  },[fbno]);
+
+  useEffect(() => {
+    if (board) {
+      setReply({
+        fbrContent: '',
+        user: userInfo,
+        freeBoard: board
+      });
+    }
+  }, [board]);
 
   useEffect(() => {
     axiosInstance.get(`/freply/${fbno}`)
       .then(res => {
+        setReplyList(res.data);
         setIsRLoading(false);
       }).catch(err => {
         console.log(err);
       })
   })
-
+  console.log(replyList);
   if(isLoading)
     return <div>로딩중...</div>
 
@@ -133,13 +145,6 @@ function FreeBoardDetail({ userInfo }) {
             <p className="fb-comment-text">댓글 내용입니다.</p>
           </div>
 
-          <div className="fb-comment">
-            <div className="fb-comment-info">
-              <span className="fb-comment-author">사용자2</span>
-              <span className="fb-comment-date">2023-01-04</span>
-            </div>
-            <p className="fb-comment-text">댓글 내용입니다.</p>
-          </div>
         </div>
       </div> : <div>로딩중...</div>}
     </div>
