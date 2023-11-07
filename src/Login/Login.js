@@ -24,9 +24,7 @@ const Login =({setIsLogin, setUserInfo}) =>{
   
 
 
-  const handleLogin = (e)=>{
-
-    e.preventDefault();
+  const handleLogin = ()=>{
 
     // axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, loginPut)  // 아래  instance 안썼으면 사용했을코드
     axiosInstance.post('/login' , loginPut)

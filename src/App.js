@@ -26,7 +26,7 @@ function App() {
   
   const [userInfo, setUserInfo] = useState({  // 여기에 임시 값 넣어두고 하기
     username : '',
-    userRName : '',
+    userRname : '',
     password : '',
     userRoletype: '',
     userAge : '',
@@ -38,24 +38,27 @@ function App() {
 
   // 로그인 했을때 뽑아오는 작업함, 로그아웃됐을대 유저정보 삭제
   useEffect(()=>{
+    // 마운트 되거나 로그인 상태가 바꼈을때 세션 값 확인해서 세션에 값이 들어있으면 로그인 상태 유지
+    const sesseion = sessionStorage.getItem('jwt');
 
-    if(isLogin){
+    if(sesseion !== null){  // 로그인한 상태
       axiosInstance.get('/userInfo')
       .then(response =>{
         setUserInfo(response.data); // 서버에서 받아온 내용을 저장
+        setIsLogin(true); // 로그인 상태 유지
       }).catch(error=> {
         console.log(error);
       })
     }
   },[isLogin]);
-  
-  console.log("유저정보 ↓");
-  console.log(userInfo);
+
+  // console.log("유저정보 ↓");
+  // console.log(userInfo);
+  // console.log('세션' + sessionStorage.getItem('jwt'));
   
   return (
     
     <div className="App">
-      <h1>{userInfo.userRName}??</h1>
       
     <Header 
       userInfo = {userInfo}

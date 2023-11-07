@@ -68,7 +68,7 @@ const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
         { //isLogin 상태가 트루일때 로그인된 화면 보여줌
           isLogin ?
           <div className='nav-loginTrue'> {/* 로그인 된 상태 */}
-            <button className='myPage'>{userInfo.userName}님</button>
+            <button className='myPage'>{userInfo.userRname}님</button>
             <button className='logout' onClick={logOut} >로그아웃</button>
           </div>
           :
