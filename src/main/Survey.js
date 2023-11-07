@@ -21,7 +21,7 @@ const Survey = ({ boardType }) => {
         setSurveyList(data); // 서버에서 받은 데이터로 surveyList 상태를 업데이트
       }
     } catch (error) {
-      console.error("Error fetching survey data: ", error);
+      console.error("설문 데이터를 불러오는 중 에러가 발생했습니다: ", error);
     }
   };
 
@@ -31,110 +31,125 @@ const Survey = ({ boardType }) => {
 
   //카드 정보를 배열에 정의, <<<<이 부분 DB연결해서 내용보이게 하면 됨>>>>
   const [surveyList, setSurveyList] = useState([ // 설문 목록을 상태로 관리
-    {
-      id: 0,
-      imgSrc: "/img/survey-banner1.jpg",
-      title: "설문조사 title 부분 1",
-      description: "설문조사 내용부분",
-      surveyCount: "00"
-    },
-    {
-      id: 1,
-      imgSrc: "/img/survey-banner2.jpg",
-      title: "설문조사 title 부분 2",
-      description: "설문조사 내용부분",
-      surveyCount: "00"
-    },
+  {
+    id: 0,
+    imgSrc: "/img/survey-banner1.jpg",
+    title: "설문조사 title 부분 1",
+    description: "설문조사 내용부분",
+    surveyCount: "00",
+    likes: 0, // 좋아요 수 초기값
+  },
+  {
+    id: 1,
+    imgSrc: "/img/survey-banner2.jpg",
+    title: "설문조사 title 부분 2",
+    description: "설문조사 내용부분",
+    surveyCount: "00",
+    likes: 0, // 좋아요 수 초기값
+  },
     {
       id: 2,
       imgSrc: "/img/survey-banner3.jpg",
       title: "설문조사 title 부분 3",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 3,
       imgSrc: "../img/camping_main_01.jpg",
       title: "설문조사 title 부분 4",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 4,
       imgSrc: "../img/camping_main_02.jpg",
       title: "설문조사 title 부분 5",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 5,
       imgSrc: "../img/camping_main_03.jpg",
       title: "설문조사 title 부분 6",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 6,
       imgSrc: "../img/camping_main_01.jpg",
       title: "설문조사 title 부분 7",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 7,
       imgSrc: "../img/camping_main_02.jpg",
       title: "설문조사 title 부분 8",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 8,
       imgSrc: "../img/camping_main_03.jpg",
       title: "설문조사 title 부분 9",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 9,
       imgSrc: "../img/camping_main_01.jpg",
       title: "설문조사 title 부분 10",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 10,
       imgSrc: "../img/camping_main_02.jpg",
       title: "설문조사 title 부분 11",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 11,
       imgSrc: "../img/camping_main_03.jpg",
       title: "설문조사 title 부분 12",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 12,
       imgSrc: "../img/camping_main_01.jpg",
       title: "설문조사 title 부분 13",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 13,
       imgSrc: "../img/camping_main_02.jpg",
       title: "설문조사 title 부분 14",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
     {
       id: 14,
       imgSrc: "../img/camping_main_03.jpg",
       title: "설문조사 title 부분 15",
       description: "설문조사 내용부분",
-      surveyCount: "00"
+      surveyCount: "00",
+      likes: 0,
     },
   ]);
 
@@ -146,14 +161,37 @@ const Survey = ({ boardType }) => {
     setLoadMoreCount(newLoadMoreCount);
   };
 
-  const [likes, setLikes] = useState({});
+// 로컬 스토리지에서 좋아요 카운트를 불러오는 함수
+const loadLikesFromLocalStorage = () => {
+  try {
+    const likesData = localStorage.getItem('likes');
+    return likesData ? JSON.parse(likesData) : {};
+  } catch (error) {
+    console.error('Error loading likes from local storage', error);
+    return {};
+  }
+};
 
-  const handleLikeClick = (surveyId) => {
-    setLikes((prevLikes) => ({
-      ...prevLikes,
-      [surveyId]: (prevLikes[surveyId] || 0) + 1,
-    }));
-  };
+ // 초기 좋아요 데이터 설정
+ const initialLikes = loadLikesFromLocalStorage();
+ const [likes, setLikes] = useState(initialLikes);
+
+// 좋아요 버튼 클릭 시 호출되는 함수
+const handleLikeClick = (surveyId) => {
+  setSurveyList((prevSurveyList) => {
+    return prevSurveyList.map((survey) => {
+      if (survey.id === surveyId) {
+        // 좋아요 수를 증가시키고, 로컬 스토리지에 좋아요 데이터를 저장
+        const newLikes = { ...likes, [surveyId]: (likes[surveyId] || 0) + 1 };
+        setLikes(newLikes);
+        localStorage.setItem('likes', JSON.stringify(newLikes));
+        return { ...survey, likes: (survey.likes || 0) + 1 };
+      }
+      return survey;
+    });
+  });
+};
+
 
   const handleParticipateClick = () => {
     setShowParticipateModal(true);
@@ -187,6 +225,8 @@ const Survey = ({ boardType }) => {
                   <span className="like-count">{likes[survey.id] || 0}</span>
                 </div>
                 <i className={`${boardType}-joinpeople`}>현재 {survey.surveyCount}명 참여 중</i>
+                {/* <div>${`surveyStart` ~ `surveyEnd`}
+                  참여기간</div> */}
                 <div className="card-wrap">
                   <button className="btn submit-btn" onClick={handleParticipateClick}>참여하기</button>
                   <button className="btn result-btn view_more" onClick={handleResultClick}>결과보기</button>

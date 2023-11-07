@@ -22,6 +22,7 @@ import CreateQ from './CreateQ';
  // "추가" 버튼을 클릭할 때 CreateQ 컴포넌트 추가
  const addCreateQComponent = () => {
   let k = createQComponents.length
+  console.log(k);
   setCreateQComponents([
     ...createQComponents,
     <CreateQ key={k} deleteQuestionContainer={deleteQuestionContainer}/>,
