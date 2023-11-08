@@ -4,35 +4,37 @@ import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosInstance';
 
 function FreeBoardList({ isLogin }) {
-	const [boardList, setBoardList] = useState();
+	const [boardList, setBoardList] = useState([]);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const [totalPages, setTotalPages] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState('');
   
   const navigate = useNavigate();
 
+  
+	useEffect(() => {
+    axiosInstance.get(`/fboard?page=${page}&size=${pageSize}`, {params : {'search' : search}})
+    .then((res) => {
+      if(res.data.content) {
+      setBoardList(res.data.content);
+      setTotalPages(res.data.totalPages);
+      setIsLoading(true);
+    }
+  }).catch((error) => {
+    console.log(error);
+  }) 
+},[page, pageSize])
+
   const changeHandler = (e) => {
     setSearch(e.target.value);
   }
-
-	useEffect(() => {
-    axiosInstance.get(`/fboard?page=${page}&size=${pageSize}`, {params : {'search' : search}})
-    .then(res => {
-      setBoardList(res.data.content);
-      setTotalPages(res.data.totalPages);
-      setIsLoading(false);
-    }).catch(error => {
-      console.log(error);
-    }) 
-  },[page, pageSize])
-
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
 
-	if(isLoading)
+	if(!isLoading)
 	return <div>로딩중...</div>
 
   return (
@@ -47,11 +49,11 @@ function FreeBoardList({ isLogin }) {
             <input type="text" name="search" placeholder="검색어를 입력해주세요." onChange={changeHandler} />
             <button className="search-btn btn-dark" onClick={() => {
               axiosInstance.get(`/fboard?page=${page}&size=${pageSize}`, {params : {'search' : search}})
-              .then(res => {
+              .then((res) => {
                 setBoardList(res.data.content);
                 setTotalPages(res.data.totalPages);
                 setIsLoading(false);
-              }).catch(error => {
+              }).catch((error) => {
                 console.log(error);
               }) 
             }}>검색</button>
@@ -85,9 +87,9 @@ function FreeBoardList({ isLogin }) {
                             navigate('/login');
                           } else {
                             axiosInstance.put(`/fboard/view/${board.fbNo}`)
-                            .then(res => {
+                            .then((res) => {
 
-                            }).catch(err => {
+                            }).catch((err) => {
                                 console.log(err);
                             })
                           }

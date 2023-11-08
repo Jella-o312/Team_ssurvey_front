@@ -6,56 +6,76 @@ import axiosInstance from "../axiosInstance";
 function FreeBoardDetail({ userInfo }) {
 
   const {fbno} = useParams();
-  const [board, setBoard] = useState();
-  const [replyList, setReplyList] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isRLoading, setIsRLoading] = useState(true);
+  const [board, setBoard] = useState(null);
+  const [replyList, setReplyList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
+  const [totalPages, setTotalPages] = useState();
   const [reply, setReply] =useState({
     fbrContent : '',
-    user : userInfo,
-    freeBoard : ''
+    user : userInfo
   });
 
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    axiosInstance.get(`/fboard/${fbno}`)
+    .then((response) => {
+      if(response.data) {
+      setBoard(response.data);
+      setIsLoading(true);
+    }
+    }).catch((error) => {
+      console.log(error);
+    })
+
+    axiosInstance.get(`/replies?page=${page}&size=${pageSize}`, board)
+    .then((response) => {
+      if(response.data.content) {
+        setReplyList(response.data.content);
+        setTotalPages(response.data.totalPages);
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+    }, [fbno, page, pageSize]);
 
   const changeHandler = (e) => {
-    setReply({
-      ...reply,
-      [e.target.name] : e.target.value
+    setReply((prevReply) => ({
+      ...prevReply,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  const submitReply = () => {
+    if (reply.fbrContent.trim() === "") {
+      alert("댓글을 입력해주세요.");
+      return;
+    }
+
+    // 댓글 등록 API 호출
+    axiosInstance.post("/replies", {
+      fbrContent: reply.fbrContent,
+      user: reply.user,
+      freeBoard: board,
+    }).then((response) => {
+      // 댓글 등록 성공 시, 댓글 목록 업데이트
+      setReplyList([...replyList, response.data]);
+      setReply({ ...reply, fbrContent: "" });
+    }).catch((error) => {
+      console.log(error);
+      alert("댓글 등록 중 오류가 발생했습니다.");
     });
   }
 
-  useEffect(() => {
-    axiosInstance.get(`/fboard/${fbno}`)
-    .then(response => {
-      setBoard(response.data);
-      setIsLoading(false);
-    }).catch(error => {
-      console.log(error);
-    })
-  },[fbno]);
-
-  useEffect(() => {
-    if (board) {
-      setReply({
-        fbrContent: '',
-        user: userInfo,
-        freeBoard: board
-      });
-    }
-  }, [board]);
-
-  useEffect(() => {
-    axiosInstance.get(`/freply/${fbno}`)
-      .then(res => {
-        setReplyList(res.data);
-        setIsRLoading(false);
-      }).catch(err => {
-        console.log(err);
-      })
-  })
   console.log(replyList);
-  if(isLoading)
+
+  if(!isLoading)
     return <div>로딩중...</div>
 
   return(
@@ -118,35 +138,52 @@ function FreeBoardDetail({ userInfo }) {
         </div>
       </div>
 
-      {isRLoading ?
       <div className="fb-comment-section">
         <div className="fb-comment-input">
-          <input id="reply-input" type="text" name="fbrContent" placeholder="댓글을 입력하세요" onChange={changeHandler}/>
-          <button className="fb-comment-submit" onClick={() => {
-            if(reply === '') {
-              alert('댓글을 입력해주세요');
-            } else {
-              axiosInstance.post('/freply', reply)
-              .then(res => {
-                
-              }).catch(err => {
-                console.log(err);
-              })
-            }
-          }}>등록</button>
+          <input
+            id="reply-input"
+            type="text"
+            name="fbrContent"
+            placeholder="댓글을 입력하세요"
+            value={reply.fbrContent}
+            onChange={changeHandler}
+          />
+          <button className="fb-comment-submit" onClick={submitReply}>
+            등록
+          </button>
         </div>
-        <div className="fb-comment-list">
-          {/* 반복할구간 */}
-          <div className="fb-comment">
-            <div className="fb-comment-info">
-              <span className="fb-comment-author">사용자1</span>
-              <span className="fb-comment-date">2023-01-03</span>
-            </div>
-            <p className="fb-comment-text">댓글 내용입니다.</p>
-          </div>
 
+        <div className="fb-comment-list">
+          {replyList.map((replyItem, i) => (
+            <div className="fb-comment" key={i}>
+              <div className="fb-comment-info">
+                <span className="fb-comment-author">사용자1</span>
+                <span className="fb-comment-date">2023-01-03</span>
+              </div>  
+              <p className="fb-comment-text">{replyItem.fbrContent}</p>
+            </div>
+          ))}
         </div>
-      </div> : <div>로딩중...</div>}
+
+        <div className='fb-page-btn'>
+          <button onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
+            이전
+          </button>
+          {Array.from(Array(totalPages).keys()).map((pageNumber) => (
+            <button
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}
+              disabled={page === pageNumber}
+              className={page === pageNumber ? 'fb-selected-btn' : ''}
+            >
+              {pageNumber + 1}
+            </button>
+          ))}
+          <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1}>
+            다음
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
