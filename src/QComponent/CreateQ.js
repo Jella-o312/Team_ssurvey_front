@@ -9,24 +9,23 @@ import SingleCheck from "./SingleCheck";
 import MultiCheck from "./MultiCheck";
 
 
-const CreateQ = ({ k , deleteQuestionContainer, surveyCategory} ) => {
+const CreateQ = ({ k , deleteQuestionContainer, handleTypeSelect, sqQuestion, onSqQuestionChange} ) => {
 
  const [selectedType, setSelectedType] = useState(null);
  const [modalShow, setModalShow] = useState(false); // 모달의 show 상태를 관리할 상태 변수
 //  const [selectedCategory, setSelectedCategory] = useState('');
 
 
+const handleOptionSelect = (type) => {
+  setSelectedType(type); // Set the selected type
+  // You can perform additional actions based on the selected type here
+  handleTypeSelect(type);
+  console.log("타입선택 : " + type)
+ 
+};
 
- const handleCategorySelect = (surveyCategory) => {
-   
-   setSelectedCategory(surveyCategory); 
-   console.log('surveyCategory:', surveyCategory);
-   
- };
 
 
-
- console.log("타입 : " + selectedType);
   
 return (
   <>
@@ -35,9 +34,9 @@ return (
 <div className="QuestionList">
    <div className="QuestionContainer" key={k}>  
 
-<button type="button" className="deleteQ" onClick={() => deleteQuestionContainer(k)}>✖️</button>
+<button type="button" className="deleteQ" onClick={() => deleteQuestionContainer()}>✖️</button>
   <div className="questionContainer">
-  <Question />
+  <Question sqQuestion={sqQuestion} onSqQuestionChange={onSqQuestionChange}/>
   <button variant="primary" onClick={() => setModalShow(true)} className="AddImage">
   📷
       </button>
@@ -46,22 +45,15 @@ return (
         onHide={() => setModalShow(false)}
         />
  
-  <Qtype selectedType={selectedType} setSelectedType={setSelectedType} onCategorySelect={handleCategorySelect} surveyCategory={surveyCategory}/>
+  <Qtype selectedType={selectedType} setSelectedType={setSelectedType} handleTypeSelect={handleTypeSelect} handleOptionSelect={handleOptionSelect} />
   </div>  
    
-  <div className='AList'>
-  {selectedCategory ===  'Fun' ? (             
-              <>
-                <SingleCheck selectedType={selectedType} /> 
-                <ShortText selectedType={selectedType} />
-              </>
-            ) : (            
-              <>
-                <MultiCheck selectedType={selectedType} />
-                <LongText selectedType={selectedType} />
-              </>
-            )}
-          </div>
+  <div className='AList'>             
+          {selectedType === '객관식' && <SingleCheck selectedType={selectedType}  />}
+          {selectedType === '다중 체크' && <MultiCheck selectedType={selectedType}  />}
+          {selectedType === '단답형' && <ShortText selectedType={selectedType}  />}
+          {selectedType === '장문형' && <LongText selectedType={selectedType} />}
+        </div>
         </div>
       </div>
     </>

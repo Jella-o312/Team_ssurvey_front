@@ -1,29 +1,47 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Question.css';
 
 
 
-const Question = ({sqQuestion, onsqQuestionChange}) => {
+const Question = ({ sqQuestion, onSqQuestionChange }) => {
  
-  const [Question, setQuestion] = useState((''));
- 
+  const [Question, setQuestion] = useState(sqQuestion);
+  const inputRef = useRef();
 
 
   useEffect(() => {
     console.log({sqQuestion}); 
-  }, [{sqQuestion}]);
+    setQuestion(sqQuestion); 
+  }, [sqQuestion]);
 
-const handlesqQuestionChange = (e) => {
-  onsqQuestionChange(e.target.value);
-  console.log("sqQuestion: " + sqQuestion);
-};
+
+  const handlesqQuestionChange = (e) => {
+    setQuestion(e.target.value);
+    onSqQuestionChange(e.target.value);
+    console.log("sqQuestion: " + e.target.value);
+  };
+
 
   
+useEffect(() => {
+  function handleClickOutside(event) {
+    if (inputRef.current && !inputRef.current.contains(event.target)) {
+      // Clicked outside the input field, save the value
+    onSqQuestionChange(sqQuestion);
+    }
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [Question,  onSqQuestionChange]);
+
 
 return (
   <div>
     <input type="text" placeholder='질문을 입력하세요'
-    value={sqQuestion} name={sqQuestion} id="sqQuestion" onsqQuestionChange={handlesqQuestionChange}
+    name={sqQuestion} id="sqQuestion" onChange={handlesqQuestionChange}  ref={inputRef}
     className="InsertQ"
      />   
 <hr className='Qhr'/> 

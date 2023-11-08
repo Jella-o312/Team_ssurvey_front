@@ -4,24 +4,9 @@ import React, { useState } from 'react';
 
 
 
-function Qtype({ selectedType, setSelectedType, onCategorySelect }) {
+function Qtype({handleOptionSelect, selectedType}) {
 
-
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const handleTypeSelect = (type, surveyCategory) => {
-    setSelectedOption(null); // 선택한 옵션 초기화
-  
-    if (type !== selectedType) {
-      setSelectedType(type);
-      // 여기에서 선택한 타입에 대한 추가 동작을 수행
-      onCategorySelect(surveyCategory);
-    }
-  };
-
-
-
-
+ 
   return (
     <div className='DropdownContainer'>
       <div className='DropdownList'>
@@ -32,10 +17,10 @@ function Qtype({ selectedType, setSelectedType, onCategorySelect }) {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item onClick={() => handleTypeSelect('객관식', 'Fun')}>객관식</Dropdown.Item>
-        <Dropdown.Item onClick={() => handleTypeSelect('다중 체크', 'Survey')}>다중 체크</Dropdown.Item>
-        <Dropdown.Item onClick={() => handleTypeSelect('단답형', 'Fun')}>단답형</Dropdown.Item>
-        <Dropdown.Item onClick={() => handleTypeSelect('장문형', 'Survey')}>장문형</Dropdown.Item>
+        <Dropdown.Item onClick={() =>  handleOptionSelect('객관식')}>객관식</Dropdown.Item>
+        <Dropdown.Item onClick={() =>  handleOptionSelect('다중 체크')}>다중 체크</Dropdown.Item>
+        <Dropdown.Item onClick={() =>  handleOptionSelect('단답형')}>단답형</Dropdown.Item>
+        <Dropdown.Item onClick={() =>  handleOptionSelect('장문형')}>장문형</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
     </div>

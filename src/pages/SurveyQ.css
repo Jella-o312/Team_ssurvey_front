@@ -51,29 +51,30 @@ display: flex;
 
 
 .StitleWrap{  
-  display: flex;
-  justify-content: space-between;
+
   align-items: center;
   border: thin;
   border-style: solid;
-  border-color:#A7AABC;
+  border-color: #434656;
   background: #434656;
   width: 900px; 
   height: 40px;  
   margin-left: 300px;  
-  margin-top: 5px;
+  margin-top: -5px;
+  white-space: nowrap;
 }
 
 
 
 .SurTitle{ 
+  display: flex;
   border: none;
   background: #434656;
   color: white;
   padding-left: 20px;  
   width: 850px;   
   font-size: 20px; 
-  
+  display: inline-block;
 }
 
 .SurTitle:focus{
@@ -84,7 +85,7 @@ display: flex;
 
 
 
-.Qdelete-btn{ 
+.Qdelete-btn{   
   border-radius: 50px;
   width: 26px;
   height: 26px;
@@ -92,6 +93,8 @@ display: flex;
   color: white;
   border: none;
   margin-right: 18px;
+  display: inline-block;
+  margin-left: -40px;
 }
 
 

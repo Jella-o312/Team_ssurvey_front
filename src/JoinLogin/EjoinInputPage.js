@@ -19,7 +19,7 @@ const EjoinInputPage = ()=>{
     userJob : ''
   });
 
-  
+  console.log(ejoinUser);
   
   // ⭐회원가입 정규식 객체⭐'^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
   const regexBox = {

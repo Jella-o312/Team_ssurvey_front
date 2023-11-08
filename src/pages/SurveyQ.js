@@ -4,19 +4,52 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 
-const SurveyQ = ({ surveyCategory }) => {
+const SurveyQ = () => {
 const { useState, useEffect } = require("react");
 const navigate = useNavigate();  
 
 
+
 const [sTitle, setSTitle] = useState('');
-// const [surveyCategory, setSurveyCategory] = useState('');
 const [swriter, setSwriter] = useState('');
-const [sqQuestion, setsqQuestion] = useState([]); // 질문 목록을 배열로 관리
-const [sOption, setSOpion] = useState([]); 
+const [sQType, setSQType] = useState([]); 
+const [sqQuestion, setSqQuestion] = useState([]); // 질문 목록을 배열로 관리
+const [sOption, setSOption] = useState([]); 
 const [selectedCategory, setSelectedCategory] = useState('');
 
+const handleSqQuestionChange = (newSqQuestion) => {
+  setSqQuestion(newSqQuestion);
+};
 
+
+
+const handleTypeSelect = (selectedType) => {
+  let TypeValue;
+  let category;
+
+  switch (selectedType) {
+    case '객관식':
+      TypeValue = 1;
+      category = 'Fun';
+      break;
+    case '단답형':
+      TypeValue  = 2;
+      category = 'Fun';
+      break;
+    case '다중체크':
+      TypeValue  = 3;
+      category = 'Survey';
+      break;
+    case '장문형':
+      TypeValue  = 4;
+      category = 'Survey';
+      break;
+   
+  }
+
+  setSQType(TypeValue );
+  setSelectedCategory(category);
+};
 
 
 
@@ -55,8 +88,6 @@ const handleKeyDown = (event) => {
   // };
 
   const [isStitleWrapVisible, setStitleWrapVisible] = useState(true);
-  // const [isCreateQVisible, setCreateQVisible] = useState(false);
-
   
   useEffect(() => {
     console.log(sTitle);
@@ -92,7 +123,7 @@ const handleKeyDown = (event) => {
   
 
   const addQuestion = () => {
-    setsqQuestion([...sqQuestion, '']);
+    setSqQuestion([...sqQuestion, '']);
   };
 
 
@@ -105,7 +136,11 @@ const handleKeyDown = (event) => {
       sOption: sOption
     };
 
-    console.log('surveyCategory:', surveyCategory);
+    console.log('surveyCategory:', selectedCategory);
+    console.log('SQType:', sQType);
+    console.log('sOption:', sOption);
+    console.log('sTitle:', sTitle);
+    console.log('sqQuestion:', sqQuestion);
 
     axios.post(`${process.env.REACT_APP_SERVER_URL}/SurveyQ`, SurveyQ)
     .then(response=>{
@@ -113,7 +148,6 @@ const handleKeyDown = (event) => {
       navigate('/'); 
     }).catch(error=>{
       console.log(error);
-      console.log('sTitle:', sTitle);
       alert("완료되지 않은 질문이 있어요🙅");  
     })
   }
@@ -133,7 +167,6 @@ const handleKeyDown = (event) => {
    </div>
    <div className="StitleWrap" style={{ display: isStitleWrapVisible ? 'block' : 'none' }}>
    <input className="SurTitle" placeholder="l 설문제목을 입력하세요" onKeyDown={handleKeyDown} value={sTitle} id="title" name={sTitle}
-  //  onChange={(e) => setSTitle(e.target.value)} 
   onChange={changeValue} 
    ></input>
    <button type="button" className="Qdelete-btn"
@@ -156,9 +189,8 @@ const handleKeyDown = (event) => {
 <div className="QGroupBox">
 <div className="QGroup">
 <div className="InsertBtnContainer">
-<CreateQ k={0} selectedCategory={selectedCategory} />
-            <InsertBtn addQuestion={addQuestion} />
-  {/* <InsertBtn onClick={addQuestion} selectedCategory={selectedCategory}/> */}
+
+  <InsertBtn onClick={addQuestion} handleTypeSelect={handleTypeSelect} sqQuestion={sqQuestion} onSqQuestionChange={handleSqQuestionChange} setSOption={setSOption}/>
   </div>
    </div>
 </div>
@@ -170,8 +202,4 @@ const handleKeyDown = (event) => {
   };
 
   export default SurveyQ;
- 
-
-
-
 
