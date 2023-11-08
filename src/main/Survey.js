@@ -10,43 +10,44 @@ const Survey = ({ boardType }) => {
   const navigate = useNavigate();
   const [showParticipateModal, setShowParticipateModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
-  const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-  // 서버에서 데이터 가져오는 함수
-  const fetchSurveyData = async () => {
-    try {
-      const response = await fetch(`${serverUrl}/api/surveys`); // 서버에서 데이터를 가져오는 엔드포인트로 수정해야 함
-      if (response.ok) {
-        const data = await response.json();
-        setSurveyList(data); // 서버에서 받은 데이터로 surveyList 상태를 업데이트
-      }
-    } catch (error) {
-      console.error("설문 데이터를 불러오는 중 에러가 발생했습니다: ", error);
+// React 컴포넌트 내에서 API를 호출하는 함수 예제
+const fetchSurveyData = async () => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/surveys`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data); // 데이터를 로깅하거나 상태로 업데이트합니다.
     }
-  };
+  } catch (error) {
+    console.error("데이터 가져오기 중 에러가 발생했습니다: ", error);
+  }
+};
+
 
   useEffect(() => {
     fetchSurveyData(); // 컴포넌트가 마운트될 때 데이터를 가져오도록 설정
   }, []); // 빈 배열을 전달하여 한 번만 호출되도록 함
 
+
   //카드 정보를 배열에 정의, <<<<이 부분 DB연결해서 내용보이게 하면 됨>>>>
   const [surveyList, setSurveyList] = useState([ // 설문 목록을 상태로 관리
-  {
-    id: 0,
-    imgSrc: "/img/survey-banner1.jpg",
-    title: "설문조사 title 부분 1",
-    description: "설문조사 내용부분",
-    surveyCount: "00",
-    likes: 0, // 좋아요 수 초기값
-  },
-  {
-    id: 1,
-    imgSrc: "/img/survey-banner2.jpg",
-    title: "설문조사 title 부분 2",
-    description: "설문조사 내용부분",
-    surveyCount: "00",
-    likes: 0, // 좋아요 수 초기값
-  },
+    {
+      id: 0,
+      imgSrc: "/img/survey-banner1.jpg",
+      title: "설문조사 title 부분 1",
+      description: "설문조사 내용부분",
+      surveyCount: "00",
+      likes: 0, // 좋아요 수 초기값
+    },
+    {
+      id: 1,
+      imgSrc: "/img/survey-banner2.jpg",
+      title: "설문조사 title 부분 2",
+      description: "설문조사 내용부분",
+      surveyCount: "00",
+      likes: 0, // 좋아요 수 초기값
+    },
     {
       id: 2,
       imgSrc: "/img/survey-banner3.jpg",
@@ -152,7 +153,7 @@ const Survey = ({ boardType }) => {
       likes: 0,
     },
   ]);
-
+  // const [surveyList, setSurveyList] = useState([]);
   const [loadMoreCount, setLoadMoreCount] = useState(6);
 
   const handleLoadMore = () => {
@@ -161,36 +162,36 @@ const Survey = ({ boardType }) => {
     setLoadMoreCount(newLoadMoreCount);
   };
 
-// 로컬 스토리지에서 좋아요 카운트를 불러오는 함수
-const loadLikesFromLocalStorage = () => {
-  try {
-    const likesData = localStorage.getItem('likes');
-    return likesData ? JSON.parse(likesData) : {};
-  } catch (error) {
-    console.error('Error loading likes from local storage', error);
-    return {};
-  }
-};
+  // 로컬 스토리지에서 좋아요 카운트를 불러오는 함수
+  const loadLikesFromLocalStorage = () => {
+    try {
+      const likesData = localStorage.getItem('likes');
+      return likesData ? JSON.parse(likesData) : {};
+    } catch (error) {
+      console.error('로컬 스토리지에서 좋아요를 불러오는 중에 오류가 발생했습니다', error);
+      return {};
+    }
+  };
 
- // 초기 좋아요 데이터 설정
- const initialLikes = loadLikesFromLocalStorage();
- const [likes, setLikes] = useState(initialLikes);
+  // 초기 좋아요 데이터 설정
+  const initialLikes = loadLikesFromLocalStorage();
+  const [likes, setLikes] = useState(initialLikes);
 
-// 좋아요 버튼 클릭 시 호출되는 함수
-const handleLikeClick = (surveyId) => {
-  setSurveyList((prevSurveyList) => {
-    return prevSurveyList.map((survey) => {
-      if (survey.id === surveyId) {
-        // 좋아요 수를 증가시키고, 로컬 스토리지에 좋아요 데이터를 저장
-        const newLikes = { ...likes, [surveyId]: (likes[surveyId] || 0) + 1 };
-        setLikes(newLikes);
-        localStorage.setItem('likes', JSON.stringify(newLikes));
-        return { ...survey, likes: (survey.likes || 0) + 1 };
-      }
-      return survey;
+  // 좋아요 버튼 클릭 시 호출되는 함수
+  const handleLikeClick = (surveyId) => {
+    setSurveyList((prevSurveyList) => {
+      return prevSurveyList.map((survey) => {
+        if (survey.id === surveyId) {
+          // 좋아요 수를 증가시키고, 로컬 스토리지에 좋아요 데이터를 저장
+          const newLikes = { ...likes, [surveyId]: (likes[surveyId] || 0) + 1 };
+          setLikes(newLikes);
+          localStorage.setItem('likes', JSON.stringify(newLikes));
+          return { ...survey, likes: (survey.likes || 0) + 1 };
+        }
+        return survey;
+      });
     });
-  });
-};
+  };
 
 
   const handleParticipateClick = () => {
@@ -204,7 +205,7 @@ const handleLikeClick = (surveyId) => {
   return (
     <>
 
-      <Container className={`Survey_title ${boardType} FB`}>
+      <Container className={`Survey_title ${boardType}`}>
         <h1 className={`${boardType}-title`}> {boardType === 'fun' ? 'Fun' : 'Survey'} {loadMoreCount < surveyList.length && (
           <Button className="btn-more" onClick={handleLoadMore}>더 보기</Button>
         )} </h1>
@@ -213,8 +214,8 @@ const handleLikeClick = (surveyId) => {
       <Container className={`MainSurveyBox ${boardType}`}>
         <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
           {surveyList.slice(0, loadMoreCount).map((survey) => (
-            <Col className={`col ${boardType} FB`} key={survey.id}>
-              <div className={`card ${boardType} FB`}>
+            <Col className={`col ${boardType}`} key={survey.id}>
+              <div className={`card ${boardType}`}>
                 <img src={survey.imgSrc} className="card-img-top" alt={survey.title} />
                 <h5 className="card-title">{survey.title}</h5>
                 <p className="card-text">{survey.description}</p>
@@ -255,6 +256,7 @@ const handleLikeClick = (surveyId) => {
       <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>결과보기</Modal.Title>
+          <SurveyReply /> {/* 임시로 어떻게 들어가나 넣어봄 사이즈 확인겸 */}
         </Modal.Header>
         <Modal.Body>
 

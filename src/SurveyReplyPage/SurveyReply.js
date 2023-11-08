@@ -1,22 +1,42 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SurveyReply.css';
+import axios from 'axios';
 
-const SurveyReply = ({ userInfo }) => {
+const SurveyReply = ({ userInfo, comment }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const commentsPerPage = 10; // 한 페이지당 댓글 수
 
+  // 컴포넌트가 마운트될 때 서버에서 댓글 데이터를 가져옴
+  useEffect(() => {
+    axios.get('/api/comments') // 서버 API 엔드포인트로 변경
+      .then((response) => {
+        setComments(response.data);
+      })
+      .catch((error) => {
+        console.error('댓글 데이터를 불러오는 중 오류 발생:', error);
+      });
+  }, []);
+
   const addComment = () => {
     if (newComment) {
       const commentData = {
-        author: userInfo.userName, // 작성자 이름 author로
         content: newComment,
-        date: new Date(),
+        author: userInfo.userRname, // 작성자 정보를 사용자 정보에서 가져와야 함
+        srCreateDate: new Date(),
       };
-      setComments([...comments, commentData]);
-      setNewComment('');
+
+      // 서버에 새로운 댓글 추가 요청 보내고, 성공하면 댓글 목록을 업데이트
+      axios.post('/api/comments', commentData)
+        .then((response) => {
+          setComments([...comments, response.data]);
+          setNewComment('');
+        })
+        .catch((error) => {
+          console.error('댓글 추가 중 오류 발생:', error);
+        });
     }
   };
 
@@ -29,7 +49,7 @@ const SurveyReply = ({ userInfo }) => {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  
+
   return (
     <div className="comment-container">
       <h2>댓글</h2>
@@ -48,19 +68,12 @@ const SurveyReply = ({ userInfo }) => {
         {currentComments.map((comment, index) => (
           <div className="comment" key={index}>
             <p>
-            <a>작성자 : {comment.author}</a>
+              <a>작성자 : {comment.author}</a>
               {comment.content}
-            <button className='sr-modify-btn'
-            // onClick={modify}
-            >
-            수정
-            </button>
-            <button className='sr-move-btn'
-            // onClick={modify}
-            >
-            삭제
-            </button> <br/>
-            <span>작성일: {comment.date.toLocaleString()}</span>
+              <button className='sr-modify-btn'>{/* 수정 버튼 로직 추가 */}</button>
+              <button className='sr-delete-btn'>{/* 삭제 버튼 로직 추가 */}</button>
+              <br />
+              <span>작성일: {comment.srCreateDate.toLocaleString()}</span>
             </p>
           </div>
         ))}
