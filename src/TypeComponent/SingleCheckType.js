@@ -1,73 +1,44 @@
 import { useEffect, useState } from "react";
 import './SingleCheckType.css';
+import axios from 'axios'; // 설문 정보를 가져오기 위한 HTTP 요청에 axios를 사용합니다.
 
-function SinglecheckType({ selectedType }) {
-
-  const [selectedOption, setSelectedOption] = useState(''); // 선택된 옵션
-  const [options, setOptions] = useState([]); // 옵션 목록
-
-
-  const addOption = () => {
-    // 새로운 옵션을 추가
-    setOptions([...options, '']);
-  };
-
-  const deleteOption = (index) => {
-    // 특정 인덱스의 옵션을 삭제
-    const updatedOptions = [...options];
-    updatedOptions.splice(index, 1);
-    setOptions(updatedOptions);
-
-    if (selectedOption === options[index]) {
-      setSelectedOption('');
-      console.log( setSelectedOption);
-    }
-  };
+function SingleCheckType({ selectedType }) {
+  const [survey, setSurvey] = useState({
+    sTitle: '',
+    questions: [],
+  });
 
   useEffect(() => {
-    // 선택된 타입이 변경될 때 초기화 작업 수행
-    setSelectedOption('');
-    setOptions([]); // 옵션 초기화
+    // API 엔드포인트나 식별자에 기반하여 설문 정보를 가져옵니다.
+    axios.get('설문_API_엔드포인트')
+      .then((response) => {
+        setSurvey(response.data); // API에서 설문 제목과 질문 정보가 제대로 반환된다고 가정합니다.
+      })
+      .catch((error) => {
+        console.error('설문 정보를 가져오는 중 오류 발생:', error);
+      });
   }, [selectedType]);
-
-
-  const handleOptionChange = (e, index) => {
-    const updatedOptions = [...options];
-    updatedOptions[index] = e.target.value;
-    setOptions(updatedOptions);
-  
-    if (selectedOption === options[index]) {
-      setSelectedOption(e.target.value);
-    }
-  };
 
   return (
     <div className="addCheck">
-      {selectedType === '객관식' && (
-        <button onClick={addOption} className="Add">╊ 옵션추가</button>
-      )}
-
-      <div className="options-container">
-        {options.map((option, index) => (
-          <div key={index}>
-            <label className="Qlabel">
-              <input
-                type="radio"
-                className="radioBtn"
-                name="options" // 같은 name을 가진 라디오 버튼들은 하나만 선택됨
-                value={option}
-                checked={selectedOption === option}
-                onChange={(e) => setSelectedOption(e.target.value)}
-              />
-              <input
-                type="text"
-                className="SOptionText"
-                placeholder='옵션 입력'
-                value={option}           
-                onChange={(e) => handleOptionChange(e, index)}    
-              />
-              <button onClick={() => deleteOption(index)} className="DeleteOption">X</button>
-            </label>
+      <h1>{survey.sTitle}</h1>
+      <div className="questions-container">
+        {survey.questions.map((question, questionIndex) => (
+          <div key={questionIndex}>
+            <p>{question.sqQuestion}</p>
+            <div className="options-container">
+              {question.sOptions.map((option, optionIndex) => (
+                <label className="Qlabel" key={optionIndex}>
+                  <input
+                    type="radio"
+                    className="radioBtn"
+                    name={`options-${questionIndex}`}
+                    value={option}
+                  />
+                  <span>{option}</span>
+                </label>
+              ))}
+            </div>
           </div>
         ))}
       </div>
@@ -75,4 +46,4 @@ function SinglecheckType({ selectedType }) {
   );
 }
 
-export default SinglecheckType;
+export default SingleCheckType;
