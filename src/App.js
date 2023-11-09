@@ -15,6 +15,9 @@ import MainHome from './main/MainHome';
 import { useEffect, useState } from 'react';
 import Login from './Login/Login';
 import axiosInstance from './axiosInstance';
+import GoogleLogin from './Login/GoogleLogin';
+import SocialAddInfo from './JoinLogin/SocialAddInfo';
+
 
 
 
@@ -36,6 +39,7 @@ function App() {
     userJob : '',
     serveyNo : ''
   });
+
 
   // 로그인 했을때 뽑아오는 작업함, 로그아웃됐을대 유저정보 삭제
   useEffect(()=>{
@@ -74,11 +78,17 @@ function App() {
       <Route path='/Answer' element={<Answer />}/>
       <Route path='/join' element={<Join/>}/>
       <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
+      <Route path ='/oauth/google' element={<GoogleLogin setIsLogin={setIsLogin} />}/>
       <Route path='/emailJoin' element={<EmailJoin/>}/>
       <Route path='/fbList' element={<FreeBoardList isLogin={isLogin}/>} />
       <Route path='/fbwrite' element={<WriteFreeBoard userInfo={userInfo} isLogin={isLogin} />} />
       <Route path='/fbdetail/:fbno' element={<FreeBoardDetail userInfo={userInfo}/>} />
       <Route path='/fbupdate/:fbno' element={<UpdateFreeBoard/>} />
+      <Route path='/socialAddInfo' element={<SocialAddInfo setIsLogin={setIsLogin}/>} /> {/* 소셜 로그인 추가 정보 입력 페이지 (이거 완료해야 회원가입 완료됨) */}
+      <Route path='/fbList' element={<FreeBoardList />} />
+      <Route path='/fbwrite' element={<WriteFreeBoard />} />
+      <Route path='/fbdetail/:fbno' element={<FreeBoardDetail />} />
+      <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
       <Route path="/FunSurvey" element={<FunSurvey/>} />
       <Route path="/Survey" element={<Survey/>} />
     </Routes>

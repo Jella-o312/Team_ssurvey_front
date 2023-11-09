@@ -295,7 +295,7 @@ const EjoinInputPage = ()=>{
                       </div>
                     </div>
 
-                    {isRegexs.RLocation === false ? <p className="join_input_regexTxt">*출생년도를 선택해주세요</p> : null} 
+                    {isRegexs.RLocation === false ? <p className="join_input_regexTxt">*지역을 선택해주세요</p> : null} 
                 </div>  
 
 
