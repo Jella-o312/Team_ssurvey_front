@@ -5,45 +5,36 @@ import CreateQ from './CreateQ';
 
 
 
-function InsertBtn({handleTypeSelect, sqQuestion, handleSqQuestionChange, onSqQuestionChange} ) {
+function InsertBtn({handleAddQ, surveyList, setSurveyList} ) {
 
+  const [Qnum, setQnum] = useState(1);  //Id 혹은 k값으로 생성하기 위해 만든 임의 변수 (설문생성 눌렀을때 다시 0으로 초기화 해줘야함)
+
+
+  // 🟡🟡🟡(보류) 설문 한덩이 삭제 핸들러
   function deleteQuestionContainer(index) {   
-    // console.log(index)
-    // console.log(createQComponents)
-    if (index > 0) {
-      setCreateQComponents(createQComponents.filter((data) => data !== index))
-
-      // const updatedComponents = createQComponents.filter((d, i) => i !== index)
-      // console.log(createQComponents)
-      // console.log('test')
-      // console.log(updatedComponents)
-      // // updatedComponents.splice(index, 1);
-      // setCreateQComponents(updatedComponents);
-  
+    if (surveyList.length > 1) {
+      setSurveyList( surveyList.filter(data => data.id !== index))
     }
   };
 
-  function test() {
-    console.log(createQComponents);
-  }
-  
-  
-  const [createQComponents, setCreateQComponents] = useState([0]);
-  //delete함수 구현 후 보내줘야함(순서 중요)                               
-  
-
-  console.log(createQComponents)
 
 
 // "추가" 버튼을 클릭할 때 CreateQ 컴포넌트 추가
 const addCreateQComponent = () => {
-let k = createQComponents.length
-setCreateQComponents([
-  ...createQComponents,
-  k
-  // <CreateQ k={k} key={k} deleteQuestionContainer={deleteQuestionContainer}/>,
-        // ↑↑↑  k로 적혀있던거 key로 바꿈
+  let k = Qnum +1;
+  setQnum(k);
+
+  setSurveyList([
+  ...surveyList,
+  {
+    id: k,
+    sqQuestion: '',
+    sqType: '',
+    option: []
+  }
 ]);
+
+
 };
 
 
@@ -74,9 +65,9 @@ alert("🙅 준비 중이에요 🙅");
   <div className="QContainer">
   <div>      
     {
-      createQComponents.map((k) => {
+      surveyList.map((data) => {
         return (
-          <CreateQ key={k}  deleteQuestionContainer={() => deleteQuestionContainer(k)} handleTypeSelect={handleTypeSelect} sqQuestion={sqQuestion} onSqQuestionChange={onSqQuestionChange}/>
+          <CreateQ key={data.id} data={data}  handleAddQ={handleAddQ} surveyList={surveyList} setSurveyList={setSurveyList} deleteQuestionContainer={ deleteQuestionContainer}/>
         );
       })
     }

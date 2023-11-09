@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 
 
-function Qtype({handleOptionSelect, selectedType}) {
+function Qtype({ data , handleAddQ, surveyList, setSurveyList}) {
 
  
   return (
@@ -13,14 +13,14 @@ function Qtype({handleOptionSelect, selectedType}) {
     <div className='Dropdown'>
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
-      {selectedType ? selectedType : '타입 선택'}
+      {data.sqType ? data.sqType : '타입 선택'}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item onClick={() =>  handleOptionSelect('객관식')}>객관식</Dropdown.Item>
-        <Dropdown.Item onClick={() =>  handleOptionSelect('다중 체크')}>다중 체크</Dropdown.Item>
-        <Dropdown.Item onClick={() =>  handleOptionSelect('단답형')}>단답형</Dropdown.Item>
-        <Dropdown.Item onClick={() =>  handleOptionSelect('장문형')}>장문형</Dropdown.Item>
+        <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'객관식')}>객관식</Dropdown.Item>
+        <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'다중 체크')}>다중 체크</Dropdown.Item>
+        <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'단답형')}>단답형</Dropdown.Item>
+        <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'장문형')}>장문형</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
     </div>

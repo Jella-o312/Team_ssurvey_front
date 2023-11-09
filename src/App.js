@@ -25,7 +25,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
 
   const [userInfo, setUserInfo] = useState({  // 여기에 임시 값 넣어두고 하기
-    userName : '',
+    username : '김설문',
     userEmail : '',
     userPassword : '',
     userRoletype: '',
@@ -52,7 +52,7 @@ function App() {
     <Routes>    
       <Route path="/" element={<MainHome />} />
       <Route path='/SurveyList' element={<SurveyList />}/>  
-      <Route path='/SurveyQ' element={<SurveyQ />}/>   
+      <Route path='/SurveyQ' element={<SurveyQ userInfo={userInfo}/>}/>   
       <Route path='/Answer' element={<Answer />}/>
       <Route path='/join' element={<Join/>}/>
       <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
