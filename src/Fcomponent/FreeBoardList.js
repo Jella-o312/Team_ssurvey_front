@@ -52,7 +52,7 @@ function FreeBoardList({ isLogin }) {
               .then((res) => {
                 setBoardList(res.data.content);
                 setTotalPages(res.data.totalPages);
-                setIsLoading(false);
+                setIsLoading(true);
               }).catch((error) => {
                 console.log(error);
               }) 
@@ -93,7 +93,7 @@ function FreeBoardList({ isLogin }) {
                                 console.log(err);
                             })
                           }
-                        }}>{board.fbTitle}</Link>
+                        }}>{board.fbTitle} [{board.fbReplyList.length}]</Link>
                       </th>
                       <td>{board.user.userRname}</td>
                       <td>{board.fbCreateBoard}</td>

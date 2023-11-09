@@ -7,11 +7,11 @@ function FreeBoardDetail({ userInfo }) {
 
   const {fbno} = useParams();
   const [board, setBoard] = useState(null);
-  const [replyList, setReplyList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const [totalPages, setTotalPages] = useState();
+  const [commentList, setCommentList] = useState([]);
   const [reply, setReply] =useState({
     fbrContent : '',
     user : userInfo
@@ -20,25 +20,17 @@ function FreeBoardDetail({ userInfo }) {
   const navigate = useNavigate();
   
   useEffect(() => {
-    axiosInstance.get(`/fboard/${fbno}`)
+    axiosInstance.get(`/fboarddetail/${fbno}?page=${page}&size=${pageSize}`)
     .then((response) => {
       if(response.data) {
-      setBoard(response.data);
+      setBoard(response.data.freeBoard);
+      setCommentList(response.data.replyList)
+      setTotalPages(response.data.totalPages);
       setIsLoading(true);
     }
     }).catch((error) => {
       console.log(error);
     })
-
-    axiosInstance.get(`/replies?page=${page}&size=${pageSize}`, board)
-    .then((response) => {
-      if(response.data.content) {
-        setReplyList(response.data.content);
-        setTotalPages(response.data.totalPages);
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
     }, [fbno, page, pageSize]);
 
   const changeHandler = (e) => {
@@ -64,16 +56,21 @@ function FreeBoardDetail({ userInfo }) {
       user: reply.user,
       freeBoard: board,
     }).then((response) => {
-      // 댓글 등록 성공 시, 댓글 목록 업데이트
-      setReplyList([...replyList, response.data]);
+      axiosInstance.get(`/fboarddetail/${fbno}?page=${page}&size=${pageSize}`)
+      .then((response) => {
+        if(response.data) {
+          setCommentList(response.data.replyList);
+          setTotalPages(response.data.totalPages);
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
       setReply({ ...reply, fbrContent: "" });
     }).catch((error) => {
       console.log(error);
       alert("댓글 등록 중 오류가 발생했습니다.");
     });
   }
-
-  console.log(replyList);
 
   if(!isLoading)
     return <div>로딩중...</div>
@@ -154,11 +151,11 @@ function FreeBoardDetail({ userInfo }) {
         </div>
 
         <div className="fb-comment-list">
-          {replyList.map((replyItem, i) => (
+          {commentList.map((replyItem, i) => (
             <div className="fb-comment" key={i}>
               <div className="fb-comment-info">
-                <span className="fb-comment-author">사용자1</span>
-                <span className="fb-comment-date">2023-01-03</span>
+                <span className="fb-comment-author">{replyItem.user.userRname}</span>
+                <span className="fb-comment-date">{replyItem.fbrCreateDate}</span>
               </div>  
               <p className="fb-comment-text">{replyItem.fbrContent}</p>
             </div>
