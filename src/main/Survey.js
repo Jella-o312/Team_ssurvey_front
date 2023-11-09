@@ -4,193 +4,32 @@ import './Survey.css';
 import { useNavigate } from "react-router-dom";
 import Answer from "../pages/Answer";
 import SurveyReply from "../SurveyReplyPage/SurveyReply";
-import { Routes, Route } from "react-router-dom";
+import axiosInstance from "../axioslnstance";
 
 const Survey = ({ boardType }) => {
   const navigate = useNavigate();
   const [showParticipateModal, setShowParticipateModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
-
-// React 컴포넌트 내에서 API를 호출하는 함수 예제
-const fetchSurveyData = async () => {
-  try {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/surveys`);
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data); // 데이터를 로깅하거나 상태로 업데이트합니다.
-    }
-  } catch (error) {
-    console.error("데이터 가져오기 중 에러가 발생했습니다: ", error);
-  }
-};
-
-
-  useEffect(() => {
-    fetchSurveyData(); // 컴포넌트가 마운트될 때 데이터를 가져오도록 설정
-  }, []); // 빈 배열을 전달하여 한 번만 호출되도록 함
-
-
-  //카드 정보를 배열에 정의, <<<<이 부분 DB연결해서 내용보이게 하면 됨>>>>
-  const [surveyList, setSurveyList] = useState([ // 설문 목록을 상태로 관리
-    {
-      id: 0,
-      imgSrc: "/img/survey-banner1.jpg",
-      title: "설문조사 title 부분 1",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0, // 좋아요 수 초기값
-    },
-    {
-      id: 1,
-      imgSrc: "/img/survey-banner2.jpg",
-      title: "설문조사 title 부분 2",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0, // 좋아요 수 초기값
-    },
-    {
-      id: 2,
-      imgSrc: "/img/survey-banner3.jpg",
-      title: "설문조사 title 부분 3",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 3,
-      imgSrc: "../img/camping_main_01.jpg",
-      title: "설문조사 title 부분 4",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 4,
-      imgSrc: "../img/camping_main_02.jpg",
-      title: "설문조사 title 부분 5",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 5,
-      imgSrc: "../img/camping_main_03.jpg",
-      title: "설문조사 title 부분 6",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 6,
-      imgSrc: "../img/camping_main_01.jpg",
-      title: "설문조사 title 부분 7",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 7,
-      imgSrc: "../img/camping_main_02.jpg",
-      title: "설문조사 title 부분 8",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 8,
-      imgSrc: "../img/camping_main_03.jpg",
-      title: "설문조사 title 부분 9",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 9,
-      imgSrc: "../img/camping_main_01.jpg",
-      title: "설문조사 title 부분 10",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 10,
-      imgSrc: "../img/camping_main_02.jpg",
-      title: "설문조사 title 부분 11",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 11,
-      imgSrc: "../img/camping_main_03.jpg",
-      title: "설문조사 title 부분 12",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 12,
-      imgSrc: "../img/camping_main_01.jpg",
-      title: "설문조사 title 부분 13",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 13,
-      imgSrc: "../img/camping_main_02.jpg",
-      title: "설문조사 title 부분 14",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-    {
-      id: 14,
-      imgSrc: "../img/camping_main_03.jpg",
-      title: "설문조사 title 부분 15",
-      description: "설문조사 내용부분",
-      surveyCount: "00",
-      likes: 0,
-    },
-  ]);
-  // const [surveyList, setSurveyList] = useState([]);
+  const [survey, setSurvey] = useState([]);
   const [loadMoreCount, setLoadMoreCount] = useState(6);
 
+  // React 컴포넌트 내에서 API를 호출하는 함수 예제
+  useEffect(() => {
+    axiosInstance.get('/survey')
+      .then(response => {
+        setSurvey(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('설문 정보를 가져오는 중 오류 발생:', error);
+      });
+  }, []);
+
+
   const handleLoadMore = () => {
-    const additionalSurveys = Math.min(3, surveyList.length - loadMoreCount);
+    const additionalSurveys = Math.min(3, survey.length - loadMoreCount);
     const newLoadMoreCount = loadMoreCount + additionalSurveys;
     setLoadMoreCount(newLoadMoreCount);
-  };
-
-  // 로컬 스토리지에서 좋아요 카운트를 불러오는 함수
-  const loadLikesFromLocalStorage = () => {
-    try {
-      const likesData = localStorage.getItem('likes');
-      return likesData ? JSON.parse(likesData) : {};
-    } catch (error) {
-      console.error('로컬 스토리지에서 좋아요를 불러오는 중에 오류가 발생했습니다', error);
-      return {};
-    }
-  };
-
-  // 초기 좋아요 데이터 설정
-  const initialLikes = loadLikesFromLocalStorage();
-  const [likes, setLikes] = useState(initialLikes);
-
-  // 좋아요 버튼 클릭 시 호출되는 함수
-  const handleLikeClick = (surveyId) => {
-    setSurveyList((prevSurveyList) => {
-      return prevSurveyList.map((survey) => {
-        if (survey.id === surveyId) {
-          // 좋아요 수를 증가시키고, 로컬 스토리지에 좋아요 데이터를 저장
-          const newLikes = { ...likes, [surveyId]: (likes[surveyId] || 0) + 1 };
-          setLikes(newLikes);
-          localStorage.setItem('likes', JSON.stringify(newLikes));
-          return { ...survey, likes: (survey.likes || 0) + 1 };
-        }
-        return survey;
-      });
-    });
   };
 
 
@@ -205,32 +44,36 @@ const fetchSurveyData = async () => {
   return (
     <>
 
-      <Container className={`Survey_title ${boardType}`}>
-        <h1 className={`${boardType}-title`}> {boardType === 'fun' ? 'Fun' : 'Survey'} {loadMoreCount < surveyList.length && (
-          <Button className="btn-more" onClick={handleLoadMore}>더 보기</Button>
-        )} </h1>
+      <Container className={`Survey_title ${boardType} ${survey.surveyCategory}`}>
+        <h1 className={`${boardType}-title`}>
+          {boardType === 'fun' ? 'Fun' : 'Survey'}
+          {loadMoreCount < survey.length && (
+            <Button className="btn-more" onClick={handleLoadMore}>
+              더 보기
+            </Button>
+          )}
+        </h1>
       </Container>
 
       <Container className={`MainSurveyBox ${boardType}`}>
         <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
-          {surveyList.slice(0, loadMoreCount).map((survey) => (
-            <Col className={`col ${boardType}`} key={survey.id}>
+          {survey.map((survey, i) => (
+            <Col className={`col ${boardType}`} key={i}>
               <div className={`card ${boardType}`}>
                 <img src={survey.imgSrc} className="card-img-top" alt={survey.title} />
-                <h5 className="card-title">{survey.title}</h5>
-                <p className="card-text">{survey.description}</p>
+                <h5 className="card-title">{survey.surveyTitle}</h5>
                 <div className="LikeBtnCount">
-                  <button className="btn like-btn" onClick={() => handleLikeClick(survey.id)}>
-                    ❤
-                  </button>
-                  <span className="like-count">{likes[survey.id] || 0}</span>
+                  <button className="btn like-btn">❤</button>
+                  <span className="like-count">{survey.surveyLike || 0}</span>
                 </div>
                 <i className={`${boardType}-joinpeople`}>현재 {survey.surveyCount}명 참여 중</i>
-                {/* <div>${`surveyStart` ~ `surveyEnd`}
-                  참여기간</div> */}
                 <div className="card-wrap">
-                  <button className="btn submit-btn" onClick={handleParticipateClick}>참여하기</button>
-                  <button className="btn result-btn view_more" onClick={handleResultClick}>결과보기</button>
+                  <button className="btn submit-btn" onClick={handleParticipateClick}>
+                    참여하기
+                  </button>
+                  <button className="btn result-btn view_more" onClick={handleResultClick}>
+                    결과보기
+                  </button>
                 </div>
               </div>
             </Col>
