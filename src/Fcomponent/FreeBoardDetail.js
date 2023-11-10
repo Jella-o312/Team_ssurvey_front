@@ -135,6 +135,7 @@ function FreeBoardDetail({ userInfo }) {
         </div>
       </div>
 
+          
       <div className="fb-comment-section">
         <div className="fb-comment-input">
           <input
@@ -150,36 +151,39 @@ function FreeBoardDetail({ userInfo }) {
           </button>
         </div>
 
-        <div className="fb-comment-list">
-          {commentList.map((replyItem, i) => (
-            <div className="fb-comment" key={i}>
-              <div className="fb-comment-info">
-                <span className="fb-comment-author">{replyItem.user.userRname}</span>
-                <span className="fb-comment-date">{replyItem.fbrCreateDate}</span>
-              </div>  
-              <p className="fb-comment-text">{replyItem.fbrContent}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className='fb-page-btn'>
-          <button onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
-            이전
-          </button>
-          {Array.from(Array(totalPages).keys()).map((pageNumber) => (
-            <button
-              key={pageNumber}
-              onClick={() => handlePageChange(pageNumber)}
-              disabled={page === pageNumber}
-              className={page === pageNumber ? 'fb-selected-btn' : ''}
-            >
-              {pageNumber + 1}
+        {commentList.length !== 0 ?
+        <>
+          <div className="fb-comment-list">
+            {commentList.map((replyItem, i) => (
+              <div className="fb-comment" key={i}>
+                <div className="fb-comment-info">
+                  <span className="fb-comment-author">{replyItem.user.userRname}</span>
+                  <span className="fb-comment-date">{replyItem.fbrCreateDate}</span>
+                </div>  
+                <p className="fb-comment-text">{replyItem.fbrContent}</p>
+              </div>
+            ))}
+          </div>
+      
+          <div className='fb-page-btn'>
+            <button onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
+              이전
             </button>
-          ))}
-          <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1}>
-            다음
-          </button>
-        </div>
+            {Array.from(Array(totalPages).keys()).map((pageNumber) => (
+              <button
+                key={pageNumber}
+                onClick={() => handlePageChange(pageNumber)}
+                disabled={page === pageNumber}
+                className={page === pageNumber ? 'fb-selected-btn' : ''}
+              >
+                {pageNumber + 1}
+              </button>
+            ))}
+            <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1}>
+              다음
+            </button>
+          </div>
+        </> : <div>등록된 댓글이 없습니다</div> }
       </div>
     </div>
   );
