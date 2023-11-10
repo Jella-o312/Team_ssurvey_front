@@ -1,32 +1,78 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import '../Fcss/FreeBoardDetail.css';
+import axiosInstance from "../axiosInstance";
 
 function FreeBoardDetail({ userInfo }) {
 
   const {fbno} = useParams();
-  const [board, setBoard] = useState();
+  const [board, setBoard] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [reply, setReply] =useState('');
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
+  const [totalPages, setTotalPages] = useState();
+  const [commentList, setCommentList] = useState([]);
+  const [reply, setReply] =useState({
+    fbrContent : '',
+    user : userInfo
+  });
 
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    axiosInstance.get(`/fboarddetail/${fbno}?page=${page}&size=${pageSize}`)
+    .then((response) => {
+      if(response.data) {
+      setBoard(response.data.freeBoard);
+      setCommentList(response.data.replyList)
+      setTotalPages(response.data.totalPages);
+      setIsLoading(true);
+    }
+    }).catch((error) => {
+      console.log(error);
+    })
+    }, [fbno, page, pageSize]);
 
   const changeHandler = (e) => {
-    setReply(e.target.value);
+    setReply((prevReply) => ({
+      ...prevReply,
+      [e.target.name]: e.target.value,
+    }));
   }
 
-  // useEffect(() => {
-  //   axios.get(`${process.env.REACT_APP_SERVER_URL}/fboard/${id}`)
-  //   .then(response => {
-  //     setBoard(response.data);
-  //     setIsLoading(false);
-  //   }).catch(error => {
-  //     console.log(error);
-  //   })
-  // },[id])
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
-  if(isLoading)
+  const submitReply = () => {
+    if (reply.fbrContent.trim() === "") {
+      alert("댓글을 입력해주세요.");
+      return;
+    }
+
+    // 댓글 등록 API 호출
+    axiosInstance.post("/replies", {
+      fbrContent: reply.fbrContent,
+      user: reply.user,
+      freeBoard: board,
+    }).then((response) => {
+      axiosInstance.get(`/fboarddetail/${fbno}?page=${page}&size=${pageSize}`)
+      .then((response) => {
+        if(response.data) {
+          setCommentList(response.data.replyList);
+          setTotalPages(response.data.totalPages);
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+      setReply({ ...reply, fbrContent: "" });
+    }).catch((error) => {
+      console.log(error);
+      alert("댓글 등록 중 오류가 발생했습니다.");
+    });
+  }
+
+  if(!isLoading)
     return <div>로딩중...</div>
 
   return(
@@ -44,20 +90,20 @@ function FreeBoardDetail({ userInfo }) {
           <tbody>
             <tr>
               <th>제목</th>
-              <td>테스트</td>
+              <td>{board.fbTitle}</td>
               <th>조회수</th>
-              <td>1</td>
+              <td>{board.fbViews + 1}</td>
             </tr>
             <tr>
                 <th>작성자</th>
-                <td>관리자</td>
+                <td>{board.user.userRname}</td>
                 <th>작성일</th>
-                <td>2023-01-01</td>
+                <td>{board.fbCreateBoard}</td>
             </tr>
             <tr>
               <th className="fb-detail-content">내용</th>
               <td colSpan="3">
-                  테스트 내용입니다
+               {board.fbContent}
               </td>
             </tr>
           </tbody>
@@ -67,38 +113,77 @@ function FreeBoardDetail({ userInfo }) {
             navigate('/fbList');
           }}>목록</button>
           <button className="fb-detail-modify-btn" onClick={() => {
-            navigate('/fbupdate');
+            if(userInfo.userRname !== board.user.userRname) {
+              alert('작성자만 수정 가능합니다');
+            } else {
+              navigate(`/fbupdate/${fbno}`);
+            }
           }}>수정</button>
-          <button className="fb-detail-delete-btn">삭제</button>
+          <button className="fb-detail-delete-btn" onClick={() => {
+            if(userInfo.userRname !== board.user.userRname) {
+              alert('작성자만 삭제 가능합니다');
+            } else {
+              axiosInstance.delete(`/fboard/${fbno}`)
+              .then(response => {
+                alert(response.data);
+                navigate('/fbList');
+              }).catch(error => {
+                console.log(error);
+              })
+            }
+          }}>삭제</button>
         </div>
       </div>
+
+          
       <div className="fb-comment-section">
         <div className="fb-comment-input">
-          <input id="reply-input" type="text" placeholder="댓글을 입력하세요" onChange={changeHandler}/>
-          <button className="fb-comment-submit" onClick={() => {
-            if(reply == '') {
-              alert('ㄴㄴ');
-            } else {
-              alert('ㅇㅇ');
-            }
-          }}>등록</button>
+          <input
+            id="reply-input"
+            type="text"
+            name="fbrContent"
+            placeholder="댓글을 입력하세요"
+            value={reply.fbrContent}
+            onChange={changeHandler}
+          />
+          <button className="fb-comment-submit" onClick={submitReply}>
+            등록
+          </button>
         </div>
-        <div className="fb-comment-list">
-          <div className="fb-comment">
-            <div className="fb-comment-info">
-              <span className="fb-comment-author">사용자1:</span>
-              <span className="fb-comment-date">2023-01-03</span>
-            </div>
-            <p className="fb-comment-text">댓글 내용입니다.</p>
+
+        {commentList.length !== 0 ?
+        <>
+          <div className="fb-comment-list">
+            {commentList.map((replyItem, i) => (
+              <div className="fb-comment" key={i}>
+                <div className="fb-comment-info">
+                  <span className="fb-comment-author">{replyItem.user.userRname}</span>
+                  <span className="fb-comment-date">{replyItem.fbrCreateDate}</span>
+                </div>  
+                <p className="fb-comment-text">{replyItem.fbrContent}</p>
+              </div>
+            ))}
           </div>
-          <div className="fb-comment">
-            <div className="fb-comment-info">
-              <span className="fb-comment-author">사용자2:</span>
-              <span className="fb-comment-date">2023-01-04</span>
-            </div>
-            <p className="fb-comment-text">댓글 내용입니다.</p>
+      
+          <div className='fb-page-btn'>
+            <button onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
+              이전
+            </button>
+            {Array.from(Array(totalPages).keys()).map((pageNumber) => (
+              <button
+                key={pageNumber}
+                onClick={() => handlePageChange(pageNumber)}
+                disabled={page === pageNumber}
+                className={page === pageNumber ? 'fb-selected-btn' : ''}
+              >
+                {pageNumber + 1}
+              </button>
+            ))}
+            <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1}>
+              다음
+            </button>
           </div>
-        </div>
+        </> : <div>등록된 댓글이 없습니다</div> }
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
 import './FunQ.css';
 import InsertBtn from "../QComponent/InsertBtn";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import SingleCheck from '../QComponent/SingleCheck';
 import MultiCheck from '../QComponent/MultiCheck';
 import Qtype from '../QComponent/Qtype';
 import ImageModal from '../QComponent/ImageModal';
 import Question from '../QComponent/Question';
+import axiosInstance from '../axiosInstance';
 
 
 const FunQ = ({ userInfo }) => {
@@ -16,20 +16,20 @@ const FunQ = ({ userInfo }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const [SurveyQ, setSurveyQ] = useState({
-    sTitle: '',
+    surTitle: '',
     surveyCategory: 'Fun',
     swriter: userInfo.username
   });
 
   // 설문 질문 담는 리스트
-  const [surveyList, setSurveyList] = useState({
-    
+  const [surveyList, setSurveyList] = useState([
+    {
       id: 1,
       sqQuestion: '',
       sqType: '',
       option: []
-    
-  });
+    }
+  ]);
 
 
  
@@ -45,7 +45,7 @@ const FunQ = ({ userInfo }) => {
 
   // 설문 타이틀 엔터치면 보여지는 기능
   const handleKeyDown = (event) => {
-    setSurveyQ({ ...SurveyQ, sTitle: event.target.value });
+    setSurveyQ({ ...SurveyQ, surTitle: event.target.value });
     if (event.key === 'Enter') {
       setStitleWrapVisible(false);
     }
@@ -55,7 +55,7 @@ const FunQ = ({ userInfo }) => {
   // 설문 타이틀 클릭하면 다시 입력창 보임
   const handleSTitleClick = () => {
     setStitleWrapVisible(true);
-    setSurveyQ({ ...SurveyQ, sTitle: '' });
+    setSurveyQ({ ...SurveyQ, surTitle: '' });
   };
   // handleQuestionTitleClick 함수는 questionTitle 입력란을 클릭할 때 호출되며
   // 이 함수에서 setStitleWrapVisible(true)을 호출하여 StitleWrap을 다시 표시하고
@@ -65,13 +65,13 @@ const FunQ = ({ userInfo }) => {
 
   // 설문 타이틀 입력창에 있는 x버튼 클릭 시 안에 질문 지워짐
   const handleDeleteStitle = () => {
-    setSurveyQ({ ...SurveyQ, sTitle: '' });
+    setSurveyQ({ ...SurveyQ, surTitle: '' });
   };
 
 
   // 값 바뀔때마다 설문 타이틀이 surveyQ 안에 있는 sTitle에 업데이트됨
   const changeValue = (e) => {
-    setSurveyQ({ ...SurveyQ, sTitle: e.target.value });
+    setSurveyQ({ ...SurveyQ, surTitle: e.target.value });
     setSurveyList([{...surveyList, sqQuestion: e.target.value }])
   }
 
@@ -80,13 +80,13 @@ const FunQ = ({ userInfo }) => {
   // 추가, 업데이트
   const handleAddQ = (e, data, type) => {
 
-    const id = data.id;
+
     const value = e.target.value;
 
 
     // 업데이트
     const updatedSurveyList = () => {
-      if (surveyList.id === id) {
+
 
         if(type === 'sqQuestion'){  // 설문 질문 바뀔때만
           return {...surveyList, 'sqQuestion': value};
@@ -98,8 +98,8 @@ const FunQ = ({ userInfo }) => {
         }else{
           return {...surveyList, 'option' : type};   
         }
-      }
-      return surveyList;
+
+    
     };
 
 
@@ -111,26 +111,22 @@ const FunQ = ({ userInfo }) => {
 
   const CompleteS = () => {
 
-    if((SurveyQ.sTitle !== '')  && resultAll) {
-       // 다 입력했을때 서버에 보냄
-      // axios.post(`${process.env.REACT_APP_SERVER_URL}/SurveyQ`, SurveyQ)
-      //   .then(response => {
-      //     alert("✏️ 설문생성이 완료되었어요 ");
-      //     navigate('/');
-      //   }).catch(error => {
-      //     console.log(error);
-      //     alert("서버 연결 오류...");
-      //   })
-      alert("설문완료 😘");
-      console.log(resultAll);
-      console.log(SurveyQ);
-      console.log(surveyList);
+    if((SurveyQ.surTitle !== '')  && resultAll) {
+      //  다 입력했을때 서버에 보냄
+      axiosInstance.post(`/addSurvey`,surveyList, {params : {"surTitle" : SurveyQ.surTitle, "surveyCategory" : SurveyQ.surveyCategory, "username" : userInfo.username}})
+        .then(response => {
+          alert(response.data);
+          navigate('/');
+        }).catch(error => {
+          console.log(error);
+          alert("서버 연결 오류...");
+        })
+      // alert("설문완료 😘");
 
     } else {
       alert("완료되지 않은 질문이 있어요🙅");
     }
   }
-
 
   // function deleteQuestionContainer(index) {   
   //   if (surveyList.length > 1) {
@@ -152,13 +148,13 @@ const FunQ = ({ userInfo }) => {
           <div className="questionQ">
             <p>Q.</p>
             <input className="STitle"
-              defaultValue={SurveyQ.sTitle}
+              defaultValue={SurveyQ.surTitle}
               onClick={handleSTitleClick}
             ></input>
 
           </div>
           <div className="StitleWrap" style={{ display: isStitleWrapVisible ? 'block' : 'none' }}>                            {/*🟡↓  얘 나중에 바꾸기*/}
-            <input className="SurTitle" placeholder="| 설문제목을 입력하세요" onKeyDown={handleKeyDown} value={SurveyQ.sTitle} id="title" name={SurveyQ.sTitle}
+            <input className="SurTitle" placeholder="| 설문제목을 입력하세요" onKeyDown={handleKeyDown} value={SurveyQ.surTitle} id="title" name={SurveyQ.surTitle}
               onChange={changeValue}
             ></input>
             <button type="button" className="Qdelete-btn"

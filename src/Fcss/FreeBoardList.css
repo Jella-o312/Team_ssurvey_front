@@ -6,6 +6,17 @@
   padding: 80px 0;
 }
 
+.fb-page-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.fb-page-btn button{
+  margin: 5px;
+  border: none;
+  background-color: white;
+}
+
 .fb-title h3 {
   font-size: 28px;
   color: #333333;
@@ -176,4 +187,9 @@
 
 .write-btn {
   height: 40px;
+}
+
+.fb-selected-btn {
+  background-color: #4656; /* 선택한 색상으로 변경 */
+  
 }
