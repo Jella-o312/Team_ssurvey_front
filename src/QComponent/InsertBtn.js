@@ -5,7 +5,7 @@ import CreateQ from './CreateQ';
 
 
 
-function InsertBtn({handleAddQ, surveyList, setSurveyList} ) {
+function InsertBtn({handleAddQ, surveyList, setSurveyList, type} ) {
 
   const [Qnum, setQnum] = useState(1);  //Id 혹은 k값으로 생성하기 위해 만든 임의 변수 (설문생성 눌렀을때 다시 0으로 초기화 해줘야함)
 
@@ -67,7 +67,7 @@ alert("🙅 준비 중이에요 🙅");
     {
       surveyList.map((data) => {
         return (
-          <CreateQ key={data.id} data={data}  handleAddQ={handleAddQ} surveyList={surveyList} setSurveyList={setSurveyList} deleteQuestionContainer={ deleteQuestionContainer}/>
+          <CreateQ key={data.id} data={data}  handleAddQ={handleAddQ} surveyList={surveyList} setSurveyList={setSurveyList} deleteQuestionContainer={ deleteQuestionContainer} type={type} />
         );
       })
     }

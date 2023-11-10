@@ -9,7 +9,7 @@ import SingleCheck from "./SingleCheck";
 import MultiCheck from "./MultiCheck";
 
 
-const CreateQ = ({ data , handleAddQ, surveyList, setSurveyList, deleteQuestionContainer} ) => {
+const CreateQ = ({ data , handleAddQ, surveyList, setSurveyList, deleteQuestionContainer, type} ) => {
 
  const [selectedType, setSelectedType] = useState(null);
  const [modalShow, setModalShow] = useState(false); // 모달의 show 상태를 관리할 상태 변수
@@ -42,7 +42,7 @@ return (
         onHide={() => setModalShow(false)}
         />
  
-  <Qtype data={data} surveyList={surveyList} setSurveyList={setSurveyList} handleAddQ={handleAddQ}/> {/* handleOptionSelect={handleOptionSelect}*/}
+  <Qtype data={data} surveyList={surveyList} setSurveyList={setSurveyList} handleAddQ={handleAddQ} type={type}/> {/* handleOptionSelect={handleOptionSelect}*/}
   </div>  
    
   <div className='AList'>             

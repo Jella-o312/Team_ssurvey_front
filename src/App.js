@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Login from './Login/Login';
 import SurveyList from './pages/SurveyList';
+import FunQ from './pages/FunQ';
 
 
 
@@ -51,7 +52,8 @@ function App() {
     
     <Routes>    
       <Route path="/" element={<MainHome />} />
-      <Route path='/SurveyList' element={<SurveyList />}/>  
+      <Route path='/SurveyList' element={<SurveyList />}/> 
+      <Route path='/FunQ' element={<FunQ userInfo={userInfo}/>}/>   
       <Route path='/SurveyQ' element={<SurveyQ userInfo={userInfo}/>}/>   
       <Route path='/Answer' element={<Answer />}/>
       <Route path='/join' element={<Join/>}/>
