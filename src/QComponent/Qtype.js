@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 
 function Qtype({ data , handleAddQ, surveyList, setSurveyList, type}) {
 
- console.log(type);
 
   return (
     <div className='DropdownContainer'>
