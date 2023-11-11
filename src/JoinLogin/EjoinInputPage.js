@@ -19,7 +19,7 @@ const EjoinInputPage = ()=>{
     userJob : ''
   });
 
-  
+  console.log(ejoinUser);
   
   // ⭐회원가입 정규식 객체⭐'^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
   const regexBox = {
@@ -295,7 +295,7 @@ const EjoinInputPage = ()=>{
                       </div>
                     </div>
 
-                    {isRegexs.RLocation === false ? <p className="join_input_regexTxt">*출생년도를 선택해주세요</p> : null} 
+                    {isRegexs.RLocation === false ? <p className="join_input_regexTxt">*지역을 선택해주세요</p> : null} 
                 </div>  
 
 

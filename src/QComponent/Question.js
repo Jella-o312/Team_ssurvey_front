@@ -1,28 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Question.css';
 
 
 
-function Question() {
-  const [Qinput, setQuestion] = useState('');
+const Question = ({ data , handleAddQ, surveyList, setSurveyList}) => {
+ 
+  // const [Question, setQuestion] = useState(sqQuestion);
 
 
-  useEffect(() => {
-    console.log(Qinput); 
-  }, [Qinput]);
+  // const handlesqQuestionChange = (e) => {
+  //   setQuestion(e.target.value);
+  //   onSqQuestionChange(e.target.value);
+  //   console.log("sqQuestion: " + e.target.value);
+  // };
 
-const handleInputChange = (e) => {
-  setQuestion(e.target.value);
-};
 
-  
 return (
   <div>
     <input type="text" placeholder='질문을 입력하세요'
-    value={Qinput} name="inputQ" id="inputQ" onChange={handleInputChange}
-    className="InsertQ"
+      className="InsertQ" onChange={(e) =>  handleAddQ(e, data, 'sqQuestion')} 
      />   
-<hr/>
+<hr className='Qhr'/> 
 
 
      </div>

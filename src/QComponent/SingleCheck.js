@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import './SingleCheck.css';
 
-function SingleCheck({ selectedType }) {
+function SingleCheck({ selectedType, data , handleAddQ }) {
 
   const [selectedOption, setSelectedOption] = useState(''); // 선택된 옵션
   const [options, setOptions] = useState([]); // 옵션 목록
@@ -12,16 +12,16 @@ function SingleCheck({ selectedType }) {
     setOptions([...options, '']);
   };
 
-  const deleteOption = (index) => {
+  const deleteOption = (e, index) => {
     // 특정 인덱스의 옵션을 삭제
-    const updatedOptions = [...options];
-    updatedOptions.splice(index, 1);
-    setOptions(updatedOptions);
-
-    if (selectedOption === options[index]) {
-      setSelectedOption('');
-      console.log( setSelectedOption);
-    }
+    const updateOpt = [...options];
+    updateOpt.splice(index, 1);
+    setOptions(updateOpt);
+    handleAddQ(e,data,updateOpt);
+    // if (selectedOption === options[index]) {
+    //   setSelectedOption();
+    //   console.log( setSelectedOption);
+    //  성춘씨 사용가능}
   };
 
   useEffect(() => {
@@ -32,14 +32,20 @@ function SingleCheck({ selectedType }) {
 
 
   const handleOptionChange = (e, index) => {
-    const updatedOptions = [...options];
-    updatedOptions[index] = e.target.value;
-    setOptions(updatedOptions);
+    const updateOpt = [...options];
+    updateOpt[index] = e.target.value;
+    setOptions(updateOpt);
   
-    if (selectedOption === options[index]) {
-      setSelectedOption(e.target.value);
-    }
+    // if (selectedOption === options[index]) {
+    //   setSelectedOption(e.target.value);
+    // 성춘씨 사용가능}
+    handleAddQ(e,data,updateOpt);
   };
+
+
+
+
+
 
   return (
     <div className="addCheck">
@@ -48,6 +54,7 @@ function SingleCheck({ selectedType }) {
       )}
 
       <div className="options-container">
+          
         {options.map((option, index) => (
           <div key={index}>
             <label className="Qlabel">
@@ -66,10 +73,11 @@ function SingleCheck({ selectedType }) {
                 value={option}           
                 onChange={(e) => handleOptionChange(e, index)}    
               />
-              <button onClick={() => deleteOption(index)} className="DeleteOption">X</button>
+              <button onClick={(e) => deleteOption(e,index)} className="DeleteOption">X</button>
             </label>
           </div>
         ))}
+
       </div>
     </div>
   );

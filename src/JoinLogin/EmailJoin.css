@@ -169,7 +169,7 @@
 }
 
 /* 조건 충족이 안됐을때 버튼 스타일 */
-.ejoin-confirm-button:disabled {
+.ejoin-confirm-button:disabled, .login-button:disabled  {
   background-color: #a2a2ac;
   color: white;
   cursor: not-allowed;  /*커서가 왜이러는지 모르겠지만...button 자체에 pointer기본 적용이 안되어 있음*/

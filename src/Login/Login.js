@@ -2,8 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import '../JoinLogin/EmailJoin.css';
 import './Login.css';
 import { useState } from 'react';
+<<<<<<< HEAD
 import axiosInstance from '../axioslnstance';
 
+=======
+import axiosInstance from '../axiosInstance';
+>>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
 const Login =({setIsLogin, setUserInfo}) =>{
   
   const navigate = useNavigate();
@@ -104,7 +108,8 @@ const Login =({setIsLogin, setUserInfo}) =>{
               <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_kakao.png" alt="sns아이콘"></img>
             </button>
             
-            <button className='login-google'>
+            <button className='login-google' 
+                    onClick={()=>{window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=token&scope=openid%20email%20profile`;}}>
               <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_google.png" alt="sns아이콘"/>
             </button>
 

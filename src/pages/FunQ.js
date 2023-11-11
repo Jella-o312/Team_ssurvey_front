@@ -1,19 +1,24 @@
-import './SurveyQ.css';
+import './FunQ.css';
 import InsertBtn from "../QComponent/InsertBtn";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import SingleCheck from '../QComponent/SingleCheck';
+import MultiCheck from '../QComponent/MultiCheck';
+import Qtype from '../QComponent/Qtype';
+import ImageModal from '../QComponent/ImageModal';
+import Question from '../QComponent/Question';
 import axiosInstance from '../axiosInstance';
 
 
-const SurveyQ = ({ userInfo }) => {
+const FunQ = ({ userInfo }) => {
   const { useState, useEffect } = require("react");
   const navigate = useNavigate();
-
+  const [selectedType, setSelectedType] = useState(null);
+  const [modalShow, setModalShow] = useState(false);
 
   const [SurveyQ, setSurveyQ] = useState({
     surTitle: '',
-    surveyCategory: 'Survey',
-    user: userInfo
+    surveyCategory: 'Fun',
+    swriter: userInfo.username
   });
 
   // 설문 질문 담는 리스트
@@ -27,14 +32,13 @@ const SurveyQ = ({ userInfo }) => {
   ]);
 
 
-
  
-  const resultAll = surveyList.map(item => {
-    if (item.sqQuestion === '' || item.sqType === '') {
+  const resultAll=()=> {
+    if (surveyList.sqQuestion === '' || surveyList.sqType=== '') {
       return false;
     }
     return true;
-  });
+  };
 
 
 
@@ -68,6 +72,7 @@ const SurveyQ = ({ userInfo }) => {
   // 값 바뀔때마다 설문 타이틀이 surveyQ 안에 있는 sTitle에 업데이트됨
   const changeValue = (e) => {
     setSurveyQ({ ...SurveyQ, surTitle: e.target.value });
+    setSurveyList([{...surveyList, sqQuestion: e.target.value }])
   }
 
 
@@ -75,35 +80,33 @@ const SurveyQ = ({ userInfo }) => {
   // 추가, 업데이트
   const handleAddQ = (e, data, type) => {
 
-    const id = data.id;
+
     const value = e.target.value;
 
 
     // 업데이트
-    const updatedSurveyList = surveyList.map(item => {
-      if (item.id === id) {
+    const updatedSurveyList = () => {
+
 
         if(type === 'sqQuestion'){  // 설문 질문 바뀔때만
-          return {...item, 'sqQuestion': value};
+          return {...surveyList, 'sqQuestion': value};
         }
 
-        if(type === "객관식" ||type === "다중 체크"||type === "단답형" ||type === "장문형") {// 타입일때만
-          return {...item, 'sqType': type, 'option' : []};
+        if(type === "객관식"  ||type === "다중 체크") {// 타입일때만
+          return {...surveyList, 'sqType': type, 'option' : []};
 
         }else{
-          return {...item, 'option' : type};   
+          return {...surveyList, 'option' : type};   
         }
-      }
-      return item;
-    });
+
+    
+    };
 
 
 
     // 수정된 배열로 상태를 업데이트
     setSurveyList(updatedSurveyList);
   }
- 
-
 
 
   const CompleteS = () => {
@@ -124,6 +127,12 @@ const SurveyQ = ({ userInfo }) => {
       alert("완료되지 않은 질문이 있어요🙅");
     }
   }
+
+  // function deleteQuestionContainer(index) {   
+  //   if (surveyList.length > 1) {
+  //     setSurveyList( surveyList.filter(data => data.id !== index))
+  //   }
+  // };
 
 
 
@@ -165,20 +174,35 @@ const SurveyQ = ({ userInfo }) => {
       </div>
 
 
-      <div className="QGroupBox">
-        <div className="QGroup">
-          <div className="InsertBtnContainer">
 
-            <InsertBtn handleAddQ={handleAddQ} surveyList={surveyList} setSurveyList={setSurveyList} type={SurveyQ.surveyCategory} />
-          </div>
-        </div>
-      </div>
-
-
-    </>
+   <div className="QuestionList">
+      <div className="QuestionContainer" key={surveyList.id}>  
+   
+   {/* <button type="button" className="deleteQ" onClick={()=>deleteQuestionContainer(surveyList.id)} >✖️</button> */}
+     <div className="questionContainer">
+     <Question  surveyList={surveyList} setSurveyList={setSurveyList} handleAddQ={handleAddQ}/>
+     <button variant="primary" onClick={() => setModalShow(true)} className="AddImage">
+     📷
+         </button>
+     <ImageModal
+           show={modalShow}
+           onHide={() => setModalShow(false)}
+           />
+    
+     <Qtype  data={surveyList} surveyList={surveyList} setSurveyList={setSurveyList} handleAddQ={handleAddQ} type={SurveyQ.surveyCategory}/> {/* handleOptionSelect={handleOptionSelect}*/}
+     </div>  
+      
+     <div className='AList'>             
+             {surveyList.sqType=== '객관식' && <SingleCheck selectedType={surveyList.sqType}  data={surveyList} handleAddQ = {handleAddQ} type={SurveyQ}/>}
+             {surveyList.sqType=== '다중 체크' && <MultiCheck selectedType={surveyList.sqType} data={surveyList} handleAddQ = {handleAddQ} />}
+           </div>
+           </div>
+         </div>
+       </>
+    
 
   );
 };
 
-export default SurveyQ;
+export default FunQ;
 

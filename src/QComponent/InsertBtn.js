@@ -1,24 +1,25 @@
-  import ButtonGroup from 'react-bootstrap/ButtonGroup';
-  import './InsertBtn.css';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import './InsertBtn.css';
 import { useState } from 'react';
 import CreateQ from './CreateQ';
-  
-  function InsertBtn() {
 
 
-    const deleteQuestionContainer = (index) => {   
-      if (index >= 0) {
-      const updatedComponents = createQComponents.slice();
-      updatedComponents.splice(index, 1);
-      setCreateQComponents(updatedComponents);
-      }
+
+function InsertBtn({handleAddQ, surveyList, setSurveyList, type} ) {
+
+  const [Qnum, setQnum] = useState(1);  //Id 혹은 k값으로 생성하기 위해 만든 임의 변수 (설문생성 눌렀을때 다시 0으로 초기화 해줘야함)
+
+
+  // 🟡🟡🟡(보류) 설문 한덩이 삭제 핸들러
+  function deleteQuestionContainer(index) {   
+    if (surveyList.length > 1) {
+      setSurveyList( surveyList.filter(data => data.id !== index))
+    }
   };
 
-    const [createQComponents, setCreateQComponents] = useState([<CreateQ key={0}  deleteQuestionContainer={deleteQuestionContainer}/>]);
-//delete함수 구현 후 보내줘야함(순서 중요)                               // ↑↑↑  k로 적혀있던거 key로 바꿈
-  
 
 
+<<<<<<< HEAD
  // "추가" 버튼을 클릭할 때 CreateQ 컴포넌트 추가
  const addCreateQComponent = () => {
   let k = createQComponents.length
@@ -30,47 +31,71 @@ import CreateQ from './CreateQ';
   ]);
   console.log(createQComponents);
   console.log("➕ 버튼 클릭");
+=======
+// "추가" 버튼을 클릭할 때 CreateQ 컴포넌트 추가
+const addCreateQComponent = () => {
+  let k = Qnum +1;
+  setQnum(k);
+
+  setSurveyList([
+  ...surveyList,
+  {
+    id: k,
+    sqQuestion: '',
+    sqType: '',
+    option: []
+  }
+]);
+
+
+>>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
 };
 
 
 
-  const handleWriteButtonClick = () => {
- // 원하는 작업 수행
-  console.log("✏️ 버튼 클릭");
-  alert("🙅 준비 중이에요 🙅");
+const handleWriteButtonClick = () => {
+// 원하는 작업 수행
+console.log("✏️ 버튼 클릭");
+alert("🙅 준비 중이에요 🙅");
 };
 
 
 const handleAddImageButtonClick = () => {
- 
-  console.log("📷 버튼 클릭");
-  alert("🙅 준비 중이에요 🙅");
+
+console.log("📷 버튼 클릭");
+alert("🙅 준비 중이에요 🙅");
 };
 
 
 const handleAddVideoButtonClick = () => {
 
-  console.log("🎥 버튼 클릭");
-  alert("🙅 준비 중이에요 🙅");
+console.log("🎥 버튼 클릭");
+alert("🙅 준비 중이에요 🙅");
 };
 
 
-    return (
-      <>
-    <div className="QContainer">
-    <div>      
-      {createQComponents}
-      </div>
-      <ButtonGroup vertical className='Insert-btn-group'>       
-        <button id="Insert-btn" className="Insert-btn" onClick={addCreateQComponent}>➕</button>
-        <button  id="write-btn" className="write-btn" onClick={handleWriteButtonClick}>✏️</button>
-        <button  id="addImage-btn" className="addImage-btn" onClick={handleAddImageButtonClick }>📷</button>
-        <button  id="addVideo-btn" className="addVideo-btn" onClick={handleAddVideoButtonClick}>🎥</button>       
-      </ButtonGroup>
+  return (
+    <>
+  <div className="QContainer">
+  <div>      
+    {
+      surveyList.map((data) => {
+        return (
+          <CreateQ key={data.id} data={data}  handleAddQ={handleAddQ} surveyList={surveyList} setSurveyList={setSurveyList} deleteQuestionContainer={ deleteQuestionContainer} type={type} />
+        );
+      })
+    }
     </div>
-      </>
-    );
-  }
-  
-  
-  export default InsertBtn;
+    <ButtonGroup vertical className='Insert-btn-group'>       
+      <button id="Insert-btn" className="Insert-btn" onClick={addCreateQComponent}>➕</button>
+      <button  id="Insert-write-btnn" className="Insert-write-btn" onClick={handleWriteButtonClick}>✏️</button>
+      <button  id="addImage-btn" className="addImage-btn" onClick={handleAddImageButtonClick }>📷</button>
+      <button  id="addVideo-btn" className="addVideo-btn" onClick={handleAddVideoButtonClick}>🎥</button>       
+    </ButtonGroup>
+  </div>
+    </>
+  );
+}
+
+
+export default InsertBtn;

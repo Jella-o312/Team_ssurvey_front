@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import './Answer.css';
+<<<<<<< HEAD
 import axiosInstance from "../axioslnstance";
 
 
@@ -40,6 +41,71 @@ const Answer = () => {
     // 원하는 작업 수행
     alert("✏️ 설문제출이 완료되었어요 ");
     // 답변을 백엔드에 저장하는 등의 작업이 필요할 수 있습니다.
+=======
+import AnswerForm from "../AComponent/AnswerForm";
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Axios } from 'axios';
+
+
+
+
+const Answer = ({SurveyQ, setSurveyQ}) => {
+  const navigate = useNavigate();  
+  const [sTitle, setSTitle] = useState('');
+
+  const CompleteA = () => {
+    // 원하는 작업 수행
+     alert("✏️ 설문제출이 완료되었어요 ");
+     navigate('/Home')
+   };
+
+
+
+useEffect(()=>{
+Axios.post("/api/users").then((response)=>{
+if(response.data){
+  console.log(response.data);
+  setSurveyQ(response.data);
+}else{
+  alert("failed to ");
+}
+
+});
+
+},[]);
+
+
+
+  return(
+<>
+<div className="QHeader">
+  <div className="Abox">
+  <div className="questionQ">
+   <p>Q.</p>
+   <p className="SQTitle"
+    value="sTitle" 
+   >{SurveyQ.sTitle}</p>
+
+     </div>
+   </div>
+ 
+  <div className="submitA">
+    <div className="createText">
+      <p className="CreateS">SUBMIT<br/>
+      A SURVEY</p>
+      <button type="submit" className="Asumit-btn" onClick={CompleteA}> 답변 제출 </button>
+    </div>
+  </div>
+</div>
+
+
+<AnswerForm />
+
+</>
+
+  );
+>>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
   };
 
   return (

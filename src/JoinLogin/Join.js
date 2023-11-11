@@ -29,7 +29,8 @@ const Join = () => {
         </button>
 
         {/* class="width-30px margin-right-5" */}
-        <button className='join-google'>
+        <button className='join-google'
+           onClick={()=>{window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=token&scope=openid%20email%20profile`;}}>
           <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_google.png" alt="sns아이콘"/>
           <span style={{fontWeight:"500px", color:"white"}}>구글로 회원가입</span>
         </button>
