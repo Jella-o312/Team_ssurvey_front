@@ -19,19 +19,6 @@ function InsertBtn({handleAddQ, surveyList, setSurveyList, type} ) {
 
 
 
-<<<<<<< HEAD
- // "추가" 버튼을 클릭할 때 CreateQ 컴포넌트 추가
- const addCreateQComponent = () => {
-  let k = createQComponents.length
-  console.log(k);
-  setCreateQComponents([
-    ...createQComponents,
-    <CreateQ key={k} deleteQuestionContainer={deleteQuestionContainer}/>,
-          // ↑↑↑  k로 적혀있던거 key로 바꿈
-  ]);
-  console.log(createQComponents);
-  console.log("➕ 버튼 클릭");
-=======
 // "추가" 버튼을 클릭할 때 CreateQ 컴포넌트 추가
 const addCreateQComponent = () => {
   let k = Qnum +1;
@@ -48,7 +35,6 @@ const addCreateQComponent = () => {
 ]);
 
 
->>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
 };
 
 

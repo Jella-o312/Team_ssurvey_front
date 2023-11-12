@@ -2,12 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import '../JoinLogin/EmailJoin.css';
 import './Login.css';
 import { useState } from 'react';
-<<<<<<< HEAD
 import axiosInstance from '../axioslnstance';
 
-=======
-import axiosInstance from '../axiosInstance';
->>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
 const Login =({setIsLogin, setUserInfo}) =>{
   
   const navigate = useNavigate();

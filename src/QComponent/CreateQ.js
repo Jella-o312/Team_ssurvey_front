@@ -9,54 +9,12 @@ import SingleCheck from "./SingleCheck";
 import MultiCheck from "./MultiCheck";
 
 
-<<<<<<< HEAD
-const CreateQ = ({ k, deleteQuestionContainer }) => {
-=======
 const CreateQ = ({ data , handleAddQ, surveyList, setSurveyList, deleteQuestionContainer, type} ) => {
->>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
 
    const [selectedType, setSelectedType] = useState(null);
    const [modalShow, setModalShow] = useState(false); // 모달의 show 상태를 관리할 상태 변수
 
 
-<<<<<<< HEAD
-
-   return (
-      <>
-
-
-         <div className="QuestionList">
-            <div className="QuestionContainer" key={k}>
-
-               <button type="button" className="deleteQ" onClick={() => deleteQuestionContainer(k)}>✖️</button>
-               <div className="questionContainer">
-                  <Question />
-                  <button variant="primary" onClick={() => setModalShow(true)} className="AddImage">
-                     📷
-                  </button>
-                  <ImageModal
-                     show={modalShow}
-                     onHide={() => setModalShow(false)}
-                  />
-
-                  <Qtype selectedType={selectedType} setSelectedType={setSelectedType} />
-               </div>
-
-               <div className='AList'>
-                  {/* Option 컴포넌트를 렌더링하고 selectedType을 전달 */}
-                  <MultiCheck selectedType={selectedType} />
-                  <LongText selectedType={selectedType} />
-                  <SingleCheck selectedType={selectedType} />
-                  <ShortText selectedType={selectedType} />
-               </div>
-            </div>
-         </div>
-
-      </>
-   );
-};
-
-=======
 
 // const handleOptionSelect = (type) => {
 //   setSelectedType(type); 
@@ -98,6 +56,5 @@ return (
     </>
   );
 };
->>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
 
 export default CreateQ;

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Answer from "../pages/Answer";
 import SurveyReply from "../SurveyReplyPage/SurveyReply";
 import axiosInstance from "../axioslnstance";
+import SurveyResult from "../pages/SurveyResult";
 
 
 const Survey = () => {
@@ -53,6 +54,7 @@ const Survey = () => {
   return (
     <>
       {surveys.map((surveyItem, i) => {
+        console.log(Array.isArray(surveys));
         // 추가된 부분: 해당 카테고리의 타이틀이 이미 등록되어 있는지 확인
         if (!categoryTitles.has(surveyItem.surveyCategory)) {
           // 추가된 부분: 타이틀 등록 후 Set에 추가
@@ -72,6 +74,8 @@ const Survey = () => {
               </Container>
               <Container key={i} className={`MainSurveyBox ${surveyItem.surveyCategory}`}>
                 <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
+                
+
                   {surveys
                     .filter((filteredSurvey) => filteredSurvey.surveyCategory === surveyItem.surveyCategory)
                     .slice(0, loadMoreCount)
@@ -82,7 +86,7 @@ const Survey = () => {
                             <img src={filteredSurvey.imgSrc} className="card-img-top" alt={filteredSurvey.title} />
                           )}
                           <div className="survey-content">
-                            <h5 className="card-title">{filteredSurvey.surveyTitle}</h5>
+                            <h5 className="card-title">{filteredSurvey.surTitle}</h5>
                             <div className="LikeBtnCount">
                               <button className="btn like-btn">❤</button>
                               <span className="like-count">{filteredSurvey.surveyLike || 0}</span>
@@ -114,7 +118,6 @@ const Survey = () => {
         </Modal.Header>
         <Modal.Body>
           <Answer />
-          <SurveyReply /> {/* 임시로 어떻게 들어가나 넣어봄 사이즈 확인겸 */}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowParticipateModal(false)}>닫기</Button>
@@ -124,10 +127,10 @@ const Survey = () => {
       <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>결과보기</Modal.Title>
-          <SurveyReply /> {/* 임시로 어떻게 들어가나 넣어봄 사이즈 확인겸 */}
         </Modal.Header>
         <Modal.Body>
-          <p>결과보기 모달 내용입니다.</p>
+          <SurveyResult />
+          <SurveyReply /> {/* 임시로 어떻게 들어가나 넣어봄 사이즈 확인겸 */}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowResultModal(false)}>닫기</Button>

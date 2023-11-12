@@ -8,11 +8,7 @@ import FunPage from '../pages/FunPage';
 import SurveyPage from '../pages/SurveyPage';
 
 
-<<<<<<< HEAD
 const Header = ({ userInfo, setUserInfo, isLogin, setIsLogin }) => {
-=======
-const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
->>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
   const navigate = useNavigate();
 
   // 로그아웃 버튼 눌렀을때 기능 (메인화면으로 이동 + 새로고침)
@@ -20,7 +16,6 @@ const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
     sessionStorage.removeItem('jwt'); // 세션스토리지에서 로그인 유저 정보 지움
     setIsLogin(false);  //로그인상태 false로 바꿈
     setUserInfo({ //state 값 지워야함...
-<<<<<<< HEAD
       userNo: '',
       userName: '',
       userEmail: '',
@@ -31,23 +26,10 @@ const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
       userLocation: '',
       userJob: '',
       serveyNo: ''
-=======
-      userNo : '',
-      userName : '',
-      userEmail : '',
-      userPassword : '',
-      userRoletype: '',
-      userAge : '',
-      userGender : '',
-      userLocation : '',  
-      userJob : '',
-      serveyNo : ''
->>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
     })
     navigate('/'); // 메인화면으로 이동
   };
 
-<<<<<<< HEAD
   return (
     <>
        <div className='header-container'>
@@ -56,11 +38,6 @@ const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
           <div className='modoLogo' onClick={() => { navigate('/') }}>
             <img className='nav-logo' src={ssurveyLogo} alt='' />
           </div>
-=======
-  return(
-    <div className='header-container'>
-      <div className='header-nav'>
->>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
 
           <nav>
 
@@ -71,14 +48,8 @@ const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
                 <div onClick={() => { navigate('/Survey') }}>설문조사</div>
               </div>
             </div>
-<<<<<<< HEAD
             <div onClick={() => { navigate('/SurveyQ') }}>설문신청</div>
             <div onClick={() => { navigate('/fbList') }}>자유게시판</div>
-=======
-          </div>
-          <div onClick={()=>{navigate('/SurveyList')}}>설문신청</div>
-          <div onClick={()=>{navigate('/fbList')}}>자유게시판</div>
->>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
 
             <div onClick={() => { navigate('/sorry') }}>FAQ</div>
           </nav>
@@ -92,21 +63,9 @@ const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
                     // alert(e.target.value);
                     e.value = ''; // ???? 기능을 안함
 
-<<<<<<< HEAD
                 }} />
 
             </form>
-=======
-            }}/>
-              
-          </form>
-        </div>  
-        { //isLogin 상태가 트루일때 로그인된 화면 보여줌
-          isLogin ?
-          <div className='nav-loginTrue'> {/* 로그인 된 상태 */}
-            <button className='myPage'>{userInfo.userRname}님</button>
-            <button className='logout' onClick={logOut} >로그아웃</button>
->>>>>>> 075aaad4ed83d01087553fddc24e701f783f6646
           </div>
           { //isLogin 상태가 트루일때 로그인된 화면 보여줌
             isLogin ?
