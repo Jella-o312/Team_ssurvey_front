@@ -72,6 +72,33 @@ function FreeBoardDetail({ userInfo }) {
     });
   }
 
+  const deleteReply = (fbrNo) => {
+    axiosInstance.delete(`/replies/${fbrNo}`)
+        .then(response => {
+            axiosInstance.get(`/fboarddetail/${fbno}?page=${page}&size=${pageSize}`)
+            .then((response) => {
+              setCommentList(response.data.replyList);
+              setTotalPages(response.data.totalPages);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch(error => {
+            console.log(error);
+            // 삭제 실패에 대한 처리를 추가할 수 있습니다.
+        });
+};
+
+  // 댓글 삭제 버튼 클릭 시 실행되는 함수
+  const handleDeleteReply = (fbrNo) => {
+      // 사용자에게 확인 메시지를 보여주고, 확인 시에만 삭제 진행
+      const isConfirmed = window.confirm('댓글을 삭제하시겠습니까?');
+      if (isConfirmed) {
+          deleteReply(fbrNo);
+      }
+  };
+  
   if(!isLoading)
     return <div>로딩중...</div>
 
@@ -159,8 +186,17 @@ function FreeBoardDetail({ userInfo }) {
                 <div className="fb-comment-info">
                   <span className="fb-comment-author">{replyItem.user.userRname}</span>
                   <span className="fb-comment-date">{replyItem.fbrCreateDate}</span>
-                </div>  
-                <p className="fb-comment-text">{replyItem.fbrContent}</p>
+                </div>
+                <div className="fb-comment-modify-box">
+                  <p className="fb-comment-text">{replyItem.fbrContent}</p>
+                  <button className="fb-comment-delete-btn" onClick={() => {
+                    if(replyItem.user.userRname === userInfo.userRname) {
+                      handleDeleteReply(replyItem.fbrNo);
+                    } else {
+                      alert('작성자만 삭제 가능합니다');
+                    }
+                    }}>✕</button>
+                </div>
               </div>
             ))}
           </div>
