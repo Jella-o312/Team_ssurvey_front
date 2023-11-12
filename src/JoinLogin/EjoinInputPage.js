@@ -195,6 +195,11 @@ const EjoinInputPage = ()=>{
           if(alreadyJoin){
             navigator('/login');
           }
+        }else if(response.data === "kakao"){
+          alreadyJoin = window.confirm("카카오톡으로 가입된 이메일 입니다. 로그인 하시겠습니까?");
+          if(alreadyJoin){
+            navigator('/login');
+          }
         }
       }
     }).catch(error=>{

@@ -21,6 +21,7 @@ import GoogleLogin from './Login/GoogleLogin';
 import SocialAddInfo from './JoinLogin/SocialAddInfo';
 import Footer from './Home/Footer';
 import FAQ from './FAQ/FAQ';
+import KakaoLogin from './Login/KakaoLogun';
 
 
 
@@ -87,6 +88,7 @@ function App() {
         <Route path='/join' element={<Join/>}/>
         <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
         <Route path ='/oauth/google' element={<GoogleLogin setIsLogin={setIsLogin} />}/>
+        <Route path='/oauth/kakao' element={<KakaoLogin setIsLogin={setIsLogin}/>} />
         <Route path='/emailJoin' element={<EmailJoin/>}/>
         <Route path='/fbList' element={<FreeBoardList isLogin={isLogin}/>} />
         <Route path='/fbwrite' element={<WriteFreeBoard userInfo={userInfo} isLogin={isLogin} />} />

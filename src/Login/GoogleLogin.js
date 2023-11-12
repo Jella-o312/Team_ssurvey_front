@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 import { useState } from "react";
+import Loading from "./Loading";
 
 function GoogleLogin({setIsLogin}){
   const URL = window.location.href; //  url 뽑아오는 코드
@@ -35,7 +36,7 @@ function GoogleLogin({setIsLogin}){
 
   return(
     <>
-    구글로그인
+      <Loading />
     </>
 
   );

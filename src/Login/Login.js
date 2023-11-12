@@ -99,7 +99,8 @@ const Login =({setIsLogin, setUserInfo}) =>{
               <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_naver.png" alt="sns아이콘"/>  
             </button>
 
-            <button className='login-kakao'>
+            <button className='login-kakao'
+               onClick={()=>{window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;}}>
               <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_kakao.png" alt="sns아이콘"></img>
             </button>
             

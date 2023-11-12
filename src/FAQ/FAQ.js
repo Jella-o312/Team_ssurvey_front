@@ -44,7 +44,7 @@ const FAQ = ()=>{
               return(
                 <Accordion.Item eventKey={`userInfo${i}`}>
                   <Accordion.Header><span className="faq-q-inner-icon">Q</span>{data.question}</Accordion.Header>
-                  <Accordion.Body className="faq-answer-inner">
+                  <Accordion.Body className="faq-a-inner">
                     {data.answer}
                   </Accordion.Body>
                 </Accordion.Item>

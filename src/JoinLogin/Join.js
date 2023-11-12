@@ -23,7 +23,8 @@ const Join = () => {
           <span  style={{fontWeight:"500px", color:"white"}}>네이버로 회원가입</span>
         </button>
       
-        <button className='join-kakao'>
+        <button className='join-kakao'
+           onClick={()=>{window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;}}>
           <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_kakao.png" alt="sns아이콘"></img>
           <span style={{fontWeight:"500px", color:"#333333"}}>카카오로 회원가입</span>
         </button>
