@@ -7,7 +7,7 @@ import SurveyReply from "../SurveyReplyPage/SurveyReply";
 import axiosInstance from "../axioslnstance";
 import SurveyResult from "../pages/SurveyResult";
 
-const Survey = () => {
+const Survey = ( {userInfo} ) => {
   const navigate = useNavigate();
   const [showParticipateModal, setShowParticipateModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
@@ -124,11 +124,8 @@ const Survey = () => {
           <Modal.Title>참여하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Answer surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} />
+          <Answer userInfo={userInfo} surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowParticipateModal(false)}>닫기</Button>
-        </Modal.Footer>
       </Modal>
 
       <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>

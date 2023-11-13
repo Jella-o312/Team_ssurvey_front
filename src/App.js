@@ -17,9 +17,7 @@ import FunQ from './pages/FunQ';
 import axiosInstance from './axiosInstance';
 import GoogleLogin from './Login/GoogleLogin';
 import SocialAddInfo from './JoinLogin/SocialAddInfo';
-<<<<<<< HEAD
 import Survey from './main/Survey';
-=======
 import Footer from './Home/Footer';
 import FAQ from './FAQ/FAQ';
 import KakaoLogin from './Login/KakaoLogun';
@@ -27,7 +25,6 @@ import KakaoLogin from './Login/KakaoLogun';
 
 
 
->>>>>>> feature/ham
 
 
 function App() {
@@ -87,7 +84,7 @@ function App() {
         <Route path='/SurveyList' element={<SurveyList />}/> 
         <Route path='/FunQ' element={<FunQ userInfo={userInfo}/>}/>   
         <Route path='/SurveyQ' element={<SurveyQ userInfo={userInfo}/>}/>   
-        <Route path='/Answer' element={<Answer />}/>
+        <Route path='/Answer' element={<Answer userInfo={userInfo} />}/>
         <Route path='/join' element={<Join/>}/>
         <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
         <Route path ='/oauth/google' element={<GoogleLogin setIsLogin={setIsLogin} />}/>
@@ -103,7 +100,7 @@ function App() {
         <Route path='/fbdetail/:fbno' element={<FreeBoardDetail />} />
         <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
         {/* <Route path="/FunSurvey" element={<FunSurvey/>} /> */}
-        <Route path="/Survey" element={<Survey/>} />
+        <Route path="/Survey" element={<Survey userInfo={userInfo} />} />
         <Route path='/FAQ' element={<FAQ/>} />
       </Routes>
 

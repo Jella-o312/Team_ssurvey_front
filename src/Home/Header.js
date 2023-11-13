@@ -48,26 +48,9 @@ const Header = ({ userInfo, setUserInfo, isLogin, setIsLogin }) => {
                 <div onClick={() => { navigate('/Survey') }}>설문조사</div>
               </div>
             </div>
-            <div onClick={() => { navigate('/SurveyQ') }}>설문신청</div>
+            <div onClick={() => { navigate('/SurveyList') }}>설문신청</div>
             <div onClick={() => { navigate('/fbList') }}>자유게시판</div>
 
-<<<<<<< HEAD
-            <div onClick={() => { navigate('/sorry') }}>FAQ</div>
-          </nav>
-
-          <div className='search'>
-            <form>
-              <input type='text' placeholder='관심사 검색하기'
-                onKeyDown={(e) => {
-                  e.preventDefault();
-                  if (e.key === 'Enter')
-                    // alert(e.target.value);
-                    e.value = ''; // ???? 기능을 안함
-
-                }} />
-
-            </form>
-=======
           <div onClick={()=>{navigate('/FAQ')}}>FAQ</div>
         </nav>
 
@@ -84,13 +67,7 @@ const Header = ({ userInfo, setUserInfo, isLogin, setIsLogin }) => {
           </form>
           
         </div>  
-        { //isLogin 상태가 트루일때 로그인된 화면 보여줌
-          isLogin ?
-          <div className='nav-loginTrue'> {/* 로그인 된 상태 */}
-            <button className='myPage'>{userInfo.userRname}님</button>
-            <button className='logout' onClick={logOut} >로그아웃</button>
->>>>>>> feature/ham
-          </div>
+        
           { //isLogin 상태가 트루일때 로그인된 화면 보여줌
             isLogin ?
               <div className='nav-loginTrue'> {/* 로그인 된 상태 */}
