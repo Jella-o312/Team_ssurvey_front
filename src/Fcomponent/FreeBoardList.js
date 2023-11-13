@@ -61,79 +61,95 @@ function FreeBoardList({ isLogin }) {
         </div>
       </div>
       
-      <div id="board-list">
-        <div className="fb-con">
-          <table className="fb-table">
-            <thead>
-              <tr>
-                <th scope="col" className="th-num">번호</th>
-                <th scope="col" className="th-title">제목</th>
-                <th scope="col" className="th-writer">작성자</th>
-                <th scope="col" className="th-date">작성일</th>
-                <th scope="col" className="th-view">조회수</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                boardList.map((board, i) => {
-                  return(
-                    <tr key={i}>
-                      <td>{board.fbNo}</td>
-                      <th>
-                        <Link to={`/fbdetail/${board.fbNo}`} onClick={(e) => {
-                          if(!isLogin) {
-                            e.preventDefault();
-                            alert('로그인 후 이용 가능합니다');
-                            navigate('/login');
-                          } else {
-                            axiosInstance.put(`/fboard/view/${board.fbNo}`)
-                            .then((res) => {
+      {boardList.length !== 0 ?
+      <>
+        <div id="board-list">
+          <div className="fb-con">
+            <table className="fb-table">
+              <thead>
+                <tr>
+                  <th scope="col" className="th-num">번호</th>
+                  <th scope="col" className="th-title">제목</th>
+                  <th scope="col" className="th-writer">작성자</th>
+                  <th scope="col" className="th-date">작성일</th>
+                  <th scope="col" className="th-view">조회수</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  boardList.map((board, i) => {
+                    return(
+                      <tr key={i}>
+                        <td>{board.fbNo}</td>
+                        <th>
+                          <Link to={`/fbdetail/${board.fbNo}`} onClick={(e) => {
+                            if(!isLogin) {
+                              e.preventDefault();
+                              alert('로그인 후 이용 가능합니다');
+                              navigate('/login');
+                            } else {
+                              axiosInstance.put(`/fboard/view/${board.fbNo}`)
+                              .then((res) => {
 
-                            }).catch((err) => {
-                                console.log(err);
-                            })
-                          }
-                        }}>{board.fbTitle} [{board.fbReplyList.length}]</Link>
-                      </th>
-                      <td>{board.user.userRname}</td>
-                      <td>{board.fbCreateBoard}</td>
-                      <td>{board.fbViews}</td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </table>
+                              }).catch((err) => {
+                                  console.log(err);
+                              })
+                            }
+                          }}>{board.fbTitle} [{board.fbReplyList.length}]</Link>
+                        </th>
+                        <td>{board.user.userRname}</td>
+                        <td>{board.fbCreateBoard}</td>
+                        <td>{board.fbViews}</td>
+                      </tr>
+                    )
+                  })
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <div className='button-box'>
-        <button className="write-btn btn-dark" onClick={() => {
-          if(isLogin){
-            navigate('/fbwrite');
-          } else {
-            alert('로그인 후 이용 가능합니다');
-            navigate('/login');
-          }
-        }}>글쓰기</button>
-      </div>
-      <div className='fb-page-btn'>
-        <button onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
-          이전
-        </button>
-        {Array.from(Array(totalPages).keys()).map((pageNumber) => (
-          <button
-            key={pageNumber}
-            onClick={() => handlePageChange(pageNumber)}
-            disabled={page === pageNumber}
-            className={page === pageNumber ? 'fb-selected-btn' : ''}
-          >
-            {pageNumber + 1}
+
+        <div className='button-box'>
+          <button className="write-btn btn-dark" onClick={() => {
+            if(isLogin){
+              navigate('/fbwrite');
+            } else {
+              alert('로그인 후 이용 가능합니다');
+              navigate('/login');
+            }
+          }}>글쓰기</button>
+        </div>
+        <div className='fb-page-btn'>
+          <button onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
+            이전
           </button>
-        ))}
-        <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1}>
-          다음
-        </button>
-      </div>
+          {Array.from(Array(totalPages).keys()).map((pageNumber) => (
+            <button
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}
+              disabled={page === pageNumber}
+              className={page === pageNumber ? 'fb-selected-btn' : ''}
+            >
+              {pageNumber + 1}
+            </button>
+          ))}
+          <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1}>
+            다음
+          </button>
+        </div>
+      </> : <div className='fb-null-box'>
+              등록된 게시글이 없습니다
+              <div className='fb-null-btn-box'>
+                <button className="write-btn btn-dark" onClick={() => {
+                  if(isLogin){
+                    navigate('/fbwrite');
+                  } else {
+                    alert('로그인 후 이용 가능합니다');
+                    navigate('/login');
+                  }
+                  }}>글쓰기</button>
+              </div>
+            </div> }
     </div>
   );
 }
