@@ -8,7 +8,7 @@ const SurveyResult = () => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
 
-    const myData = [{ angle: 1 }, { angle: 5 }, { angle: 2 }] //예시 값
+    // const myData = [{ angle: 1 }, { angle: 5 }, { angle: 2 }] //예시 값
 
     useEffect(() => {
         axiosInstance.get('/surveys')
@@ -70,11 +70,11 @@ const SurveyResult = () => {
                     <hr />
                     <p className='sendedAForm'>답변 통계</p>
                     {/* 답변 정보를 렌더링하는 부분 */}
-                    <RadialChart
+                    {/* <RadialChart
                         data={myData}
                         width={300}
                         height={300} /> 
-                        {/* npm install react-vis 라이브러리 설치해서 사용 해야함 */}
+                        npm install react-vis 라이브러리 설치해서 사용 해야함 */}
                     {answers && answers.map((answer) => (
                         <div key={answer.saNo}>
                             <p>{answer.saAnswer}</p>

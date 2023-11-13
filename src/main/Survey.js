@@ -7,40 +7,36 @@ import SurveyReply from "../SurveyReplyPage/SurveyReply";
 import axiosInstance from "../axioslnstance";
 import SurveyResult from "../pages/SurveyResult";
 
-
 const Survey = () => {
   const navigate = useNavigate();
   const [showParticipateModal, setShowParticipateModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
   const [surveys, setSurveys] = useState([]);
   const [loadMoreCount, setLoadMoreCount] = useState(3);
+  const [selectedSurveyNo, setSelectedSurveyNo] = useState(null);
+  const [selectedSurveyTitle, setSelectedSurveyTitle] = useState(null); // 새로운 상태 추가
 
   useEffect(() => {
     axiosInstance.get('/survey')
       .then(response => {
         setSurveys(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.error('설문 정보를 가져오는 중 오류 발생:', error);
       });
   }, []);
 
-  // const handleLoadMore = () => {
-  //   const additionalSurveys = Math.min(3, surveys.length - loadMoreCount);
-  //   const newLoadMoreCount = loadMoreCount + additionalSurveys;
-  //   setLoadMoreCount(newLoadMoreCount);
-  // };
-
   const handleButtonClick = (category) => {
     if (category === 'fun') {
-      navigate('/fun'); // Fun 페이지로 이동
+      navigate('/fun');
     } else {
-      navigate('/survey'); // Survey 페이지로 이동
+      navigate('/survey');
     }
   };
 
-  const handleParticipateClick = () => {
+  const handleParticipateClick = (surveyNo, surveyTitle) => {
+    setSelectedSurveyNo(surveyNo);
+    setSelectedSurveyTitle(surveyTitle); // 선택한 설문의 타이틀을 설정
     setShowParticipateModal(true);
   };
 
@@ -48,16 +44,18 @@ const Survey = () => {
     setShowResultModal(true);
   };
 
-  // 추가된 부분: 각 카테고리에 대한 타이틀을 담을 Set
+  const handleLoadMore = () => {
+    const additionalSurveys = Math.min(3, surveys.length - loadMoreCount);
+    const newLoadMoreCount = loadMoreCount + additionalSurveys;
+    setLoadMoreCount(newLoadMoreCount);
+  };
+
   const categoryTitles = new Set();
 
   return (
     <>
       {surveys.map((surveyItem, i) => {
-        console.log(Array.isArray(surveys));
-        // 추가된 부분: 해당 카테고리의 타이틀이 이미 등록되어 있는지 확인
         if (!categoryTitles.has(surveyItem.surveyCategory)) {
-          // 추가된 부분: 타이틀 등록 후 Set에 추가
           categoryTitles.add(surveyItem.surveyCategory);
 
           return (
@@ -66,7 +64,7 @@ const Survey = () => {
                 <h1 className={`${surveyItem.surveyCategory}-title`}>
                   {surveyItem.surveyCategory === 'fun' ? 'Fun' : 'Survey'}
                   {loadMoreCount < surveys.length && (
-                    <Button className="btn-more" onClick={() => handleButtonClick((surveyItem.surveyCategory))}>
+                    <Button className="btn-more" onClick={() => handleButtonClick(surveyItem.surveyCategory)}>
                       더 보기
                     </Button>
                   )}
@@ -74,8 +72,6 @@ const Survey = () => {
               </Container>
               <Container key={i} className={`MainSurveyBox ${surveyItem.surveyCategory}`}>
                 <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
-                
-
                   {surveys
                     .filter((filteredSurvey) => filteredSurvey.surveyCategory === surveyItem.surveyCategory)
                     .slice(0, loadMoreCount)
@@ -91,9 +87,14 @@ const Survey = () => {
                               <button className="btn like-btn">❤</button>
                               <span className="like-count">{filteredSurvey.surveyLike || 0}</span>
                             </div>
-                            <i className={`${surveyItem.surveyCategory}-joinpeople`}>현재 {filteredSurvey.surveyCount}명 참여 중</i>
+                            <i className={`${surveyItem.surveyCategory}-joinpeople`}>
+                              현재 {filteredSurvey.surveyCount}명 참여 중
+                            </i>
                             <div className="card-wrap">
-                              <button className="btn submit-btn" onClick={handleParticipateClick}>
+                              <button
+                                className="btn submit-btn"
+                                onClick={() => handleParticipateClick(filteredSurvey.surveyNo, filteredSurvey.surTitle)}
+                              >
                                 참여하기
                               </button>
                               <button className="btn result-btn view_more" onClick={handleResultClick}>
@@ -109,15 +110,21 @@ const Survey = () => {
             </div>
           );
         }
-        return null; // 중복된 카테고리의 경우 null 반환
+        return null;
       })}
+
+      {loadMoreCount < surveys.length && (
+        <Button className="btn-more" onClick={handleLoadMore}>
+          더 보기
+        </Button>
+      )}
 
       <Modal show={showParticipateModal} onHide={() => setShowParticipateModal(false)} centered className="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title>참여하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Answer />
+          <Answer surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowParticipateModal(false)}>닫기</Button>
@@ -130,7 +137,7 @@ const Survey = () => {
         </Modal.Header>
         <Modal.Body>
           <SurveyResult />
-          <SurveyReply /> {/* 임시로 어떻게 들어가나 넣어봄 사이즈 확인겸 */}
+          <SurveyReply />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowResultModal(false)}>닫기</Button>
@@ -141,5 +148,3 @@ const Survey = () => {
 }
 
 export default Survey;
-
-

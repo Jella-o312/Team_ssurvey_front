@@ -2,39 +2,30 @@ import { useEffect, useState } from "react";
 import './Answer.css';
 import axiosInstance from "../axioslnstance";
 
-
-const Answer = () => {
+const Answer = ({ surveyNo, surveyTitle }) => {
   const [surveyInfo, setSurveyInfo] = useState({});
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
-    axiosInstance.get('/surveys')
-      .then((response) => {
-        const firstSurvey = response.data[0];
-
-        if (firstSurvey) {
-          // surveyInfo에 surveyNo와 surveyTitle 추가
-          setSurveyInfo({
-            surveyNo: firstSurvey.surveyNo,
-            surveyTitle: firstSurvey.surTitle,
-          });
-
-          axiosInstance.get(`/surveys/${firstSurvey.surveyNo}`)
-            .then((response) => {
-              console.log('Survey Data:', response.data);
-              setQuestions(response.data.questions);
-              setAnswers(response.data.answers);
-            })
-            .catch((error) => {
-              console.error('설문의 질문 정보를 가져오는 중 오류 발생:', error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.error('설문 목록을 가져오는 중 오류 발생:', error);
+    // surveyNo가 있고 surveyTitle이 존재하면 해당 설문의 정보를 가져옴
+    if (surveyNo && surveyTitle) {
+      setSurveyInfo({
+        surveyNo,
+        surTitle: surveyTitle,
       });
-  }, []);
+
+      axiosInstance.get(`/surveys/${surveyNo}`)
+        .then((response) => {
+          console.log('Survey Data:', response.data);
+          setQuestions(response.data.questions);
+          setAnswers(response.data.answers);
+        })
+        .catch((error) => {
+          console.error('설문의 질문 정보를 가져오는 중 오류 발생:', error);
+        });
+    }
+  }, [surveyNo, surveyTitle]);
 
   const CompleteA = () => {
     // 원하는 작업 수행
@@ -48,7 +39,8 @@ const Answer = () => {
         <div className="Abox">
           <div className="questionQ">
             <p>Q.</p>
-            <p className="SQTitle">{surveyInfo.surTitle}</p>
+            {/* surveyNo가 있을 때만 제목을 표시 */}
+            {surveyInfo.surveyNo && <p className="SQTitle">{surveyInfo.surTitle}</p>}
           </div>
         </div>
         <div className="submitA">
