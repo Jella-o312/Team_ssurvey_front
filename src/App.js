@@ -17,7 +17,17 @@ import FunQ from './pages/FunQ';
 import axiosInstance from './axiosInstance';
 import GoogleLogin from './Login/GoogleLogin';
 import SocialAddInfo from './JoinLogin/SocialAddInfo';
+<<<<<<< HEAD
 import Survey from './main/Survey';
+=======
+import Footer from './Home/Footer';
+import FAQ from './FAQ/FAQ';
+import KakaoLogin from './Login/KakaoLogun';
+
+
+
+
+>>>>>>> feature/ham
 
 
 function App() {
@@ -69,30 +79,37 @@ function App() {
       isLogin = {isLogin}  /* 로그인 상태에 따라 헤더 구성 바꾸기 위함 (로그인, 로그아웃) */
       setIsLogin = {setIsLogin} /* 로그인 값 바꿔줘야함 */
     />
-    
-    <Routes>    
-      <Route path="/" element={<MainHome />} />
-      <Route path='/SurveyList' element={<SurveyList />}/> 
-      <Route path='/FunQ' element={<FunQ userInfo={userInfo}/>}/>   
-      <Route path='/SurveyQ' element={<SurveyQ userInfo={userInfo}/>}/>   
-      <Route path='/Answer' element={<Answer />}/>
-      <Route path='/join' element={<Join/>}/>
-      <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
-      <Route path ='/oauth/google' element={<GoogleLogin setIsLogin={setIsLogin} />}/>
-      <Route path='/emailJoin' element={<EmailJoin/>}/>
-      <Route path='/fbList' element={<FreeBoardList isLogin={isLogin}/>} />
-      <Route path='/fbwrite' element={<WriteFreeBoard userInfo={userInfo} isLogin={isLogin} />} />
-      <Route path='/fbdetail/:fbno' element={<FreeBoardDetail userInfo={userInfo}/>} />
-      <Route path='/fbupdate/:fbno' element={<UpdateFreeBoard/>} />
-      <Route path='/socialAddInfo' element={<SocialAddInfo setIsLogin={setIsLogin}/>} /> {/* 소셜 로그인 추가 정보 입력 페이지 (이거 완료해야 회원가입 완료됨) */}
-      <Route path='/fbList' element={<FreeBoardList />} />
-      <Route path='/fbwrite' element={<WriteFreeBoard />} />
-      <Route path='/fbdetail/:fbno' element={<FreeBoardDetail />} />
-      <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
-      {/* <Route path="/FunSurvey" element={<FunSurvey/>} /> */}
-      <Route path="/Survey" element={<Survey/>} />
-    </Routes>
 
+    {/* footer 때문에 추가함  */}
+    <div className='App-Body'> 
+      <Routes>    
+        <Route path="/" element={<MainHome />} />
+        <Route path='/SurveyList' element={<SurveyList />}/> 
+        <Route path='/FunQ' element={<FunQ userInfo={userInfo}/>}/>   
+        <Route path='/SurveyQ' element={<SurveyQ userInfo={userInfo}/>}/>   
+        <Route path='/Answer' element={<Answer />}/>
+        <Route path='/join' element={<Join/>}/>
+        <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
+        <Route path ='/oauth/google' element={<GoogleLogin setIsLogin={setIsLogin} />}/>
+        <Route path='/oauth/kakao' element={<KakaoLogin setIsLogin={setIsLogin}/>} />
+        <Route path='/emailJoin' element={<EmailJoin/>}/>
+        <Route path='/fbList' element={<FreeBoardList isLogin={isLogin}/>} />
+        <Route path='/fbwrite' element={<WriteFreeBoard userInfo={userInfo} isLogin={isLogin} />} />
+        <Route path='/fbdetail/:fbno' element={<FreeBoardDetail userInfo={userInfo}/>} />
+        <Route path='/fbupdate/:fbno' element={<UpdateFreeBoard/>} />
+        <Route path='/socialAddInfo' element={<SocialAddInfo setIsLogin={setIsLogin}/>} /> {/* 소셜 로그인 추가 정보 입력 페이지 (이거 완료해야 회원가입 완료됨) */}
+        <Route path='/fbList' element={<FreeBoardList />} />
+        <Route path='/fbwrite' element={<WriteFreeBoard />} />
+        <Route path='/fbdetail/:fbno' element={<FreeBoardDetail />} />
+        <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
+        {/* <Route path="/FunSurvey" element={<FunSurvey/>} /> */}
+        <Route path="/Survey" element={<Survey/>} />
+        <Route path='/FAQ' element={<FAQ/>} />
+      </Routes>
+
+
+    </div>
+    <Footer />
     </div>
   );
 }

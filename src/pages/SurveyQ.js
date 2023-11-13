@@ -13,7 +13,7 @@ const SurveyQ = ({ userInfo }) => {
   const [SurveyQ, setSurveyQ] = useState({
     surTitle: '',
     surveyCategory: 'Survey',
-    user: userInfo
+    // user: userInfo 없어도 될듯
   });
 
   // 설문 질문 담는 리스트
@@ -29,13 +29,20 @@ const SurveyQ = ({ userInfo }) => {
 
 
  
-  const resultAll = surveyList.map(item => {
-    if (item.sqQuestion === '' || item.sqType === '') {
-      return false;
-    }
-    return true;
-  });
+  // const resultAll = surveyList.map(item => {
+  //   if (item.sqQuestion === '' || item.sqType === '') {
+  //     return false;
+  //   }
+  //   return true;
+  // });
 
+
+  // 📣위에 코드 오류나서 아래 코드로 변경함 every는 boolean타입으로 반환함 (하나라도 false면 false로 반환 https://haenny.tistory.com/200)
+  const isEmptySurveyList = surveyList.every(item => item.sqQuestion !== '' && item.sqType !== '');
+
+  // 📣surveyList안에 있는 option 배열 길이가 0이면 false로 리턴됨 
+  // 📣(아래 updatedSurveyList 핸들러에 단답, 장문형은 option에 'none' 글자 넣으라고 되어 있어서 배열길이 1으로 만듬)
+  const isEmptyOption = surveyList.every(item => item.option.length !== 0); 
 
 
 
@@ -88,9 +95,12 @@ const SurveyQ = ({ userInfo }) => {
         }
 
         if(type === "객관식" ||type === "다중 체크"||type === "단답형" ||type === "장문형") {// 타입일때만
+          if(type=== "단답형" || type === "장문형"){
+            return {...item, 'sqType': type, 'option' : ["none"]};  
+          }
           return {...item, 'sqType': type, 'option' : []};
 
-        }else{
+        }else{  // 옵션값에 변동이 있을때 다시 저장하는 메서드
           return {...item, 'option' : type};   
         }
       }
@@ -108,7 +118,7 @@ const SurveyQ = ({ userInfo }) => {
 
   const CompleteS = () => {
 
-    if((SurveyQ.surTitle !== '')  && resultAll) {
+    if((SurveyQ.surTitle !== '')  && isEmptySurveyList && isEmptyOption) {
       //  다 입력했을때 서버에 보냄
       axiosInstance.post(`/addSurvey`,surveyList, {params : {"surTitle" : SurveyQ.surTitle, "surveyCategory" : SurveyQ.surveyCategory, "username" : userInfo.username}})
         .then(response => {
@@ -125,9 +135,7 @@ const SurveyQ = ({ userInfo }) => {
     }
   }
 
-
-
-  console.log(surveyList);
+console.log(isEmptyOption);
 
 // =================================
 

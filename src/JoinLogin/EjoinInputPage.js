@@ -3,6 +3,7 @@ import './EmailJoin.css';
 import { JoinAddressCity, JoinAddressTown } from '../joinFolder/JoinAddress';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../axiosInstance';
 
 const EjoinInputPage = ()=>{
   
@@ -43,6 +44,9 @@ const EjoinInputPage = ()=>{
     RJob : ''
   });
   
+  // 이메일 중복 체크 확인 스테이트
+  const [ableEmail, setAbleEmail] = useState(false);
+
 
   // ⭐ 회원가입 버튼 활성화를 위한 함수 ⭐ 
   //isRegexs안에 있는 값이 한개라도 false면 flase로 저장되고, 전체가 true일때만 true가됨 
@@ -143,7 +147,7 @@ const EjoinInputPage = ()=>{
       
     }else{
       setEjoinUser({...ejoinUser, [`user${eDataset}`] : eValue}) 
-
+      setAbleEmail(false);
       if(regexResult){
         setIsRegexs({...isRegexs, [`R${eDataset}`] : true}) //원래 정규식 객체 안에 있는 key 값이 RName, REmail과 같음
       }else{
@@ -169,7 +173,40 @@ const EjoinInputPage = ()=>{
     } 
   }  
 
-  
+
+
+  // 이메일 중복체크 핸들러
+  const handleEmailCheck = ()=>{
+    let alreadyJoin = '';
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/join/${ejoinUser.username}`)  // params로 안보내져서 url로 보냄
+    .then(response=>{
+      if(response.data == 'none'){
+        alert('사용가능한 아이디(이메일)입니다.');
+        setAbleEmail(true);
+      }else{
+        console.log(response.data);
+        if(response.data === 'email'){
+          alreadyJoin = window.confirm("이미 가입된 이메일 입니다. 로그인 하시겠습니까?");
+          if(alreadyJoin){
+            navigator('/login');
+          }
+        }else if(response.data === "google"){
+          alreadyJoin = window.confirm("구글로 가입된 이메일 입니다. 로그인 하시겠습니까?");
+          if(alreadyJoin){
+            navigator('/login');
+          }
+        }else if(response.data === "kakao"){
+          alreadyJoin = window.confirm("카카오톡으로 가입된 이메일 입니다. 로그인 하시겠습니까?");
+          if(alreadyJoin){
+            navigator('/login');
+          }
+        }
+      }
+    }).catch(error=>{
+      console.log(error);
+      alert("😡문제발생😡");  
+    })
+  }
 
 
 
@@ -186,9 +223,6 @@ const EjoinInputPage = ()=>{
     })
   }
 
-  console.log(ejoinUser.password);
-  // console.log(ejoinUser);
-  // console.log(isRegexs);
 
   return(
     <div>
@@ -217,9 +251,13 @@ const EjoinInputPage = ()=>{
                       data-field="name"
                       onChange={handleNamePw}  
                     />
-                    <button className='join-email-check'>중복확인</button>
+                    <button className={`join-email-check ${isRegexs.Rname === true ? 'join-email-check-on' : 'disabled'}`}
+                      disabled={!isRegexs.Rname}
+                      onClick={handleEmailCheck}
+                    >중복확인</button>
                   </div>
                   {isRegexs.Rname === false ? <p className="join_input_regexTxt">*올바른 이메일을 적어주세요</p> : null}
+                  {ableEmail === false && isRegexs.Rname ===true ? <p className="join_input_regexTxt2">*이메일 중복확인을 해주세요 👉</p> : null} {/*올바른 이메일 형식 입력한 상태에만 작동*/}
                 </div>
 
 
@@ -318,7 +356,7 @@ const EjoinInputPage = ()=>{
               {/* 🟩 회원가입 버튼 눌렀을때 스프링부트에 값 보내도록 작업 🟩*/}
               <div className='ejoin-confirm'>
                 <button className={`ejoin-confirm-button ${joinAllTrue ? '' : 'disabled'}`}
-                  disabled={!joinAllTrue}
+                  disabled={!joinAllTrue && !ableEmail}
                   onClick={handleSendUserInfo}
                 >회원가입</button>  
               </div>

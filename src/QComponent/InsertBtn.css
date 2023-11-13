@@ -1,7 +1,8 @@
 .Insert-btn-group{
   margin-left: 20px;
   margin-top: 0;
-  margin-bottom: auto;  
+  margin-bottom: auto; 
+  height: 100%; 
 }
 
 .Insert-btn{
