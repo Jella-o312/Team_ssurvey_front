@@ -7,6 +7,9 @@ const SurveyResult = () => {
     const [surveyInfo, setSurveyInfo] = useState({});
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const [selectedSurvey, setSelectedSurvey] = useState(null);
+    const [selectedSurveyNo, setSelectedSurveyNo] = useState(null);
+    const [selectedSurveyTitle, setSelectedSurveyTitle] = useState(null);
 
     // const myData = [{ angle: 1 }, { angle: 5 }, { angle: 2 }] //예시 값
 
@@ -38,6 +41,12 @@ const SurveyResult = () => {
             });
     }, []);
 
+    // const handleParticipateClick = (surveyNo, surveyTitle) => {
+    //     setSelectedSurveyNo(surveyNo);
+    //     setSelectedSurveyTitle(surveyTitle); // 선택한 설문의 타이틀을 설정
+    //     setShowParticipateModal(true);
+    //   };
+
     const CompleteA = () => {
         // 원하는 작업 수행
         alert("✏️ 설문제출이 완료되었어요 ");
@@ -50,7 +59,9 @@ const SurveyResult = () => {
                 <div className="Abox">
                     <div className="questionQ">
                         <p>Q.</p>
-                        <p className="SQTitle">{surveyInfo.surTitle}</p>
+                        {/* <h5 className="SQTitle">surveyNo={selectedSurvey?.surveyNo} surveyTitle={selectedSurvey?.surTitle}</h5>
+                        여길 또 어떻게 받아오노 하..
+                        */}
                     </div>
                 </div>
             </div>

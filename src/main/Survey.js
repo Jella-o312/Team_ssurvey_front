@@ -14,7 +14,7 @@ const Survey = () => {
   const [surveys, setSurveys] = useState([]);
   const [loadMoreCount, setLoadMoreCount] = useState(3);
   const [selectedSurveyNo, setSelectedSurveyNo] = useState(null);
-  const [selectedSurveyTitle, setSelectedSurveyTitle] = useState(null); // 새로운 상태 추가
+  const [selectedSurveyTitle, setSelectedSurveyTitle] = useState(null);
 
   useEffect(() => {
     axiosInstance.get('/survey')

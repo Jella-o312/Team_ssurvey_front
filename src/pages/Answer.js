@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import './Answer.css';
 import axiosInstance from "../axioslnstance";
+import SingleCheck from "../QComponent/SingleCheck";
+import MultiCheck from "../QComponent/MultiCheck";
+import ShortText from "../QComponent/ShortText";
+import LongText from "../QComponent/LongText";
 
 const Answer = ({ surveyNo, surveyTitle }) => {
   const [surveyInfo, setSurveyInfo] = useState({});
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
+  const [selectedSurveyNo, setSelectedSurveyNo] = useState(null);
+  const [selectedSurveyTitle, setSelectedSurveyTitle] = useState(null);
+  const [showParticipateModal, setShowParticipateModal] = useState(false);
 
   useEffect(() => {
     // surveyNo가 있고 surveyTitle이 존재하면 해당 설문의 정보를 가져옴
@@ -27,6 +34,27 @@ const Answer = ({ surveyNo, surveyTitle }) => {
     }
   }, [surveyNo, surveyTitle]);
 
+  // const handleParticipateClick = (surveyNo, surveyTitle) => {
+  //   setSelectedSurveyNo(surveyNo);
+  //   setSelectedSurveyTitle(surveyTitle);
+  //   setShowParticipateModal(true);
+  // };
+
+  const renderQuestionComponent = (question) => {
+    switch (question.sqType) {
+      case '객관식':
+        return <SingleCheck question={question} />;
+      case '다중 체크':
+        return <MultiCheck question={question} />;
+      case '단답형':
+        return <ShortText question={question} />;
+      case '장문형':
+        return <LongText question={question} />;
+      default:
+        return null;
+    }
+  };
+
   const CompleteA = () => {
     // 원하는 작업 수행
     alert("✏️ 설문제출이 완료되었어요 ");
@@ -39,13 +67,12 @@ const Answer = ({ surveyNo, surveyTitle }) => {
         <div className="Abox">
           <div className="questionQ">
             <p>Q.</p>
-            {/* surveyNo가 있을 때만 제목을 표시 */}
             {surveyInfo.surveyNo && <p className="SQTitle">{surveyInfo.surTitle}</p>}
           </div>
         </div>
         <div className="submitA">
           <div className="createText">
-            <p className="CreateS">SUBMIT<br/>A SURVEY</p>
+            <p className="CreateS">SUBMIT<br />A SURVEY</p>
             <button type="submit" className="Asumit-btn" onClick={CompleteA}> 답변 제출 </button>
           </div>
         </div>
@@ -59,11 +86,13 @@ const Answer = ({ surveyNo, surveyTitle }) => {
             {questions && questions.map((question) => (
               <div key={question.sqNo}>
                 <p>{question.sqQuestion}</p>
-                {/* 여기에 유형에 따른 추가 컴포넌트를 렌더링할 수 있습니다. */}
+                <p>{question.sqNo}</p>
+                <p>{question.sqType}</p>
+                {renderQuestionComponent(question)}
               </div>
             ))}
           </div>
-          <hr/>
+          <hr />
           <p className='sendedAForm'>받아온 답변창</p>
           {/* 답변 정보를 렌더링하는 부분 */}
           {answers && answers.map((answer) => (

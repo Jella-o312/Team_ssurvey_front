@@ -12,7 +12,7 @@ return (
         <div className="ABox">
           <p className="sendedQ">
             받아온 질문
-            <SingleCheckType />
+            {/* <SingleCheckType /> */}
           </p>
           <hr />
           <p className="sendedAForm">받아온 답변창</p>
