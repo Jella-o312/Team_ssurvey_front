@@ -7,9 +7,8 @@ function MainHome() {
   return (
       <>
       <CarouselBanner />
-          <SurveyReply />
-          <FunBoard />
-          <SurveyBoard />
+        <FunBoard />
+        <SurveyBoard />
       </>
   );
 }
