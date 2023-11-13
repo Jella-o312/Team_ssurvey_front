@@ -111,7 +111,7 @@ const SocialAddInfo = ({setIsLogin})=>{
     // 여기에 회원 추가 정보 페이지
     <>
       <div className="ejoin-container" >
-        <h2>회원가입</h2>
+        <h2><h3>추가 정보만 입력하면 끝!</h3></h2>
         
         <div className='ejoin-box'>
           <div className='ejoin-form'>

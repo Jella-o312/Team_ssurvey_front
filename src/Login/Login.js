@@ -45,6 +45,8 @@ const Login =({setIsLogin, setUserInfo}) =>{
   }
 
 
+
+
   return(
     <div>
       <div className="login-container" >
@@ -95,11 +97,12 @@ const Login =({setIsLogin, setUserInfo}) =>{
          <div className='login-social-lineBox'>───────&nbsp;&nbsp; or &nbsp;&nbsp;───────</div>
 
           <div className='social-login'>
-            <button className='login-naver'>
+            <button className='login-naver' onClick={()=>{alert('🙏준비중입니다')}}>
               <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_naver.png" alt="sns아이콘"/>  
             </button>
 
-            <button className='login-kakao'>
+            <button className='login-kakao'
+               onClick={()=>{window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;}}>
               <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_kakao.png" alt="sns아이콘"></img>
             </button>
             
@@ -108,7 +111,7 @@ const Login =({setIsLogin, setUserInfo}) =>{
               <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_google.png" alt="sns아이콘"/>
             </button>
 
-            <button className='login-apple'>
+            <button className='login-apple' onClick={()=>{alert('🙏준비중입니다')}}>
               <img src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_apple.png" alt="sns아이콘"></img>
             </button>
 

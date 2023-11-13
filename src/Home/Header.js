@@ -48,7 +48,7 @@ const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
           <div onClick={()=>{navigate('/SurveyList')}}>설문신청</div>
           <div onClick={()=>{navigate('/fbList')}}>자유게시판</div>
 
-          <div onClick={()=>{navigate('/sorry')}}>FAQ</div>
+          <div onClick={()=>{navigate('/FAQ')}}>FAQ</div>
         </nav>
 
         <div className='search'>
@@ -59,10 +59,10 @@ const Header = ({userInfo,setUserInfo, isLogin, setIsLogin}) =>{
               if(e.key === 'Enter')
                 // alert(e.target.value);
                 e.value = ''; // ???? 기능을 안함
-
             }}/>
               
           </form>
+          
         </div>  
         { //isLogin 상태가 트루일때 로그인된 화면 보여줌
           isLogin ?

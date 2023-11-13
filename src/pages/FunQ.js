@@ -27,18 +27,14 @@ const FunQ = ({ userInfo }) => {
       id: 1,
       sqQuestion: '',
       sqType: '',
-      option: []
+      option: ["11", "22"]
     }
   ]);
 
 
- 
-  const resultAll=()=> {
-    if (surveyList.sqQuestion === '' || surveyList.sqType=== '') {
-      return false;
-    }
-    return true;
-  };
+  // 빈값확인 하는 변수 (최종 제출때 사용)
+  const isEmptySurveyList = surveyList.every(item => item.sqQuestion !== '' && item.sqType !== '');
+  const isEmptyOption = surveyList.every(item => item.option.length !== 0); 
 
 
 
@@ -72,37 +68,30 @@ const FunQ = ({ userInfo }) => {
   // 값 바뀔때마다 설문 타이틀이 surveyQ 안에 있는 sTitle에 업데이트됨
   const changeValue = (e) => {
     setSurveyQ({ ...SurveyQ, surTitle: e.target.value });
-    setSurveyList([{...surveyList, sqQuestion: e.target.value }])
+    // setSurveyList([{...surveyList, sqQuestion: e.target.value }])
   }
 
 
 
   // 추가, 업데이트
   const handleAddQ = (e, data, type) => {
-
-
     const value = e.target.value;
 
-
     // 업데이트
-    const updatedSurveyList = () => {
+    const updatedSurveyList = surveyList.map(item => {
 
 
         if(type === 'sqQuestion'){  // 설문 질문 바뀔때만
-          return {...surveyList, 'sqQuestion': value};
+          return {...item, 'sqQuestion': value};
         }
 
         if(type === "객관식"  ||type === "다중 체크") {// 타입일때만
-          return {...surveyList, 'sqType': type, 'option' : []};
+          return {...item, 'sqType': type, 'option' : []};
 
         }else{
-          return {...surveyList, 'option' : type};   
+          return {...item, 'option' : type};   
         }
-
-    
-    };
-
-
+    });
 
     // 수정된 배열로 상태를 업데이트
     setSurveyList(updatedSurveyList);
@@ -111,7 +100,7 @@ const FunQ = ({ userInfo }) => {
 
   const CompleteS = () => {
 
-    if((SurveyQ.surTitle !== '')  && resultAll) {
+    if((SurveyQ.surTitle !== '')  && isEmptySurveyList && isEmptyOption) {
       //  다 입력했을때 서버에 보냄
       axiosInstance.post(`/addSurvey`,surveyList, {params : {"surTitle" : SurveyQ.surTitle, "surveyCategory" : SurveyQ.surveyCategory, "username" : userInfo.username}})
         .then(response => {
@@ -128,15 +117,7 @@ const FunQ = ({ userInfo }) => {
     }
   }
 
-  // function deleteQuestionContainer(index) {   
-  //   if (surveyList.length > 1) {
-  //     setSurveyList( surveyList.filter(data => data.id !== index))
-  //   }
-  // };
 
-
-
-  console.log(surveyList);
 
 // =================================
 
@@ -174,31 +155,26 @@ const FunQ = ({ userInfo }) => {
       </div>
 
 
-
-   <div className="QuestionList">
-      <div className="QuestionContainer" key={surveyList.id}>  
-   
-   {/* <button type="button" className="deleteQ" onClick={()=>deleteQuestionContainer(surveyList.id)} >✖️</button> */}
-     <div className="questionContainer">
-     <Question  surveyList={surveyList} setSurveyList={setSurveyList} handleAddQ={handleAddQ}/>
-     <button variant="primary" onClick={() => setModalShow(true)} className="AddImage">
-     📷
-         </button>
-     <ImageModal
-           show={modalShow}
-           onHide={() => setModalShow(false)}
-           />
-    
-     <Qtype  data={surveyList} surveyList={surveyList} setSurveyList={setSurveyList} handleAddQ={handleAddQ} type={SurveyQ.surveyCategory}/> {/* handleOptionSelect={handleOptionSelect}*/}
-     </div>  
-      
-     <div className='AList'>             
-             {surveyList.sqType=== '객관식' && <SingleCheck selectedType={surveyList.sqType}  data={surveyList} handleAddQ = {handleAddQ} type={SurveyQ}/>}
-             {surveyList.sqType=== '다중 체크' && <MultiCheck selectedType={surveyList.sqType} data={surveyList} handleAddQ = {handleAddQ} />}
-           </div>
-           </div>
-         </div>
-       </>
+      <div className='FunQ-box'>
+        <div className="QuestionList funBox-style">
+          <div className="QuestionContainer" key={surveyList.id}>  
+            <div className="questionContainer">
+              <Question  surveyList={surveyList} setSurveyList={setSurveyList} handleAddQ={handleAddQ}/>
+              <button variant="primary" onClick={() => setModalShow(true)} className="AddImage">📷</button>
+          
+              <ImageModal show={modalShow} onHide={() => setModalShow(false)} />
+            
+              <Qtype  data={surveyList[0]} surveyList={surveyList} setSurveyList={setSurveyList} handleAddQ={handleAddQ} type={SurveyQ.surveyCategory}/> {/* handleOptionSelect={handleOptionSelect}*/}
+            </div>  
+              
+              <div className='AList'>             
+                  {surveyList[0].sqType === '객관식' && <SingleCheck selectedType={surveyList[0].sqType}   data={surveyList[0]} handleAddQ = {handleAddQ}/>}
+                  {surveyList[0].sqType === '다중 체크' && <MultiCheck selectedType={surveyList[0].sqType} data={surveyList[0]} handleAddQ = {handleAddQ} />}
+              </div>
+            </div>
+          </div>
+      </div>
+  </>
     
 
   );

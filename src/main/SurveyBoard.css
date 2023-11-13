@@ -5,7 +5,6 @@
 }
 
 .survey-title {
-  border: 1px solid red;
   /* margin-left: 200px;
   margin-right: 200px; */
   margin-top: 20px;
@@ -21,7 +20,6 @@
   margin-top: 10px;
   text-align: center ;
   justify-content: space-around;
-  border: 1px solid red;
 }
 
 

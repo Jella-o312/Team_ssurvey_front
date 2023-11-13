@@ -193,3 +193,13 @@
   background-color: #4656; /* 선택한 색상으로 변경 */
   
 }
+
+.fb-null-box {
+  text-align: center;
+  margin-top: 125px;
+  font-size: 25px;
+}
+
+.fb-null-btn-box {
+  margin-top: 50px;
+}
