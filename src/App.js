@@ -21,6 +21,8 @@ import Survey from './main/Survey';
 import Footer from './Home/Footer';
 import FAQ from './FAQ/FAQ';
 import KakaoLogin from './Login/KakaoLogun';
+import FunPage from './pages/FunPage';
+import SurveyPage from './pages/SurveyPage';
 
 
 
@@ -101,6 +103,8 @@ function App() {
         <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
         {/* <Route path="/FunSurvey" element={<FunSurvey/>} /> */}
         <Route path="/Survey" element={<Survey userInfo={userInfo} />} />
+        <Route path="/FunPage" element={<FunPage userInfo={userInfo} />} />
+        <Route path="/SurveyPage" element={<SurveyPage userInfo={userInfo} />} />
         <Route path='/FAQ' element={<FAQ/>} />
       </Routes>
 
