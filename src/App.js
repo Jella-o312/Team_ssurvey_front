@@ -80,14 +80,14 @@ function App() {
     {/* footer 때문에 추가함  */}
     <div className='App-Body'> 
       <Routes>    
-        <Route path="/" element={<MainHome />} />
+        <Route path='/' element={<MainHome userInfo={userInfo} />} />
         <Route path='/SurveyList' element={<SurveyList />}/> 
         <Route path='/FunQ' element={<FunQ userInfo={userInfo}/>}/>   
         <Route path='/SurveyQ' element={<SurveyQ userInfo={userInfo}/>}/>   
         <Route path='/Answer' element={<Answer userInfo={userInfo} />}/>
         <Route path='/join' element={<Join/>}/>
         <Route path='/login' element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>}/> 
-        <Route path ='/oauth/google' element={<GoogleLogin setIsLogin={setIsLogin} />}/>
+        <Route path='/oauth/google' element={<GoogleLogin setIsLogin={setIsLogin} />}/>
         <Route path='/oauth/kakao' element={<KakaoLogin setIsLogin={setIsLogin}/>} />
         <Route path='/emailJoin' element={<EmailJoin/>}/>
         <Route path='/fbList' element={<FreeBoardList isLogin={isLogin}/>} />
@@ -95,16 +95,10 @@ function App() {
         <Route path='/fbdetail/:fbno' element={<FreeBoardDetail userInfo={userInfo}/>} />
         <Route path='/fbupdate/:fbno' element={<UpdateFreeBoard/>} />
         <Route path='/socialAddInfo' element={<SocialAddInfo setIsLogin={setIsLogin}/>} /> {/* 소셜 로그인 추가 정보 입력 페이지 (이거 완료해야 회원가입 완료됨) */}
-        <Route path='/fbList' element={<FreeBoardList />} />
-        <Route path='/fbwrite' element={<WriteFreeBoard />} />
-        <Route path='/fbdetail/:fbno' element={<FreeBoardDetail />} />
-        <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
         {/* <Route path="/FunSurvey" element={<FunSurvey/>} /> */}
         <Route path="/Survey" element={<Survey userInfo={userInfo} />} />
         <Route path='/FAQ' element={<FAQ/>} />
       </Routes>
-
-
     </div>
     <Footer />
     </div>

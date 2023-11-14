@@ -83,10 +83,6 @@ const Header = ({ userInfo, setUserInfo, isLogin, setIsLogin }) => {
         </div>
       </div>
 
-      <Routes>
-        <Route path="/Fun" element={<FunPage />} />
-        <Route path="/Survey" element={<SurveyPage />} />
-      </Routes>
     </>
   )
 }

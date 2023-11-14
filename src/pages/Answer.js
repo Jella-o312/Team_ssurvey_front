@@ -158,7 +158,7 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
 
   const submitA = ()=>{
     if(isEmptyAnswerList && answerFull){
-      axiosInstance.post(`/surveyA`, answerList)
+      axiosInstance.post(`/surveyA`, answerList, {params : {"username" : userInfo.username}})
       .then((res) => {
         console.log(res);
         navigate('/');

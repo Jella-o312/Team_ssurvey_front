@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import Answer from "../pages/Answer";
 import SurveyReply from "../SurveyReplyPage/SurveyReply";
 import axiosInstance from "../axioslnstance";
-import SurveyResult from "../pages/SurveyResult";
 
 const Survey = ( {userInfo} ) => {
   const navigate = useNavigate();
@@ -133,7 +132,6 @@ const Survey = ( {userInfo} ) => {
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SurveyResult />
           <SurveyReply />
         </Modal.Body>
         <Modal.Footer>
