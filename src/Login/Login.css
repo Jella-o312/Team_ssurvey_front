@@ -1,0 +1,103 @@
+.login-box{
+    /* border: 2px dotted #d23e3e; */
+    background: white;
+    /* border-radius: 16px; */
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.141);
+    border-radius: 20px;
+    height: 100%;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    align-items: center;
+  }
+
+  .login-container input{
+    height: 35px;
+    padding-left: 10px;
+    border-radius: 7px;
+    border: 1px solid  #e4e5ed;
+  }
+  
+  .login-button{
+    width: 100%;
+    margin-top: 3px;
+    padding: 12px;
+    border: none;
+    border-radius: 7px;
+    background-color: #628EF3;
+    color: white;
+    letter-spacing:1px; /*⭐ 글자 간격 / 자간 */
+  }
+
+  .ejoin-form input{
+    width: 100%;
+  }
+
+  
+
+.find-login {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.find-login a {
+  text-decoration: none;
+  color: #616161;
+  font-size: 13px;
+}
+
+.login-line {
+  margin: auto 1rem;
+  width: 0.0625rem;
+  height: 0.75rem;
+  background-color: #e1e1e1;
+}
+
+/* .social-login{
+  
+} */
+
+.social-login button {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  margin: 25px 10px;  
+}
+
+.social-login img{
+  width: 31px;
+}
+
+.login-naver {
+  background-color: #63C33D;
+  color: white;
+  letter-spacing:1px; /*⭐ 글자 간격 / 자간 */
+  border: 1px solid #63C33D;
+}
+
+.login-kakao {
+  background-color:#FCE84D;
+  color: #333333;
+  border: 1px solid #FCE84D;
+}
+
+.login-google{
+  background-color: #D84B3D;
+  color: white;
+  border: 1px solid #D84B3D;
+}
+
+.login-apple{
+  background-color: #262625;
+  color: white;
+  border: 1px solid  #262625;
+}
+
+.login-social-lineBox{
+  color: #616161;
+  margin-top: 25px;
+}
+

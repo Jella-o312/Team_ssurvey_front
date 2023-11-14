@@ -1,11 +1,14 @@
-.fun_title.FB {
+/* .Survey_title.FB {
   text-align: center;
   justify-content:space-around;
+  border: 1px solid red;
+} */
+
+.Survey-title {
   /* border: 1px solid red; */
 }
 
 .fun-title {
-  border: 1px solid red;
   /* margin-left: 200px;
   margin-right: 200px; */
   margin-top: 20px;
@@ -20,30 +23,30 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-   border: 1px solid red; 
+  /* border: 1px solid red;  */
 }
 
-.card-img-top{
+.card-img-top {
   height: 150px;
 }
 
-.card-title{
+.card-title {
   justify-content: first baseline;
 }
 
 .col.FB {
-  text-align: center ;
+  text-align: center;
   justify-content: space-around;
 }
 
-.card.FB {
+.card {
   border: 1px solid #A7AABC;
   border-radius: 10px;
   padding: 5px;
   text-align: center;
   width: 350px;
   height: 400px;
-  text-align: center ;
+  text-align: center;
   justify-content: space-around;
 }
 
@@ -63,7 +66,7 @@
   padding-right: 20px;
 }
 
-.fi.fi-rr-stats.FB {
+.FB-joinpeople {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -75,11 +78,20 @@
 .btn.submit-btn {
   background: #628EF3;
   color: #fff;
-  margin-right:  10px;
+  margin-right: 10px;
 }
 
 .btn.result-btn {
-border: 1px solid #628EF3;
-color: #434656;
-background-color: #fff;
+  border: 1px solid #628EF3;
+  color: #434656;
+  background-color: #fff;
+}
+
+.custom-modal .modal-dialog {
+  /* max-width: 2000px; */
+  max-width: 80%;
+}
+
+.custom-modal .modal-content {
+  width: 100%;
 }

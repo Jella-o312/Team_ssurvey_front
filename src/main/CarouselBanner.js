@@ -5,17 +5,17 @@ import { Link } from "react-router-dom";
 const CarouselBanner = () => {
   const imagePaths = [
     {
-      imagePath: "/img/survey-banner1.jpg",
+      imagePath: "/img/SS01.png",
       title: "Image 1",
       url: "/detail/image1",
     },
     {
-      imagePath: "/img/survey-banner2.jpg",
+      imagePath: "/img/SS02.png",
       title: "Image 2",
       url: "/detail/image2",
     },
     {
-      imagePath: "/img/survey-banner3.jpg",
+      imagePath: "/img/SS03.png",
       title: "Image 3",
       url: "/detail/image3",
     },

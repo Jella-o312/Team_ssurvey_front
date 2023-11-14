@@ -17,7 +17,8 @@
 }
 
 .header-nav {
-  /* width: 970px; */
+  /* width: 1300px;  */
+  /* flex-wrap: wrap; */
   /* border: 1px solid salmon; */
   display: flex;
   justify-content: center;

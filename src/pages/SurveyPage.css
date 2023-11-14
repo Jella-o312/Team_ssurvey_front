@@ -1,56 +1,40 @@
-/* .MainSurveyBox {
+.MainSurveyBox.SP {
   display: flex;
   margin-top: 10px;
-  text-align: center ;
-  align-items: center;
-  justify-content: space-around;
-  border: 1px solid red;
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  margin: 0px 20px;
-  
-} */
-
-.MainSurveyBox.S {
-  /* display: grid; */
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
-  align-items: center;
-  border: 1px solid red;
-  margin: 10px 20px;
   text-align: center;
+  justify-content: space-around;
+  /* border: 1px solid red; */
 }
 
-
-
-.card-img-top{
+.card-img-top {
   height: 150px;
 }
 
-.card-title{
+.card-title {
   justify-content: first baseline;
 }
 
 
-.card.S {
+
+.card.SP {
   border: 1px solid #A7AABC;
   border-radius: 10px;
   padding: 5px;
   text-align: center;
   width: 350px;
   height: 400px;
-  text-align: center ;
+  text-align: center;
   justify-content: space-around;
 }
 
 .card img {
-  width: 100%;
+  width: 200px;
   height: 150px;
   object-fit: cover;
   border-radius: 10px;
 }
 
-.fi.fi-rr-stats.S {
+.joinpeople.SP {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -62,13 +46,13 @@
 .btn.submit-btn {
   background: #628EF3;
   color: #fff;
-  margin-right:  20px;
+  margin-right: 20px;
 }
 
 .btn.result-btn {
-border: 1px solid #628EF3;
-color: #434656;
-background-color: #fff;
+  border: 1px solid #628EF3;
+  color: #434656;
+  background-color: #fff;
 }
 
 .text-center {

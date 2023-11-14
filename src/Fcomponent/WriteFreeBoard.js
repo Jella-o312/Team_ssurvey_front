@@ -1,15 +1,15 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../Fcss/WriteFreeBoard.css';
+import axiosInstance from "../axiosInstance";
 
 function WriteFreeBoard({ userInfo }) {
 
   const [board, setBoard] = useState({
     fbTitle : '',
     fbContent : '',
-    writer : '',
-    fbFiles : ''
+    fbFiles : '',
+    user : userInfo
   });
 
   const navigate = useNavigate();
@@ -41,10 +41,16 @@ function WriteFreeBoard({ userInfo }) {
             navigate('/fbList');
           }}>취소</button>
           <button className="write-submit-btn" onClick={() => {
-            if(board.fbTitle == '' || board.fbContent == '') {
-              alert('ㄴㄴ');
+            if(board.fbTitle === '' || board.fbContent === '') {
+              alert('제목과 내용을 입력하세요');
             } else {
-              alert('ㅇㅇ');
+              axiosInstance.post('/fboard', board)
+                .then(res => {
+                  alert(res.data);
+                  navigate('/fbList');
+                }).catch(err => {
+                  alert('에러');
+                })
             }
           }}>등록</button>
         </div>

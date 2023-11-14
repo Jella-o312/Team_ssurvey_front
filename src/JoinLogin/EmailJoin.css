@@ -1,4 +1,4 @@
-.ejoin-container{
+.ejoin-container, .login-container{
   display: flex;
   align-items: center;
   justify-content: center;  /*???????*/
@@ -7,7 +7,7 @@
 
 }
 
-.ejoin-container h2{
+.ejoin-container h2, .login-container h2{
   margin: 70px 0px 30px;
 }
 
@@ -49,7 +49,7 @@
 }
 
 /* 설문 글자가 들어가는 부분 */
-.ejoin-form{
+.ejoin-form, .login-form{
   /* border: 1px dotted #628EF3; */
   width: 75%;
   display: flex;
@@ -93,16 +93,25 @@
 }
 
 #join-email-input{
-  width: 73%;
+  width: 76%;
 }
 
 /* 이메일 확인버튼 */
 .join-email-check {
+  height: 35px;
+  font-size: 14px;
   border-radius: 7px;
-  padding: 8px;
-  border: 1px solid  #e4e5ed;
-  /* float: right; 오른쪽 정렬 */
+  padding: 3px 10px;
+  border: none;
+  background-color: #628EF3;
+  color: white;
 }
+
+.join-email-check-on:active{
+  position: relative;
+  top:2px;
+}
+
 
 /* 나이 select */
 .ejoin-year{
@@ -169,23 +178,32 @@
 }
 
 /* 조건 충족이 안됐을때 버튼 스타일 */
-.ejoin-confirm-button:disabled {
+.ejoin-confirm-button:disabled ,.login-button:disabled  {
   background-color: #a2a2ac;
   color: white;
   cursor: not-allowed;  /*커서가 왜이러는지 모르겠지만...button 자체에 pointer기본 적용이 안되어 있음*/
 }
 
+.join-email-check:disabled {
+  cursor: not-allowed; 
+  border: none;
+  background-color: rgba(233, 230, 230, 0.699);
+  color: #5b5a5a;
+}
 
 
 /* ==========이용약관============ */
 
 
 .checkbox-icon {
-  display: inline-block;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 20px;
   text-align: center;
-  line-height: 20px;
+  /* line-height: 20px; */
   font-size: 18px;
   color: #ccc;
   margin-right: 7px;
@@ -193,6 +211,15 @@
   border-radius: 6px;
 }
 
+.join-all-label, .join-each-label{
+  display: flex;
+  align-items: center;
+}
+
+.join-each-check-label{
+  display: inline-block;
+  padding-top: 4px;
+}
 
 /* 전체 동의 글자 */
 .all-check-label {
@@ -280,6 +307,14 @@
 .join_input_regexTxt {
   font-size: 12px;
   color: rgb(255, 60, 0);
+  padding-top: 5px;
+  text-indent: 5px;
+  margin: 0;
+}
+
+.join_input_regexTxt2{
+  font-size: 12px;
+  color: #628EF3;
   padding-top: 5px;
   text-indent: 5px;
   margin: 0;

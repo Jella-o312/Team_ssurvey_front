@@ -1,0 +1,170 @@
+
+
+
+.QHeader{
+  display: flex;
+  height: auto;
+  }
+  
+  
+  
+  .Qbox{
+    flex: auto ;
+    height: 330px;  
+    background: #434656;
+    margin-bottom: 8px;
+   }
+  
+  
+  .questionQ{
+    color: white;
+    font-size: 70px;  
+    margin-top: 100px;
+    margin-left: 300px;  
+    display: flex;
+    align-items: baseline;
+  }
+  
+  
+  
+  .STitle{ 
+    outline: none;
+    border-color: none;
+    border: 0px solid;
+    width: 900px; 
+    height: 50px;
+    font-size: 30px;
+    background-color: #434656;
+    margin-left: 15px;
+    color: white;
+    caret-color: transparent;
+  }
+  
+  
+  
+  .questionTitle:empty{
+    outline: none;
+    border-color: none;
+  
+  }
+  
+  
+  
+  .StitleWrap{  
+  
+    align-items: center;
+    border: thin;
+    border-style: solid;
+    border-color: #434656;
+    background: #434656;
+    width: 895px; 
+    height: 40px;  
+    margin-left: 300px;  
+    margin-top: -5px;
+    white-space: nowrap;
+  }
+  
+  
+  
+  .SurTitle{ 
+    display: flex;
+    border: none;
+    background: #434656;
+    color: white;
+    padding-left: 20px;  
+    width: 850px;   
+    font-size: 20px; 
+    display: inline-block;
+  }
+  
+  .SurTitle:focus{
+    outline: none;
+    border-color: none;  
+  
+  }
+  
+  
+  
+  .Qdelete-btn{   
+    border-radius: 50px;
+    width: 26px;
+    height: 26px;
+    background: #797b85;
+    color: white;
+    border: none;
+    margin-right: 18px;
+    display: inline-block;
+    margin-left: -40px;
+  }
+  
+  
+  
+  .submitQ {
+    position: absolute;
+    border: none;
+    width: 520px; 
+    height: 330px;
+    right: 0px;
+    background: #628ef3;
+    color: white;
+    font-size: 60px;
+   
+  }
+  
+  
+  .createText{
+    margin-top: 60px;
+    margin-bottom: 30px;
+    margin-left: 70px;
+    font-weight: 200;
+    font-size: 60px;
+    line-height: 60px;
+  }
+  
+  
+  .CreateS{
+   font-size: 65px;
+  }
+  
+  .Qsumit-btn{
+    border: none;
+    background: #434656;
+    color: white;
+    width: 120px; 
+    height: 40px;
+    font-size: 16px;
+    text-align : center;
+    line-height : 40px;
+    font-weight: 300;
+   
+  }
+  
+  .Qsumit-btn:hover{
+    background: #282933;
+  }
+  
+  
+  .FunQ-box{
+    display: flex;
+    justify-content: center; 
+    padding-top: 50px;
+    margin-bottom: 200px;
+    }
+  
+  
+  
+  .InsertBtnContainer{
+    display: flex;
+  }
+  
+  .funBox-style{
+    padding: 30px;
+    padding-top: 10px;
+    background-color: white;
+    width: 930px;
+    height: auto;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.2);
+  }
+  

@@ -128,4 +128,15 @@
 
 .fb-comment-text {
   margin-top: 5px;
+  text-align: left;
+}
+
+.fb-comment-delete-btn {
+  border: none;
+  background-color: white;
+}
+
+.fb-comment-modify-box {
+  display: flex;
+  justify-content: space-between;
 }

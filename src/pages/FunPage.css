@@ -1,29 +1,29 @@
-.MainSurveyBox.FS{
+.MainSurveyBox.FP {
   display: flex;
   margin-top: 10px;
-  text-align: center ;
+  text-align: center;
   justify-content: space-around;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
-.card-img-top{
+.card-img-top {
   height: 150px;
 }
 
-.card-title{
+.card-title {
   justify-content: first baseline;
 }
 
 
 
-.card.FS {
+.card.FP {
   border: 1px solid #A7AABC;
   border-radius: 10px;
   padding: 5px;
   text-align: center;
   width: 350px;
   height: 400px;
-  text-align: center ;
+  text-align: center;
   justify-content: space-around;
 }
 
@@ -34,7 +34,7 @@
   border-radius: 10px;
 }
 
-.fi.fi-rr-stats.FS {
+.joinpeople.FP {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -46,13 +46,13 @@
 .btn.submit-btn {
   background: #628EF3;
   color: #fff;
-  margin-right:  20px;
+  margin-right: 20px;
 }
 
 .btn.result-btn {
-border: 1px solid #628EF3;
-color: #434656;
-background-color: #fff;
+  border: 1px solid #628EF3;
+  color: #434656;
+  background-color: #fff;
 }
 
 .text-center {
