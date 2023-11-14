@@ -40,11 +40,12 @@ const SurveyPage = () => {
 
   return (
     <>
-      <Container className={`Survey_title survey`}>
+     <div className="SSBanner"></div>
+      {/* <Container className={`Survey_title survey`}>
         <h1 className={`survey-title`}>
           Survey
         </h1>
-      </Container>
+      </Container> */}
 
       <Container className={`MainSurveyBox survey`}>
         <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
@@ -84,17 +85,15 @@ const SurveyPage = () => {
         
       </Modal>
 
-      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>
+      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered className="result-modal">
         <Modal.Header closeButton>
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>결과보기 모달 내용입니다.</p>
+         
           <SurveyResult />
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowResultModal(false)}>닫기</Button>
-        </Modal.Footer>
+       
       </Modal>
     </>
   );

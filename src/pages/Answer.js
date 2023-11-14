@@ -99,9 +99,9 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
       return (
         <div>
           {question.option.map((item, i) => (
-            <div key={i} >
+            <div className="radiobtn" key={i} >
               <label >
-                <input type="radio" name={question.sqNo} value={item} onClick={handleAnswer} />
+                <input className="radioinput" type="radio" name={question.sqNo} value={item} onClick={handleAnswer} />
                 {item}
               </label>
             </div>
@@ -113,9 +113,9 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
       return (
         <div>
           {question.option.map((item, i) => (
-            <div key={i}>
+            <div className="checkboxbtn" key={i}>
               <label>
-              <input type="checkbox" name={question.sqNo} value={item} onClick={handleAnswer}/>
+              <input className="checkboxinput" type="checkbox" name={question.sqNo} value={item} onClick={handleAnswer}/>
               {item}</label>
             </div>
           ))}
@@ -123,10 +123,10 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
       );
     } else if (question.sqType === '단답형') {
       // 단답형일 경우 텍스트 입력을 렌더링
-      return <input type="text"  name={question.sqNo} onChange={handleAnswer}/>;
+      return <input className="shorttextinput" type="text" placeholder="답변을 입력하세요"  name={question.sqNo} onChange={handleAnswer}/>;
     } else if (question.sqType === '장문형') {
       // 장문형일 경우 텍스트 에어리어를 렌더링
-      return <textarea name={question.sqNo} onChange={handleAnswer}/>;
+      return <textarea className="longtextinput" placeholder="답변을 입력하세요" name={question.sqNo} onChange={handleAnswer}/>;
     } else {
       // 다른 유형에 대한 처리를 원하는 대로 추가할 수 있습니다.
       return null;
@@ -175,9 +175,9 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
     <>
       <div className="QHeader">
         <div className="Abox">
-          <div className="questionQ">
+          <div className="AquestionQ">
             <p>Q.</p>
-            {surveyInfo.surveyNo && <p className="SQTitle">{surveyInfo.surTitle}</p>}
+            {surveyInfo.surveyNo && <p className="SSQTitle">{surveyInfo.surTitle}</p>}
           </div>
         </div>
         <div className="submitA">
@@ -189,11 +189,11 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
       </div>
 
       <div className='AWrap'>
-        <div className="ABox">
+        <div className="BBox">
           <div className="question-container">
             {questions.map((question, i) => (
-              <div key={i}>
-                <p>{i+1}. {question.sqQuestion}</p>
+              <div className="quessssy" key={i}>
+                <p className="questionstyle">{i+1}. {question.sqQuestion}</p>
                 
                 {renderQuestionComponent(question)}
               </div>

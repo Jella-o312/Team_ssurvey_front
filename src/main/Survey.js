@@ -56,7 +56,7 @@ const Survey = ({ userInfo }) => {
             <div key={i}>
               <Container className={`Survey_title ${surveyItem.surveyCategory}`}>
                 <h1 className={`${surveyItem.surveyCategory}-title`}>
-                  {surveyItem.surveyCategory}
+                  {surveyItem.surveyCategory} 
                   <Button className="btn-more" onClick={() => handleButtonClick(surveyItem.surveyCategory)}>
                     더 보기
                   </Button>
@@ -122,16 +122,14 @@ const Survey = ({ userInfo }) => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>
+      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered className="result-modal">
         <Modal.Header closeButton>
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <SurveyResult />
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowResultModal(false)}>닫기</Button>
-        </Modal.Footer>
+        
       </Modal>
      
     </>

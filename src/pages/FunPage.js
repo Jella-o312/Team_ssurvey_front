@@ -37,13 +37,31 @@ const FunPage = () => {
     setShowResultModal(true);
   };
 
+  const getRandomImage = () => {
+    // 이미지 URL 목록을 배열로 정의
+    const imageList = [
+      '../../public/img/survey-banner1.jpg',
+      '../../public/img/survey-banner2.jpg',
+      '../../public/img/survey-banner3.jpg',
+    ];
+  
+  // 배열에서 랜덤한 이미지 파일명 선택
+  const randomImageFileName = imageList[Math.floor(Math.random() * imageList.length)];
+
+  // public 폴더를 기준으로 상대 경로를 사용하여 이미지 경로 생성
+  const imagePath = `/img/${randomImageFileName}`;
+
+  return imagePath;
+  };
+
   return (
     <>
-      <Container className={`Fun_title fun`}>
+    <div className="FunBanner"></div>
+      {/* <Container className={`Fun_title fun`}>
         <h1 className={`fun-title`}>
           Fun
         </h1>
-      </Container>
+      </Container> */}
 
       <Container className={`MainSurveyBox fun`}>
         <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
@@ -52,7 +70,7 @@ const FunPage = () => {
               <div className={`card fun`}>
                 <div className="fun-content">
                   {surveyItem.surveyCategory === 'fun' && (
-                    <img src={surveyItem.imgSrc} className="card-img-top" alt={surveyItem.title} />
+                    <img src={getRandomImage()} className="card-img-top" alt={surveyItem.title} />
                   )}
                   <h5 className="card-title">{surveyItem.surTitle}</h5>
                   <div className="LikeBtnCount">
@@ -86,17 +104,15 @@ const FunPage = () => {
         
       </Modal>
 
-      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>
+      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered className="result-modal">
         <Modal.Header closeButton>
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>결과보기 모달 내용입니다.</p>
+        
           <SurveyResult />
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowResultModal(false)}>닫기</Button>
-        </Modal.Footer>
+        
       </Modal>
     </>
   );
