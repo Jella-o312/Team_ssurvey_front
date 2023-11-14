@@ -23,6 +23,7 @@ import FAQ from './FAQ/FAQ';
 import KakaoLogin from './Login/KakaoLogun';
 import FunPage from './pages/FunPage';
 import SurveyPage from './pages/SurveyPage';
+import SurveyResult from './pages/SurveyResult';
 
 
 
@@ -101,6 +102,7 @@ function App() {
         <Route path="/FunPage" element={<FunPage userInfo={userInfo} />} />
         <Route path="/SurveyPage" element={<SurveyPage userInfo={userInfo} />} />
         <Route path='/FAQ' element={<FAQ/>} />
+        <Route path='/SurveyResult' element={<SurveyResult/>} />
       </Routes>
     </div>
     <Footer />

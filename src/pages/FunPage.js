@@ -3,8 +3,8 @@ import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import './FunPage.css';
 import { useNavigate } from "react-router-dom";
 import Answer from "../pages/Answer";
-import SurveyReply from "../SurveyReplyPage/SurveyReply";
 import axiosInstance from "../axioslnstance";
+import SurveyResult from "./SurveyResult";
 
 const FunPage = () => {
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ const FunPage = () => {
         </Modal.Header>
         <Modal.Body>
           <p>결과보기 모달 내용입니다.</p>
-          <SurveyReply />
+          <SurveyResult />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowResultModal(false)}>닫기</Button>

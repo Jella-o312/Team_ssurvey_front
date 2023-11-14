@@ -3,8 +3,8 @@ import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import './Survey.css';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Answer from "../pages/Answer";
-import SurveyReply from "../SurveyReplyPage/SurveyReply";
 import axiosInstance from "../axioslnstance";
+import SurveyResult from "../pages/SurveyResult";
 
 
 const Survey = ({ userInfo }) => {
@@ -127,7 +127,7 @@ const Survey = ({ userInfo }) => {
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SurveyReply />
+          <SurveyResult />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowResultModal(false)}>닫기</Button>
