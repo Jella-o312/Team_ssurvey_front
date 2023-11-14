@@ -6,12 +6,13 @@ import Answer from "../pages/Answer";
 import axiosInstance from "../axioslnstance";
 import SurveyResult from "./SurveyResult";
 
-const SurveyPage = () => {
+const SurveyPage = ({userInfo}) => {
   const navigate = useNavigate();
   const [showParticipateModal, setShowParticipateModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
   const [surveys, setSurveys] = useState([]);
-  const [selectedSurvey, setSelectedSurvey] = useState(null);
+  const [selectedSurveyNo, setSelectedSurveyNo] = useState(null);
+  const [selectedSurveyTitle, setSelectedSurveyTitle] = useState(null);
 
   useEffect(() => {
     axiosInstance.get('/survey')
@@ -25,16 +26,18 @@ const SurveyPage = () => {
       });
     }, []);
     
-    console.log(surveys);
 
-  const handleParticipateClick = (survey) => {
-    setSelectedSurvey(survey);
-    setShowParticipateModal(true);
-  };
-
-  const handleResultClick = () => {
-    setShowResultModal(true);
-  };
+    const handleParticipateClick = (surveyNo, surveyTitle) => {
+      setSelectedSurveyNo(surveyNo);
+      setSelectedSurveyTitle(surveyTitle); // 선택한 설문의 타이틀을 설정
+      setShowParticipateModal(true);
+    };
+  
+    const handleResultClick = (surveyNo, surveyTitle) => {
+      setSelectedSurveyNo(surveyNo);
+      setSelectedSurveyTitle(surveyTitle);
+      setShowResultModal(true);
+    };
 
   
 
@@ -60,10 +63,10 @@ const SurveyPage = () => {
                   </div>
                   <i className={`survey-joinpeople`}>현재 {surveyItem.surveyCount}명 참여 중</i>
                   <div className="card-wrap">
-                    <button className="btn submit-btn" onClick={() => handleParticipateClick(surveyItem)}>
+                    <button className="btn submit-btn" onClick={() => handleParticipateClick(surveyItem.surveyNo, surveyItem.surTitle)}>
                       참여하기
                     </button>
-                    <button className="btn result-btn view_more" onClick={handleResultClick}>
+                    <button className="btn result-btn view_more" onClick={() =>handleResultClick(surveyItem.surveyNo, surveyItem.surTitle)}>
                       결과보기
                     </button>
                   </div>
@@ -80,7 +83,7 @@ const SurveyPage = () => {
         </Modal.Header>
         <Modal.Body>
           {/* Answer 컴포넌트에 surveyNo와 surveyTitle 전달 */}
-          <Answer surveyNo={selectedSurvey?.surveyNo} surveyTitle={selectedSurvey?.surTitle} />
+          <Answer surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} userInfo={userInfo} />
         </Modal.Body>
         
       </Modal>
@@ -91,7 +94,7 @@ const SurveyPage = () => {
         </Modal.Header>
         <Modal.Body>
          
-          <SurveyResult />
+          <SurveyResult surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} userInfo={userInfo} />
         </Modal.Body>
        
       </Modal>

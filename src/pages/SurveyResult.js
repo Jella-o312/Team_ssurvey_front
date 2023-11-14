@@ -3,49 +3,34 @@ import './SurveyResult.css';
 import axiosInstance from "../axioslnstance";
 
 
-const SurveyResult = () => {
-    const [surveyInfo, setSurveyInfo] = useState({});
+const SurveyResult = ({ surveyNo, surveyTitle, userInfo }) => {
+    // const [surveyInfo, setSurveyInfo] = useState(userInfo);
     const [questions, setQuestions] = useState([]);
-    const [answers, setAnswers] = useState([]);
-    const [selectedSurvey, setSelectedSurvey] = useState(null);
-    const [selectedSurveyNo, setSelectedSurveyNo] = useState(null);
-    const [selectedSurveyTitle, setSelectedSurveyTitle] = useState(null);
-
-    // const myData = [{ angle: 1 }, { angle: 5 }, { angle: 2 }] //예시 값
+    const [answers, setAnswers] = useState('');
+    
+  
 
     useEffect(() => {
-        axiosInstance.get('/surveys')
-            .then((response) => {
-                const firstSurvey = response.data[0];
+        // useEffect 내부에서 비동기 함수를 호출할 경우, 함수를 정의하고 그 안에서 호출하는 것이 좋습니다.
+        const fetchData = async () => {
+            try {
+                const response = await axiosInstance.get(`/surveyResult/${surveyNo}`);
+                setAnswers(response.data);
 
-                if (firstSurvey) {
-                    // surveyInfo에 surveyNo와 surveyTitle 추가
-                    setSurveyInfo({
-                        surveyNo: firstSurvey.surveyNo,
-                        surveyTitle: firstSurvey.surTitle,
-                    });
+                const response2 = await axiosInstance.get(`/surveyQ/${surveyNo}`);
+                setQuestions(response2.data);   //질문 옵션 받아오기 위해 만듦
 
-                    axiosInstance.get(`/surveys/${firstSurvey.surveyNo}`)
-                        .then((response) => {
-                            console.log('Survey Data:', response.data);
-                            setQuestions(response.data.questions);
-                            setAnswers(response.data.answers);
-                        })
-                        .catch((error) => {
-                            console.error('설문의 질문 정보를 가져오는 중 오류 발생:', error);
-                        });
-                }
-            })
-            .catch((error) => {
-                console.error('설문 목록을 가져오는 중 오류 발생:', error);
-            });
-    }, []);
+            } catch (error) {
+                console.error(error);
+                alert("오류가 발생했습니다.");
+            }
+        };
 
-    // const handleParticipateClick = (surveyNo, surveyTitle) => {
-    //     setSelectedSurveyNo(surveyNo);
-    //     setSelectedSurveyTitle(surveyTitle); // 선택한 설문의 타이틀을 설정
-    //     setShowParticipateModal(true);
-    //   };
+        // fetchData 함수를 실행하고, 의존성 배열에 surveyNo를 넣어 최초 마운트 시에만 실행되도록 함
+        fetchData();
+    }, [surveyNo]);
+         
+    console.log(questions);
 
     const CompleteA = () => {
         // 원하는 작업 수행
@@ -53,45 +38,55 @@ const SurveyResult = () => {
         // 답변을 백엔드에 저장하는 등의 작업이 필요할 수 있습니다.
     };
 
+
+    // console.log(userInfo);
+
     return (
         <>
             <div className="qrHeader">
                 <div className="ARbox">
-                    <div className="questionQ">
-                  
-                        {/* <h5 className="SQTitle">surveyNo={selectedSurvey?.surveyNo} surveyTitle={selectedSurvey?.surTitle}</h5>
-                        여길 또 어떻게 받아오노 하..
-                        */}
+                    <div className="questionQ" style={{display: 'flex', alignItems:'center', justifyContent: 'center'}}>   
                     </div>
                 </div>
             </div>
 
             <div className='AWrap'>
                 <div className="ABox">
-                    <p className='sendedQ'>질문</p>
-                    <hr />
-                    <div className="question-container">
-                        {questions && questions.map((question) => (
-                            <div key={question.sqNo}>
-                                <p>{question.sqQuestion}</p>
-                                {/* 여기에 유형에 따른 추가 컴포넌트를 렌더링할 수 있습니다. */}
-                            </div>
-                        ))}
-                    </div>
-                    <hr />
-                    <p className='sendedAForm'>답변 통계</p>
-                    {/* 답변 정보를 렌더링하는 부분 */}
-                    {/* <RadialChart
-                        data={myData}
-                        width={300}
-                        height={300} /> 
-                        npm install react-vis 라이브러리 설치해서 사용 해야함 */}
-                    {answers && answers.map((answer) => (
-                        <div key={answer.saNo}>
-                            <p>{answer.saAnswer}</p>
-                            {/* 다른 유형에 따른 컴포넌트 추가 */}
+                <h3 style={{backgroundColor: '#628ef3',color:'white' , padding:'10px', borderRadius: '7px', marginBottom: '30px'}}>{surveyTitle}</h3>     
+                    {
+                        questions.map((question, i) => (   
+                        <div key={i}>
+                            <h5>{i + 1}. {question.sqQuestion}</h5>
+                            {
+                                question.sqType === "객관식" ? 
+                                <div>
+                                    {question.option.map((op, index)=>(
+                                        <div style={{display: 'flex'}}>   {/*⭐⭐⭐ 이 div 나중에 table형식으로 만드는게 깔끔할듯*/}
+                                           <h6>{op}</h6> &nbsp;&nbsp;
+                                            <p style={{color: '#628ef3'}}>{answers[i][index]} 표</p>
+                                        </div>
+                                    ))
+                                    }
+                                </div>
+                                :
+                                
+                                <div>
+                                    {
+                                        answers[i].map((answer, k)=>(
+                                            <p style={{color: '#628ef3'}}> ( {k+1} ) {answer}</p>
+                                        ))
+                                    }
+
+
+                                </div>    
+                            }
+                            
                         </div>
-                    ))}
+                        ))
+                    }
+                
+
+                    
                 </div>
             </div>
         </>
@@ -99,3 +94,18 @@ const SurveyResult = () => {
 }
 
 export default SurveyResult;
+
+
+
+// <h5 className='sendedQ'>질문</h5>
+// <hr />
+// <div className="question-container">
+//     {questions && questions.map((question) => (
+//         <div key={question.sqNo}>
+//             <p>{question.sqQuestion}</p>
+//             {/* 여기에 유형에 따른 추가 컴포넌트를 렌더링할 수 있습니다. */}
+//         </div>
+//     ))}
+// </div>
+// <hr />
+// <p className='sendedAForm'>답변 통계</p>

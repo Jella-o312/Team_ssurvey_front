@@ -15,7 +15,7 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
   const [answerList, setAnswerList] = useState([
     {
       sqNo: '',
-      answer: []
+      answer: ''
     }
   ]);
 
@@ -51,20 +51,14 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
     // 기존 답을 업데이트하거나 새로운 답을 추가
     const updatedAnswers = updatedAnswerList.map((item) => {
       if (item.sqNo === name) {
-        const existingValues = item.answer || [];
-        const newValues = e.target.type === "checkbox"
-          ? existingValues.includes(value)
-            ? existingValues.filter((v) => v !== value) // 이미 있는 경우 제거
-            : [...existingValues, value] // 없는 경우 추가
-          : [value]; // checkbox가 아닌 경우 단일 값으로 설정
-        return { ...item, 'answer': newValues };
+        return { ...item, 'answer': value };
       }
       return item;
     });
   
     // 이미 해당 질문에 대한 답이 없는 경우, 새로운 답을 추가
     if (!updatedAnswerList.some((item) => item.sqNo === name)) {
-      updatedAnswers.push({ sqNo: name, answer: [value] });
+      updatedAnswers.push({ sqNo: name, answer: value });
     }
   
     setAnswerList(updatedAnswers);
@@ -83,12 +77,7 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
 
   const isEmptyAnswerList = questions.length === answerList.length ? true : false;
   // 질문에 대한 답이 모두 들어가 있는지 확인
-  const answerFull = answerList.every(item => item.answer.length !== 0); 
-
-  console.log(questions.length + " : " + answerList.length);
-  console.log(isEmptyAnswerList);
-  console.log(answerFull);
-  
+  const answerFull = answerList.every(item => item.answer !== ''); 
 
 
 

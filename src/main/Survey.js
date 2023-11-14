@@ -25,6 +25,9 @@ const Survey = ({ userInfo }) => {
       });
   }, []);
 
+
+
+  
   const handleButtonClick = (category) => {
     console.log('Button Clicked for category:', category);
     const targetSurvey = surveys.find((survey) => survey.surveyCategory === category);
@@ -40,7 +43,9 @@ const Survey = ({ userInfo }) => {
     setShowParticipateModal(true);
   };
 
-  const handleResultClick = () => {
+  const handleResultClick = (surveyNo, surveyTitle) => {
+    setSelectedSurveyNo(surveyNo);
+    setSelectedSurveyTitle(surveyTitle);
     setShowResultModal(true);
   };
 
@@ -53,7 +58,7 @@ const Survey = ({ userInfo }) => {
           categoryTitles.add(surveyItem.surveyCategory);
 
           return (
-            <div key={i}>
+            <div key={i} name={surveyItem.surveyNo}>
               <Container className={`Survey_title ${surveyItem.surveyCategory}`}>
                 <h1 className={`${surveyItem.surveyCategory}-title`}>
                   {surveyItem.surveyCategory} 
@@ -91,7 +96,7 @@ const Survey = ({ userInfo }) => {
                               >
                                 참여하기
                               </button>
-                              <button className="btn result-btn view_more" onClick={handleResultClick}>
+                              <button className="btn result-btn view_more" onClick={()=>handleResultClick(filteredSurvey.surveyNo, filteredSurvey.surTitle)}>
                                 결과보기
                               </button>
                             </div>
@@ -127,7 +132,7 @@ const Survey = ({ userInfo }) => {
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SurveyResult />
+          <SurveyResult userInfo={userInfo} surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} />
         </Modal.Body>
         
       </Modal>

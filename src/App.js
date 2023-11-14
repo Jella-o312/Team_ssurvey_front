@@ -102,7 +102,7 @@ function App() {
         <Route path="/FunPage" element={<FunPage userInfo={userInfo} />} />
         <Route path="/SurveyPage" element={<SurveyPage userInfo={userInfo} />} />
         <Route path='/FAQ' element={<FAQ/>} />
-        <Route path='/SurveyResult' element={<SurveyResult/>} />
+        <Route path='/SurveyResult' element={<SurveyResult userInfo={userInfo}/>} />
       </Routes>
     </div>
     <Footer />
