@@ -21,6 +21,8 @@ import Survey from './main/Survey';
 import Footer from './Home/Footer';
 import FAQ from './FAQ/FAQ';
 import KakaoLogin from './Login/KakaoLogun';
+import FunPage from './pages/FunPage';
+import SurveyPage from './pages/SurveyPage';
 
 
 
@@ -95,8 +97,9 @@ function App() {
         <Route path='/fbdetail/:fbno' element={<FreeBoardDetail userInfo={userInfo}/>} />
         <Route path='/fbupdate/:fbno' element={<UpdateFreeBoard/>} />
         <Route path='/socialAddInfo' element={<SocialAddInfo setIsLogin={setIsLogin}/>} /> {/* 소셜 로그인 추가 정보 입력 페이지 (이거 완료해야 회원가입 완료됨) */}
-        {/* <Route path="/FunSurvey" element={<FunSurvey/>} /> */}
         <Route path="/Survey" element={<Survey userInfo={userInfo} />} />
+        <Route path="/FunPage" element={<FunPage userInfo={userInfo} />} />
+        <Route path="/SurveyPage" element={<SurveyPage userInfo={userInfo} />} />
         <Route path='/FAQ' element={<FAQ/>} />
       </Routes>
     </div>

@@ -44,8 +44,8 @@ const Header = ({ userInfo, setUserInfo, isLogin, setIsLogin }) => {
             <div className='dropdown'>
               <div>설문참여</div>
               <div className='dropdown-content'>
-                <div onClick={() => { navigate('/Fun') }}>Fun</div>
-                <div onClick={() => { navigate('/Survey') }}>설문조사</div>
+                <div onClick={() => { navigate('/FunPage') }}>Fun</div>
+                <div onClick={() => { navigate('/SurveyPage') }}>설문조사</div>
               </div>
             </div>
             <div onClick={() => { navigate('/SurveyList') }}>설문신청</div>
@@ -83,6 +83,7 @@ const Header = ({ userInfo, setUserInfo, isLogin, setIsLogin }) => {
         </div>
       </div>
 
+     
     </>
   )
 }

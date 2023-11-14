@@ -16,15 +16,16 @@ const SurveyPage = () => {
   useEffect(() => {
     axiosInstance.get('/survey')
       .then(response => {
-        // surveyCategory가 'survey'인 항목만 가져오기
-        const surveyData = response.data.filter(survey => survey.surveyCategory === 'survey');
+         // surveyCategory가 'survey'인 항목만 가져오기
+        const surveyData = response.data.filter(survey => survey.surveyCategory === 'Survey');
         setSurveys(surveyData);
-        console.log(surveyData);
       })
       .catch((error) => {
         console.error('설문 정보를 가져오는 중 오류 발생:', error);
       });
-  }, []);
+    }, []);
+    
+    console.log(surveys);
 
   const handleParticipateClick = (survey) => {
     setSelectedSurvey(survey);
@@ -58,10 +59,7 @@ const SurveyPage = () => {
                   </div>
                   <i className={`survey-joinpeople`}>현재 {surveyItem.surveyCount}명 참여 중</i>
                   <div className="card-wrap">
-                    <button
-                      className="btn submit-btn"
-                      onClick={() => handleParticipateClick(surveyItem)}
-                    >
+                    <button className="btn submit-btn" onClick={() => handleParticipateClick(surveyItem)}>
                       참여하기
                     </button>
                     <button className="btn result-btn view_more" onClick={handleResultClick}>
@@ -83,9 +81,7 @@ const SurveyPage = () => {
           {/* Answer 컴포넌트에 surveyNo와 surveyTitle 전달 */}
           <Answer surveyNo={selectedSurvey?.surveyNo} surveyTitle={selectedSurvey?.surTitle} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowParticipateModal(false)}>닫기</Button>
-        </Modal.Footer>
+        
       </Modal>
 
       <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>

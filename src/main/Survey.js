@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import './Survey.css';
-import { useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Answer from "../pages/Answer";
 import SurveyReply from "../SurveyReplyPage/SurveyReply";
 import axiosInstance from "../axioslnstance";
 
-const Survey = ( {userInfo} ) => {
+
+const Survey = ({ userInfo }) => {
   const navigate = useNavigate();
   const [showParticipateModal, setShowParticipateModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
   const [surveys, setSurveys] = useState([]);
-  const [loadMoreCount, setLoadMoreCount] = useState(3);
   const [selectedSurveyNo, setSelectedSurveyNo] = useState(null);
   const [selectedSurveyTitle, setSelectedSurveyTitle] = useState(null);
 
@@ -26,10 +26,11 @@ const Survey = ( {userInfo} ) => {
   }, []);
 
   const handleButtonClick = (category) => {
-    if (category === 'fun') {
-      navigate('/fun');
-    } else {
-      navigate('/survey');
+    console.log('Button Clicked for category:', category);
+    const targetSurvey = surveys.find((survey) => survey.surveyCategory === category);
+  
+    if (targetSurvey) {
+      navigate(`/${category}Page`, { state: { survey: targetSurvey } });
     }
   };
 
@@ -41,12 +42,6 @@ const Survey = ( {userInfo} ) => {
 
   const handleResultClick = () => {
     setShowResultModal(true);
-  };
-
-  const handleLoadMore = () => {
-    const additionalSurveys = Math.min(3, surveys.length - loadMoreCount);
-    const newLoadMoreCount = loadMoreCount + additionalSurveys;
-    setLoadMoreCount(newLoadMoreCount);
   };
 
   const categoryTitles = new Set();
@@ -61,21 +56,21 @@ const Survey = ( {userInfo} ) => {
             <div key={i}>
               <Container className={`Survey_title ${surveyItem.surveyCategory}`}>
                 <h1 className={`${surveyItem.surveyCategory}-title`}>
-                  {surveyItem.surveyCategory === 'fun' ? 'Fun' : 'Survey'}
-                  {loadMoreCount < surveys.length && (
-                    <Button className="btn-more" onClick={() => handleButtonClick(surveyItem.surveyCategory)}>
-                      더 보기
-                    </Button>
-                  )}
+                  {surveyItem.surveyCategory}
+                  <Button className="btn-more" onClick={() => handleButtonClick(surveyItem.surveyCategory)}>
+                    더 보기
+                  </Button>
                 </h1>
               </Container>
+
+
               <Container key={i} className={`MainSurveyBox ${surveyItem.surveyCategory}`}>
                 <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
                   {surveys
                     .filter((filteredSurvey) => filteredSurvey.surveyCategory === surveyItem.surveyCategory)
-                    .slice(0, loadMoreCount)
                     .map((filteredSurvey, j) => (
                       <Col key={j} className={`col ${surveyItem.surveyCategory}`}>
+
                         <div className={`card ${surveyItem.surveyCategory}`}>
                           {surveyItem.surveyCategory === 'fun' && (
                             <img src={filteredSurvey.imgSrc} className="card-img-top" alt={filteredSurvey.title} />
@@ -112,11 +107,11 @@ const Survey = ( {userInfo} ) => {
         return null;
       })}
 
-      {loadMoreCount < surveys.length && (
+      {/* {loadMoreCount < surveys.length && (
         <Button className="btn-more" onClick={handleLoadMore}>
           더 보기
         </Button>
-      )}
+      )} */}
 
       <Modal show={showParticipateModal} onHide={() => setShowParticipateModal(false)} centered className="custom-modal">
         <Modal.Header closeButton>
@@ -138,6 +133,7 @@ const Survey = ( {userInfo} ) => {
           <Button onClick={() => setShowResultModal(false)}>닫기</Button>
         </Modal.Footer>
       </Modal>
+     
     </>
   );
 }
