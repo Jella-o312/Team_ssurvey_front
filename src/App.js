@@ -95,10 +95,6 @@ function App() {
         <Route path='/fbdetail/:fbno' element={<FreeBoardDetail userInfo={userInfo}/>} />
         <Route path='/fbupdate/:fbno' element={<UpdateFreeBoard/>} />
         <Route path='/socialAddInfo' element={<SocialAddInfo setIsLogin={setIsLogin}/>} /> {/* 소셜 로그인 추가 정보 입력 페이지 (이거 완료해야 회원가입 완료됨) */}
-        <Route path='/fbList' element={<FreeBoardList />} />
-        <Route path='/fbwrite' element={<WriteFreeBoard />} />
-        <Route path='/fbdetail/:fbno' element={<FreeBoardDetail />} />
-        <Route path='/fbupdate' element={<UpdateFreeBoard/>} />
         {/* <Route path="/FunSurvey" element={<FunSurvey/>} /> */}
         <Route path="/Survey" element={<Survey userInfo={userInfo} />} />
         <Route path='/FAQ' element={<FAQ/>} />

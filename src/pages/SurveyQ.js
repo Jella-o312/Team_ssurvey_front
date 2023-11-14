@@ -143,8 +143,8 @@ console.log(isEmptyOption);
     <>
       <div className="QHeader">
         <div className="Qbox">
-
-          <div className="questionQ">
+<div className='QWrap'>
+          <div className="SquestionQ">
             <p>Q.</p>
             <input className="STitle"
               defaultValue={SurveyQ.surTitle}
@@ -152,18 +152,19 @@ console.log(isEmptyOption);
             ></input>
 
           </div>
-          <div className="StitleWrap" style={{ display: isStitleWrapVisible ? 'block' : 'none' }}>                            {/*🟡↓  얘 나중에 바꾸기*/}
+          <div className="SStitleWrap" style={{ display: isStitleWrapVisible ? 'block' : 'none' }}>                            {/*🟡↓  얘 나중에 바꾸기*/}
             <input className="SurTitle" placeholder="| 설문제목을 입력하세요" onKeyDown={handleKeyDown} value={SurveyQ.surTitle} id="title" name={SurveyQ.surTitle}
               onChange={changeValue}
             ></input>
             <button type="button" className="Qdelete-btn"
               onClick={handleDeleteStitle}
-            > X </button>
+              > X </button>
           </div>
+              </div>
 
         </div>
 
-        <div className="submitQ">
+        <div className="SsubmitQ">
           <div className="createText">
             <p className="CreateS">CREATE<br />
               A SURVEY</p>

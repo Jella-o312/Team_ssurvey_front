@@ -56,9 +56,9 @@ const SurveyResult = () => {
     return (
         <>
             <div className="qrHeader">
-                <div className="Abox">
+                <div className="ARbox">
                     <div className="questionQ">
-                        <p>Q.</p>
+                  
                         {/* <h5 className="SQTitle">surveyNo={selectedSurvey?.surveyNo} surveyTitle={selectedSurvey?.surTitle}</h5>
                         여길 또 어떻게 받아오노 하..
                         */}
