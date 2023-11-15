@@ -120,7 +120,7 @@ const Survey = ({ userInfo }) => {
 
       <Modal show={showParticipateModal} onHide={() => setShowParticipateModal(false)} centered className="custom-modal">
         <Modal.Header closeButton>
-          <Modal.Title>참여하기</Modal.Title>
+          <Modal.Title >참여하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Answer userInfo={userInfo} surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} />
@@ -134,7 +134,6 @@ const Survey = ({ userInfo }) => {
         <Modal.Body>
           <SurveyResult userInfo={userInfo} surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} />
         </Modal.Body>
-        
       </Modal>
      
     </>

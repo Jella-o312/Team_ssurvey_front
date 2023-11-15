@@ -42,7 +42,7 @@
   border: 1px solid #ccc;
 }
 .fb-search-con .fb-search-window .fb-search-wrap input:focus {
-  border-color: #333;
+  border-color: #628EF3;
   outline: 0;
   border-width: 1px;
 }
@@ -54,6 +54,8 @@
   width: 108px;
   padding: 0;
   font-size: 16px;
+  background-color: #628EF3;
+  color: white;
 }
 
 .fb-table {

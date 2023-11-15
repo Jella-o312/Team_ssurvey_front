@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import './Answer.css';
 import axiosInstance from "../axioslnstance";
-import SingleCheck from "../QComponent/SingleCheck";
-import MultiCheck from "../QComponent/MultiCheck";
-import ShortText from "../QComponent/ShortText";
-import LongText from "../QComponent/LongText";
 import { useNavigate } from "react-router-dom";
 
 const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
   const [surveyInfo, setSurveyInfo] = useState({});
   const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
   const navigate = useNavigate();
+  const [showResultModal, setShowResultModal] = useState(false);
+
+
   const [answerList, setAnswerList] = useState([
     {
       sqNo: '',
@@ -65,16 +63,6 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
   };
   
   
-  
-  // const isEmptyAnswerList = ()=>{ // 질문 개수랑 답변 개수가 같은지 물어봄
-    
-  //   if(questions.length === questions.length){
-  //     return true;
-  //   }else{
-  //     return false;
-  //   }
-  // }
-
   const isEmptyAnswerList = questions.length === answerList.length ? true : false;
   // 질문에 대한 답이 모두 들어가 있는지 확인
   const answerFull = answerList.every(item => item.answer !== ''); 
@@ -122,26 +110,20 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
     }
   };
   
-  const SurveyForm = ({ questions }) => {
-    return (
-      <div className="question-container">
-        {questions.map((question) => (
-          <div key={question.id}>
-            <p>{question.sqQuestion}</p>
-            {renderQuestionComponent(question)}
-          </div>
-        ))}
-      </div>
-    );
-  };
+  // const SurveyForm = ({ questions }) => {
+  //   return (
+  //     <div className="question-container">
+  //       {questions.map((question) => (
+  //         <div key={question.id}>
+  //           <p>{question.sqQuestion}</p>
+  //           {renderQuestionComponent(question)}
+  //         </div>
+  //       ))}
+  //     </div>
+  //   );
+  // };
 
-  const CompleteA = () => {
-    // 원하는 작업 수행
-    alert("✏️ 설문제출이 완료되었어요 ");
-    // 답변을 백엔드에 저장하는 등의 작업이 필요할 수 있습니다.
-  };
 
-  console.log(userInfo);
 
 
 
@@ -150,11 +132,12 @@ const Answer = ({ surveyNo, surveyTitle, userInfo }) => {
       axiosInstance.post(`/surveyA`, answerList, {params : {"username" : userInfo.username}})
       .then((res) => {
         console.log(res);
-        navigate('/');
       }).catch((err) => {
         console.log(err);
       })
-      alert('제출완료');
+      alert('✏️ 설문제출이 완료되었어요');
+      // setShowResultModal(false);
+      navigate('/survey');
     }else{
       alert('답변하지 않은 항목이 있어요!');
     }

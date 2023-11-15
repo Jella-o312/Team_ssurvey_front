@@ -56,25 +56,26 @@ const SurveyResult = ({ surveyNo, surveyTitle, userInfo }) => {
                     {
                         questions.map((question, i) => (   
                         <div key={i}>
-                            <h5>{i + 1}. {question.sqQuestion}</h5>
+                            <h5 className="result-que">{i + 1}. {question.sqQuestion}</h5>
                             {
                                 question.sqType === "객관식" ? 
                                 <div>
                                     {question.option.map((op, index)=>(
                                         <div style={{display: 'flex'}}>   {/*⭐⭐⭐ 이 div 나중에 table형식으로 만드는게 깔끔할듯*/}
-                                           <h6>{op}</h6> &nbsp;&nbsp;
-                                            <p style={{color: '#628ef3'}}>{answers[i][index]} 표</p>
+                                           <h6 className="result-ans">{op}</h6> &nbsp;&nbsp;
+                                            <p className="result-cnt" style={{color: '#628ef3'}}>{answers[i][index]} 표</p>
                                         </div>
                                     ))
                                     }
                                 </div>
                                 :
                                 
-                                <div>
+                                <div style={{marginLeft : '35px', marginRight : '35px', marginTop : '20px' }}>
                                     {
                                         answers[i].map((answer, k)=>(
-                                            <p style={{color: '#628ef3'}}> ( {k+1} ) {answer}</p>
-                                        ))
+                                            <p  style={{color: '#628ef3' }}> ( {k+1} ) {answer} <hr/></p>
+                                            ))
+                                            
                                     }
 
 

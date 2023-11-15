@@ -93,5 +93,18 @@
       display: flex;
     }
     
+    .result-que{
+      margin-left: 20px;
+      font-weight: 600;
+    }
+
+    .result-ans{
+      margin-left: 45px;
+      text-align: center;
+    }
     
-    
+
+    .result-cnt{
+      text-align: center;
+
+    }
