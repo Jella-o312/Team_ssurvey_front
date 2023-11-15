@@ -53,6 +53,8 @@ const FunPage = ({userInfo}) => {
           {surveys.map((surveyItem, j) => (
             <Col key={j} className={`col fun`}>
               <div className={`card fun`}>
+              <img src={process.env.PUBLIC_URL + '/img/10.png'} className="card-img-top" alt="이미지 설명" />
+
                 <div className="fun-content">
                   <h5 className="card-title">{surveyItem.surTitle}</h5>
                   <div className="LikeBtnCount">

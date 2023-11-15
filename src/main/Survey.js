@@ -77,9 +77,11 @@ const Survey = ({ userInfo }) => {
                       <Col key={j} className={`col ${surveyItem.surveyCategory}`}>
 
                         <div className={`card ${surveyItem.surveyCategory}`}>
-                          {surveyItem.surveyCategory === 'fun' && (
-                            <img src={filteredSurvey.imgSrc} className="card-img-top" alt={filteredSurvey.title} />
-                          )}
+                        <img
+                            src={process.env.PUBLIC_URL + `/img/${surveyItem.surveyCategory === 'Fun' ? '10' : '11'}.png`}
+                            className="card-img-top"
+                            alt="이미지 설명"
+                          />
                           <div className="survey-content">
                             <h5 className="card-title">{filteredSurvey.surTitle}</h5>
                             <div className="LikeBtnCount">
