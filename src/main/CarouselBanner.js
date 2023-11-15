@@ -7,17 +7,17 @@ const CarouselBanner = () => {
     {
       imagePath: "/img/SS01.png",
       title: "Image 1",
-      url: "/detail/image1",
+      url: "/SurveyList",
     },
     {
       imagePath: "/img/SS02.png",
       title: "Image 2",
-      url: "/detail/image2",
+      url: "/FunPage",
     },
     {
       imagePath: "/img/SS03.png",
       title: "Image 3",
-      url: "/detail/image3",
+      url: "/SurveyPage",
     },
   ];
   

@@ -19,7 +19,8 @@ function Qtype({ data , handleAddQ, surveyList, setSurveyList, type}) {
     { type=== 'Survey' &&
       <Dropdown.Menu>
         <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'객관식')}>객관식</Dropdown.Item>
-        <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'다중 체크')}>다중 체크</Dropdown.Item>
+        {/* <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'다중 체크')}>다중 체크</Dropdown.Item> */}
+        <Dropdown.Item onClick={() => {alert('죄송합니다. 해당 서비스는 개발 진행 중입니다🖥️ ')}}>다중 체크</Dropdown.Item>
         <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'단답형')}>단답형</Dropdown.Item>
         <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'장문형')}>장문형</Dropdown.Item>
       </Dropdown.Menu>
@@ -28,7 +29,8 @@ function Qtype({ data , handleAddQ, surveyList, setSurveyList, type}) {
     { type=== 'Fun' &&
       <Dropdown.Menu>
         <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'객관식')}>객관식</Dropdown.Item>
-        <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'다중 체크')}>다중 체크</Dropdown.Item>
+        {/* <Dropdown.Item onClick={(e) =>  handleAddQ(e, data,'다중 체크')}>다중 체크</Dropdown.Item> */}
+        <Dropdown.Item onClick={() => {alert('죄송합니다. 해당 서비스는 개발 진행 중입니다🖥️')}}>다중 체크</Dropdown.Item>
       </Dropdown.Menu>
     }
  </Dropdown>

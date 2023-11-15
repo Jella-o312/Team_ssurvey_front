@@ -6,13 +6,13 @@ import Answer from "../pages/Answer";
 import axiosInstance from "../axioslnstance";
 import SurveyResult from "./SurveyResult";
 
-const FunPage = () => {
+const FunPage = ({userInfo}) => {
   const navigate = useNavigate();
   const [showParticipateModal, setShowParticipateModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
   const [surveys, setSurveys] = useState([]);
-  const [selectedSurvey, setSelectedSurvey] = useState(null);
-  // const selectedSurvey = location.state?.survey;
+  const [selectedSurveyNo, setSelectedSurveyNo] = useState(null);
+  const [selectedSurveyTitle, setSelectedSurveyTitle] = useState(null);
 
   useEffect(() => {
     axiosInstance.get('/survey')
@@ -26,34 +26,36 @@ const FunPage = () => {
       });
     }, []);
     
-    console.log(surveys);
 
-  const handleParticipateClick = (survey) => {
-    setSelectedSurvey(survey);
-    setShowParticipateModal(true);
-  };
-
-  const handleResultClick = () => {
-    setShowResultModal(true);
-  };
+    const handleParticipateClick = (surveyNo, surveyTitle) => {
+      setSelectedSurveyNo(surveyNo);
+      setSelectedSurveyTitle(surveyTitle); // 선택한 설문의 타이틀을 설정
+      setShowParticipateModal(true);
+    };
+  
+    const handleResultClick = (surveyNo, surveyTitle) => {
+      setSelectedSurveyNo(surveyNo);
+      setSelectedSurveyTitle(surveyTitle);
+      setShowResultModal(true);
+    };
 
   return (
     <>
-      <Container className={`Fun_title fun`}>
+    <div className="FunBanner"></div>
+      {/* <Container className={`Fun_title fun`}>
         <h1 className={`fun-title`}>
           Fun
         </h1>
-      </Container>
+      </Container> */}
 
       <Container className={`MainSurveyBox fun`}>
         <Row xs={1} md={2} lg={3} className="g-4" style={{ margin: '10px', padding: '15px' }}>
           {surveys.map((surveyItem, j) => (
             <Col key={j} className={`col fun`}>
               <div className={`card fun`}>
+              <img src={process.env.PUBLIC_URL + '/img/10.png'} className="card-img-top" alt="이미지 설명" />
+
                 <div className="fun-content">
-                  {surveyItem.surveyCategory === 'fun' && (
-                    <img src={surveyItem.imgSrc} className="card-img-top" alt={surveyItem.title} />
-                  )}
                   <h5 className="card-title">{surveyItem.surTitle}</h5>
                   <div className="LikeBtnCount">
                     <button className="btn like-btn">❤</button>
@@ -61,10 +63,10 @@ const FunPage = () => {
                   </div>
                   <i className={`fun-joinpeople`}>현재 {surveyItem.surveyCount}명 참여 중</i>
                   <div className="card-wrap">
-                    <button className="btn submit-btn" onClick={() => handleParticipateClick(surveyItem)}>
+                    <button className="btn submit-btn" onClick={() => handleParticipateClick(surveyItem.surveyNo, surveyItem.surTitle)}>
                       참여하기
                     </button>
-                    <button className="btn result-btn view_more" onClick={handleResultClick}>
+                    <button className="btn result-btn view_more" onClick={() =>handleResultClick(surveyItem.surveyNo, surveyItem.surTitle)}>
                       결과보기
                     </button>
                   </div>
@@ -81,22 +83,20 @@ const FunPage = () => {
         </Modal.Header>
         <Modal.Body>
           {/* Answer 컴포넌트에 surveyNo와 surveyTitle 전달 */}
-          <Answer surveyNo={selectedSurvey?.surveyNo} surveyTitle={selectedSurvey?.surTitle} />
+          <Answer surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} userInfo={userInfo} />
         </Modal.Body>
         
       </Modal>
 
-      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>
+      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered className="result-modal">
         <Modal.Header closeButton>
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>결과보기 모달 내용입니다.</p>
-          <SurveyResult />
+        
+          <SurveyResult surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} userInfo={userInfo}/>
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowResultModal(false)}>닫기</Button>
-        </Modal.Footer>
+        
       </Modal>
     </>
   );

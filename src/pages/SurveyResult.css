@@ -8,14 +8,15 @@
     .ARbox{
       align-items: center;
       justify-content: center; 
-      background-image: url('../../public/img/SS06.png');
+      background-image: url('../../public/img/SS09.png');
       background-repeat: no-repeat;
       background-size: cover;
+      background-position: center;
       flex: auto ;
-      height: 260px;  
+      height: 350px;  
       width: 465px;    
       margin-bottom: 40px;
-
+      
   
      }
     
@@ -92,5 +93,18 @@
       display: flex;
     }
     
+    .result-que{
+      margin-left: 20px;
+      font-weight: 600;
+    }
+
+    .result-ans{
+      margin-left: 45px;
+      text-align: center;
+    }
     
-    
+
+    .result-cnt{
+      text-align: center;
+
+    }

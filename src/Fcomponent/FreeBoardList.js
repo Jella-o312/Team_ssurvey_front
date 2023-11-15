@@ -47,7 +47,7 @@ function FreeBoardList({ isLogin }) {
         <div className="fb-search-window">
           <div className="fb-search-wrap">
             <input type="text" name="search" placeholder="검색어를 입력해주세요." onChange={changeHandler} />
-            <button className="search-btn btn-dark" onClick={() => {
+            <button className="search-btn" onClick={() => {
               axiosInstance.get(`/fboard?page=${page}&size=${pageSize}`, {params : {'search' : search}})
               .then((res) => {
                 setBoardList(res.data.content);

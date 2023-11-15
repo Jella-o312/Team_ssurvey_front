@@ -25,6 +25,9 @@ const Survey = ({ userInfo }) => {
       });
   }, []);
 
+
+
+  
   const handleButtonClick = (category) => {
     console.log('Button Clicked for category:', category);
     const targetSurvey = surveys.find((survey) => survey.surveyCategory === category);
@@ -40,7 +43,9 @@ const Survey = ({ userInfo }) => {
     setShowParticipateModal(true);
   };
 
-  const handleResultClick = () => {
+  const handleResultClick = (surveyNo, surveyTitle) => {
+    setSelectedSurveyNo(surveyNo);
+    setSelectedSurveyTitle(surveyTitle);
     setShowResultModal(true);
   };
 
@@ -53,10 +58,10 @@ const Survey = ({ userInfo }) => {
           categoryTitles.add(surveyItem.surveyCategory);
 
           return (
-            <div key={i}>
+            <div key={i} name={surveyItem.surveyNo}>
               <Container className={`Survey_title ${surveyItem.surveyCategory}`}>
                 <h1 className={`${surveyItem.surveyCategory}-title`}>
-                  {surveyItem.surveyCategory}
+                  {surveyItem.surveyCategory} 
                   <Button className="btn-more" onClick={() => handleButtonClick(surveyItem.surveyCategory)}>
                     더 보기
                   </Button>
@@ -72,9 +77,11 @@ const Survey = ({ userInfo }) => {
                       <Col key={j} className={`col ${surveyItem.surveyCategory}`}>
 
                         <div className={`card ${surveyItem.surveyCategory}`}>
-                          {surveyItem.surveyCategory === 'fun' && (
-                            <img src={filteredSurvey.imgSrc} className="card-img-top" alt={filteredSurvey.title} />
-                          )}
+                        <img
+                            src={process.env.PUBLIC_URL + `/img/${surveyItem.surveyCategory === 'Fun' ? '10' : '11'}.png`}
+                            className="card-img-top"
+                            alt="이미지 설명"
+                          />
                           <div className="survey-content">
                             <h5 className="card-title">{filteredSurvey.surTitle}</h5>
                             <div className="LikeBtnCount">
@@ -91,7 +98,7 @@ const Survey = ({ userInfo }) => {
                               >
                                 참여하기
                               </button>
-                              <button className="btn result-btn view_more" onClick={handleResultClick}>
+                              <button className="btn result-btn view_more" onClick={()=>handleResultClick(filteredSurvey.surveyNo, filteredSurvey.surTitle)}>
                                 결과보기
                               </button>
                             </div>
@@ -115,23 +122,20 @@ const Survey = ({ userInfo }) => {
 
       <Modal show={showParticipateModal} onHide={() => setShowParticipateModal(false)} centered className="custom-modal">
         <Modal.Header closeButton>
-          <Modal.Title>참여하기</Modal.Title>
+          <Modal.Title >참여하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Answer userInfo={userInfo} surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} />
         </Modal.Body>
       </Modal>
 
-      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered>
+      <Modal show={showResultModal} onHide={() => setShowResultModal(false)} centered className="result-modal">
         <Modal.Header closeButton>
           <Modal.Title>결과보기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SurveyResult />
+          <SurveyResult userInfo={userInfo} surveyNo={selectedSurveyNo} surveyTitle={selectedSurveyTitle} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowResultModal(false)}>닫기</Button>
-        </Modal.Footer>
       </Modal>
      
     </>

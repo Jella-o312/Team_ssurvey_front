@@ -6,6 +6,21 @@
   /* border: 1px solid red; */
 }
 
+
+.FunBanner {
+  background-image: url('../../public/img/SS08.png');
+  background-size: contain; 
+  background-repeat: no-repeat;
+  /* background-position: center;  */
+  /* flex: auto; */
+  height: 260px;
+  width: 100%; 
+ /* border: 1px solid red; */
+  margin: 0 auto;
+  max-width: 1220px; 
+}
+
+
 .card-img-top {
   height: 150px;
 }
@@ -63,3 +78,4 @@
 .btn-more {
   float: right;
 }
+
