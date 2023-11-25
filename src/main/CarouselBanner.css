@@ -1,0 +1,20 @@
+/* CarouselBanner.css */
+
+.carousel-container {
+  display: inline-block;
+  vertical-align: middle;
+  flex-wrap: wrap;
+ 
+}
+
+.imgBox {
+  display: block;
+  text-align: center;
+  margin: 0 auto; /* 가운데 정렬 */
+  max-width: 100%; /* 컨테이너 너비에 맞춰 이미지 크기 조정 */
+  border: 1px blue;
+  object-fit: fill;
+  width: 1700px;
+  height: 465px;
+}
+ 

@@ -1,0 +1,87 @@
+.join-container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* box-sizing: border-box; */
+  /* background-color: #8dadf665; */
+}
+
+.join-logo{
+  width: 150px;
+  margin-top: 50px;  
+}
+
+.join-typeBox{
+  border: 0.0625rem solid #e4e5ed;
+  border-radius: 8px;
+  width: 500px;
+  height: 450px;
+  align-content: center;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.join-typeBox h2{
+  margin-bottom: 50px;
+}
+
+.join-typeBox button{
+  height: 48px;
+  width: 70%;
+  margin-bottom: 0.75rem;
+  border-radius: 10px;
+  letter-spacing:1px; /*⭐ 글자 간격 / 자간 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+
+.join-typeBox img{
+  width: 30px;
+  margin-right: 5px; 
+}
+
+.join-typeBox span{
+  font-size: 17px;
+}
+
+
+.join-email{
+  background-color: white;
+  color: #628EF3;
+  border: 1px solid #628EF3;
+}
+
+.join-naver {
+  background-color: #63C33D;
+  color: white;
+  letter-spacing:1px; /*⭐ 글자 간격 / 자간 */
+  border: 1px solid #63C33D;
+}
+
+.join-kakao {
+  background-color:#FCE84D;
+  color: #333333;
+  border: 1px solid #FCE84D;
+}
+
+.join-google{
+  background-color: #D84B3D;
+  color: white;
+  border: 1px solid #D84B3D;
+}
+
+
+.join-apple{
+  background-color:#333333;
+  color: #333333;
+  border: 1px solid #333333;
+}
+

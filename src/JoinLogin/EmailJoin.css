@@ -1,0 +1,321 @@
+.ejoin-container, .login-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;  /*???????*/
+  flex-direction: column;
+  /* background-color: #a6bfeb2f; */
+
+}
+
+.ejoin-container h2, .login-container h2{
+  margin: 70px 0px 30px;
+}
+
+
+.ejoin-container input{
+  height: 35px;
+  padding-left: 10px;
+  border-radius: 7px;
+  border: 1px solid  #e4e5ed;
+}
+
+
+.ejoin-container select{
+  height: 38.45px;
+  padding-left: 10px;
+  border-radius: 7px;
+  border: 1px solid  #e4e5ed;
+}
+
+/* input, select 클릭했을때 강조 색깔 설정 */
+.ejoin-container input:focus, .ejoin-container select:focus{
+  border: 1.5px solid #628EF3;
+  outline: none;
+}
+
+
+.ejoin-box{
+  /* border: 2px dotted #d23e3e; */
+  background: white;
+  /* border-radius: 16px; */
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.141);
+  border-radius: 20px 20px 0px 0px; /*100 혹은 50*/
+  height: 100%;
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+  align-items: center;
+}
+
+/* 설문 글자가 들어가는 부분 */
+.ejoin-form, .login-form{
+  /* border: 1px dotted #628EF3; */
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+
+/* 회원가입 한칸 박스 */
+.ejoin-form-inner{
+  display: flex;
+  margin-bottom: 20px;
+  /* border: 2px dotted #d23e3e; */
+}
+
+/* 플렉스만 적용 */
+.type1{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 아래로 내려가게 배치용 */
+.type2{
+  flex-direction: column;
+}
+
+/* 플렉스 및 아래 배치 */
+.type3{
+  display: flex;
+  flex-direction: column;
+  /* border: 2px dotted #d23e3e; */
+  flex: 1;
+}
+
+/* 회원가입 목록 제목들 */
+.ejoin-form-inner span{
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: rgb(64, 64, 64);
+}
+
+#join-email-input{
+  width: 76%;
+}
+
+/* 이메일 확인버튼 */
+.join-email-check {
+  height: 35px;
+  font-size: 14px;
+  border-radius: 7px;
+  padding: 3px 10px;
+  border: none;
+  background-color: #628EF3;
+  color: white;
+}
+
+.join-email-check-on:active{
+  position: relative;
+  top:2px;
+}
+
+
+/* 나이 select */
+.ejoin-year{
+  width: 97.5%;
+}
+
+/* 성별 남녀 공통 사항 */
+.ejoin-gender-check{
+  height: 38.45px;
+  display: flex;
+  text-align: center;
+  font-size: 15px;
+  margin-left: 4px;
+}
+
+/* 성별 남 */
+.gender-m{
+  background-color: white;
+  border: 0.0625rem solid #e4e5ed;
+  flex: 1;
+  border-radius: 7px 0px 0px 7px; 
+}
+
+/* 성별 여 */
+.gender-w{
+  background-color: white;
+  border: 0.0625rem solid #e4e5ed;
+  flex: 1;
+  border-radius: 0px 7px 7px 0px; 
+  border-left: none;
+}
+
+/* 성별 클릭했을때 색상바뀌는거 */
+.genderClick{
+  background-color: #628EF3;
+  color: white;
+  border-color: #628EF3;
+}
+
+#ejoin-location1{
+  margin-right: 4px;
+}
+
+#ejoin-location2{
+  margin-left: 4px;
+}
+
+
+.ejoin-confirm {
+  width: 100%;  
+  display: flex;
+  align-items: flex-end;
+}
+
+.ejoin-confirm-button{
+  background-color: #628EF3;
+  height: 50px;
+  border: none;
+  color: white;
+  width: 100%;
+  font-size: large;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* 조건 충족이 안됐을때 버튼 스타일 */
+.ejoin-confirm-button:disabled ,.login-button:disabled  {
+  background-color: #a2a2ac;
+  color: white;
+  cursor: not-allowed;  /*커서가 왜이러는지 모르겠지만...button 자체에 pointer기본 적용이 안되어 있음*/
+}
+
+.join-email-check:disabled {
+  cursor: not-allowed; 
+  border: none;
+  background-color: rgba(233, 230, 230, 0.699);
+  color: #5b5a5a;
+}
+
+
+/* ==========이용약관============ */
+
+
+.checkbox-icon {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  /* line-height: 20px; */
+  font-size: 18px;
+  color: #ccc;
+  margin-right: 7px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+.join-all-label, .join-each-label{
+  display: flex;
+  align-items: center;
+}
+
+.join-each-check-label{
+  display: inline-block;
+  padding-top: 4px;
+}
+
+/* 전체 동의 글자 */
+.all-check-label {
+  font-weight: 500;
+  font-size: large;
+  color: #5b5a5a;
+}
+
+
+
+/* 원래 ckeckBox UI 인데, 안보이게 하기(커스텀 했기 때문에) */
+.join-all-chaeck-box input[type="checkbox"] , .join-each-chaeck-box input[type="checkbox"] {
+  display: none;
+}
+
+/* 체크된 상태의 아이콘 스타일 */
+.join-all-chaeck-box input[type="checkbox"]:checked + .join-all-label .checkbox-icon
+ , .join-each-chaeck-box input[type="checkbox"]:checked + .join-each-label .checkbox-icon{
+  background-color: #628EF3;
+  color: #fff;
+  border-color: #628EF3;
+}
+
+
+/* 각각 체크박스 */
+.join-each-chaeck-box{
+  border-top: 1px solid #dbdbdb;
+  margin-top: 30px;
+  padding: 30px 0 0 0px;
+  font-size: 14px;
+  color: #717171;
+}
+
+.checkbox-each-group {
+  margin-bottom: 10px;
+}
+
+/* 체크박스 옆에 있는 문구 */
+.join-each-check-label{
+  display: inline-block;
+  transform: translateY(-2.5px);  /*글자 높이(위치) 조절*/
+}
+
+/* ======================= */
+
+/* 스크롤바를 커스터마이징할 컨테이너 */
+.termsBox{
+  width: 85%;
+  height: 80px;
+  overflow: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 0 0 30px 25px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  font-weight: 300;
+  font-size: 13px;
+}
+
+/* 커스텀 스크롤바 스타일 */
+.termsBox::-webkit-scrollbar {
+  width: 10px; /* 스크롤바의 너비 설정 */
+  border: none;
+}
+
+.termsBox::-webkit-scrollbar-thumb {
+  background-color: #bababa; /* 스크롤바의 색상 설정 */
+  border-radius: 4px; /* 스크롤바의 모서리 둥글게 설정 */
+  height: 40px; /* 스크롤바의 길이 */
+}
+
+
+.terms-content span{
+  font-weight: bolder;
+  margin-left: 5px;
+}
+
+.terms-content p{
+  margin: 5px;
+}
+
+
+
+/* 정규식 틀렸을때 안내 txt */
+.join_input_regexTxt {
+  font-size: 12px;
+  color: rgb(255, 60, 0);
+  padding-top: 5px;
+  text-indent: 5px;
+  margin: 0;
+}
+
+.join_input_regexTxt2{
+  font-size: 12px;
+  color: #628EF3;
+  padding-top: 5px;
+  text-indent: 5px;
+  margin: 0;
+}

@@ -1,0 +1,67 @@
+.Insert-btn-group{
+  margin-left: 20px;
+  margin-top: 0;
+  margin-bottom: auto; 
+  height: 100%; 
+}
+
+.Insert-btn{
+  border: thin;
+  border-style: solid;
+  border-color: #7b7e91;
+  background-color: #e3e5f1;
+  border-radius: 0px;
+  width: 50px;
+  height: 50px;
+  padding: auto;
+
+}
+
+
+
+.Insert-write-btn{
+  border: thin;
+  border-style: solid;
+  border-color: #7b7e91;
+  background-color: #e3e5f1;
+  border-radius: 0px;
+  height: 50px;
+  width: 50px;
+  padding: auto;
+
+}
+
+
+
+.addImage-btn{
+  border: thin;
+  border-style: solid;
+  border-color: #7b7e91;
+  background-color: #e3e5f1;
+  border-radius: 0px;
+  height: 50px;
+  width: 50px;
+  padding: auto;
+
+}
+
+
+
+.addVideo-btn{
+  border: thin; 
+  border-style: solid;
+  border-color: #7b7e91;
+  background-color:#e3e5f1;
+  border-radius: 0px;
+  height: 50px;
+  width: 50px;
+  padding: auto;
+ 
+}
+
+
+
+ .QContainer{
+  display: flex;
+ }
+

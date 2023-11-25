@@ -1,0 +1,78 @@
+.MainSurveyBox.SP {
+  display: flex;
+  margin-top: 10px;
+  text-align: center;
+  justify-content: space-around;
+  /* border: 1px solid red; */
+}
+
+.card-img-top {
+  height: 150px;
+}
+
+.card-title {
+  justify-content: first baseline;
+}
+
+.SSBanner {
+  background-image: url('../../public/img/SS07.png');
+  background-size: contain; 
+  background-repeat: no-repeat;
+  /* background-position: center;  */
+  /* flex: auto; */
+  height: 260px;
+  width: 100%; 
+ /* border: 1px solid red; */
+  margin: 0 auto;
+  max-width: 1220px; 
+}
+
+
+
+.card.SP {
+  border: 1px solid #A7AABC;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+  width: 350px;
+  height: 400px;
+  text-align: center;
+  justify-content: space-around;
+}
+
+.card img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.joinpeople.SP {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  width: 100%;
+  padding-right: 20px;
+}
+
+.btn.submit-btn {
+  background: #628EF3;
+  color: #fff;
+  margin-right: 20px;
+}
+
+.btn.result-btn {
+  border: 1px solid #628EF3;
+  color: #434656;
+  background-color: #fff;
+}
+
+.text-center {
+  justify-content: space-around;
+  text-align: center;
+}
+
+.btn-more {
+  float: right;
+}

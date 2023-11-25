@@ -1,0 +1,50 @@
+
+#dropdown-basic{
+background-color: #ffffff;
+color: #434656;
+border: thin;
+border-style: solid;
+border-color: #434656;
+border-radius: 0px;
+width: 120px;
+height: 40px;
+}
+
+
+#dropdown-basic:focus{
+  background-color: #434656;
+  color: #ffffff;
+  border: none;
+  border-radius: 0px;
+  width: 120px;
+  height: 40px;
+
+  }
+
+
+  .checkOption{
+    margin: 18px;   
+
+  }
+
+  .OptionIndex{
+    border: none;
+    width: 500px;
+    font-size: 22px;
+  }
+
+.Dropdown{
+  width: 120px;
+  
+}
+ 
+
+.DropdownContainer{
+  background-color: rgb(110, 21, 103);
+}
+
+.Dropdown{
+  display: flex;
+  flex-direction: column; 
+background-color: aqua;
+}

@@ -1,0 +1,95 @@
+
+
+
+.ImageBtn{
+width: 500px;
+display: flex;
+}
+
+
+.ModalClose{
+margin-right: 10px;
+
+}
+
+.ImageUploadTab{
+  font-size: 15px;
+  width:70px;
+  color: grey;
+  border: none;
+  background-color: white;
+}
+
+.ImageUploadTab:hover{  
+  color: black;
+  font-weight: bold;
+}
+
+
+.ImageUploadTab:active {  
+  color: black;
+  font-weight: bold;
+}
+
+
+.ImageSearchTab{
+  font-size: 15px;
+  border: none;
+  color: grey;
+  background-color: white;
+}
+
+.ImageSearchTab:hover{
+  color: black;
+  font-weight: bold;
+}
+
+
+.ImageSearchTab:active{
+  font-size: 15px;
+  border: none;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+}
+
+
+.ModalBody{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* 버튼 내용을 가운데 정렬합니다. */
+  height: 450px;
+   }
+
+.UploadBtn{ 
+  border: 1px solid #b4b6cc;
+  color: #707388;
+  background-color: white;
+  width: 700px;
+  height: 40px;
+  font-size: 15px;
+}
+
+.UploadBtn:hover{
+color: black;
+border: 1px solid black;
+
+}
+
+
+.SearchBtn{
+  border: 1px solid #b4b6cc;
+  color:#707388;
+  background-color: white;
+  width: 700px;
+  height: 40px;
+  font-size: 15px;
+}
+
+.UploadMLogo{
+  width: 260px;
+  margin-bottom: 20px;
+  opacity: .4;
+ }
